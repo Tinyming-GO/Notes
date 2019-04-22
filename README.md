@@ -25,7 +25,7 @@
 
 ## :art: 开发语言
 
-- [资料大全](https://github.com/Tinyming-GO/Notes/tree/master/Laravel/README.md)
+- [Laravel资料大全](https://github.com/Tinyming-GO/Notes/tree/master/Laravel/README.md)
 
 ## :wrench: 开发工具
 
