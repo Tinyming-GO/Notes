@@ -10,6 +10,8 @@
 
 ## :computer: 操作系统和服务器
 
+- [Linux常用命令及例子](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Linux常用命令及例子.md)
+- [Linux命令补充资料](https://github.com/Tinyming-GO/Notes/tree/master/Linux)
 - [Nginx基本功能极速入门](https://github.com/Tinyming-GO/Notes/tree/master/Nginx/Nginx基本功能极速入门.md)
 
 ## :cloud: 计算机网络
