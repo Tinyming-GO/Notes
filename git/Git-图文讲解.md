@@ -97,7 +97,8 @@ Creating a new branch is quick AND simple.
 可以在合并时加上 --no-ff 参数来禁用 Fast forward 模式，并且加上 -m 参数让合并时产生一个新的 commit。
 
 ```bash
-$ git merge --no-ff -m "merge with no-ff" dev
+git merge --no-ff -m "merge with no-ff" dev  # 将dev分支合并到当前分支
+git mergetool --tool=meld  # 用meld图形化工具解决冲突
 ```
 
 ![](../images/git/10.png)
@@ -109,6 +110,10 @@ master 分支应该是非常稳定的，只用来发布新版本；
 日常开发在开发分支 dev 上进行。
 
 ![](../images/git/11.jpeg)
+
+```bash
+git log --pretty=format:"%h %s" --graph     #这个选项添加了一些ASCII字符串来形象地展示你的分支、合并历史
+```
 
 # 储藏（Stashing）
 
