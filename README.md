@@ -24,9 +24,12 @@
 - [协议森林-传输层协议](https://github.com/Tinyming-GO/Notes/tree/master/协议森林/传输层协议)
 - [协议森林-应用层协议](https://github.com/Tinyming-GO/Notes/tree/master/协议森林/【协议森林】邮差与邮局%20(网络协议概观).md)
 
-## :floppy_disk: 数据库
+## :floppy_disk: 数据库&缓存
 
-## :bulb: 架构设计
+- [缓存重要知识点](https://github.com/Tinyming-GO/Notes/tree/master/缓存/缓存重要知识点.md)
+- [PHP: 深入了解一致性哈希](https://github.com/Tinyming-GO/Notes/tree/master/缓存/PHP:深入了解一致性哈希.md)
+
+## :bulb: 设计模式
 
 - [大话设计模式-建造者模式（生成器模式）](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/建造者模式（生成器模式）.md)
 - [大话设计模式-适配器模式](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/适配器模式.md)
