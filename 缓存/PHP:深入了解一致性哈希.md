@@ -248,5 +248,5 @@ Array
 
 经常有人问在有多台redis server时，新增或删除节点如何通知其它节点。之所以会这么问，是因为不了解redis的部署方式。这些都是依赖一致性哈希来实现分布式的，这种实现都是由各种语言的driver去完成。所以了解一致性哈希算法的原理以及应用场合是很有必要的。
 
-[>> 缓存重要知识点](https://github.com/Tinyming-GO/Notes/tree/master/缓存/缓存重要知识点.md)
-[>> 一致性哈希PHP脚本文件](https://github.com/Tinyming-GO/Notes/tree/master/缓存/DHT.PHP)
+-[>> 缓存重要知识点](https://github.com/Tinyming-GO/Notes/tree/master/缓存/缓存重要知识点.md)
+-[>> 一致性哈希PHP脚本文件](https://github.com/Tinyming-GO/Notes/tree/master/缓存/DHT.PHP)
