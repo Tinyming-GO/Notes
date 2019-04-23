@@ -42,3 +42,6 @@
 
 - [Git](https://github.com/Tinyming-GO/Notes/tree/master/git)
 
+## :clipboard: 杂项
+
+- [github emoji 表情列表](https://github.com/caiyongji/emoji-list)
