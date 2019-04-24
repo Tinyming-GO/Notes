@@ -36,6 +36,9 @@
 
 ## :art: 开发语言
 
+- [HTML5标签含义之元素周期表](http://www.html5star.com/manual/html5label-meaning/)
+- [HTML5标签含义大全](http://www.html5star.com/manual/html5/html5_comment.htm)
+- [HTML简明教程](https://github.com/Tinyming-GO/Notes/tree/master/前端/HTML/html简明教程.md)
 - [Laravel资料大全](https://github.com/Tinyming-GO/Notes/tree/master/Laravel/README.md)
 
 ## :wrench: 开发工具
