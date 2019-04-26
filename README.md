@@ -28,6 +28,7 @@
 
 - [缓存重要知识点](https://github.com/Tinyming-GO/Notes/tree/master/缓存/缓存重要知识点.md)
 - [PHP: 深入了解一致性哈希](https://github.com/Tinyming-GO/Notes/tree/master/缓存/PHP:深入了解一致性哈希.md)
+- [MySQL基础及优化](https://github.com/Tinyming-GO/Notes/tree/master/MySQL/MySQL基础及优化.md)
 
 ## :bulb: 设计模式
 
@@ -40,6 +41,7 @@
 - [HTML5标签含义大全](http://www.html5star.com/manual/html5/html5_comment.htm)
 - [HTML简明教程](https://github.com/Tinyming-GO/Notes/tree/master/前端/HTML/html简明教程.md)
 - [Laravel资料大全](https://github.com/Tinyming-GO/Notes/tree/master/Laravel/README.md)
+- [PHP实现Snowflake生成分布式唯一ID](https://github.com/Tinyming-GO/Notes/tree/master/Php/PHP实现Snowflake生成分布式唯一ID.md)
 
 ## :wrench: 开发工具
 
