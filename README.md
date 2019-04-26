@@ -43,7 +43,7 @@
 - [Laravel资料大全](https://github.com/Tinyming-GO/Notes/tree/master/Laravel/README.md)
 - [PHP实现Snowflake生成分布式唯一ID](https://github.com/Tinyming-GO/Notes/tree/master/Php/PHP实现Snowflake生成分布式唯一ID.md)
 
-## black_nib  基础
+## :black_nib  基础
 
 - [二进制位运算符](https://github.com/Tinyming-GO/Notes/tree/master/others/二进制位运算符.md)
 
