@@ -1,30 +1,9 @@
-## `dpkg`
+<!-- GFM-TOC -->
+* [一、文件压缩与解压](#文件压缩与解压)
+<!-- GFM-TOC -->
 
-Debian package manager(Debian软件包管理器)
 
-- Install a package(安装一个软件包):
-
-  `dpkg -i path/to/file.deb`
-
-- Remove a package(移除一个软件包):
-
-  `dpkg -r package_name`
-
-- List installed packages(列出已安装的包):
-
-  `dpkg -l pattern`
-
-- List package contents(列出包的内容):
-
-  `dpkg -L package_name`
-
-- List contents of a local package file(列出本地包文件的内容):
-
-  `dpkg -c path/to/file.deb`
-
-- Find out which package owns a file(找出哪个包拥有一个文件):
-
-  `dpkg -S file_name`
+# 文件压缩与解压
 
 ## `tar`
 
@@ -64,7 +43,6 @@ Often combined with a compression method, such as gzip or bzip(通常与压缩�
 
   `tar -xf source.tar --wildcards "*.html"`
 
-
 ## gzip
 
 Compress/uncompress files with gzip compression (LZ77)(压缩/解压使用gzip压缩的文件).
@@ -89,7 +67,6 @@ Compress/uncompress files with gzip compression (LZ77)(压缩/解压使用gzip�
 
   `gzip -9 -c file.ext > compressed_file.ext.gz`
 
-
 ## bzip2
 
 A block-sorting file compressor(块排序文件压缩器).
@@ -105,8 +82,6 @@ A block-sorting file compressor(块排序文件压缩器).
 - Decompress to console(解压到控制台):
 
   `bzip2 -dc path/to/compressed_file.bz2`
-
-
 
 ## zip
 
@@ -167,6 +142,37 @@ Extract compressed files in a ZIP archive(在ZIP归档文件中提取压缩文�
 - Extract a zip file created in windows, containing files with non-ascii (chinese) filenames(提取在windows中创建的zip文件，其中包含具有非ascii(中文)文件名的文件):
 
   `unzip -O gbk file.zip`
+
+
+
+## `dpkg`
+
+Debian package manager(Debian软件包管理器)
+
+- Install a package(安装一个软件包):
+
+  `dpkg -i path/to/file.deb`
+
+- Remove a package(移除一个软件包):
+
+  `dpkg -r package_name`
+
+- List installed packages(列出已安装的包):
+
+  `dpkg -l pattern`
+
+- List package contents(列出包的内容):
+
+  `dpkg -L package_name`
+
+- List contents of a local package file(列出本地包文件的内容):
+
+  `dpkg -c path/to/file.deb`
+
+- Find out which package owns a file(找出哪个包拥有一个文件):
+
+  `dpkg -S file_name`
+
 
 
 ## `grep`
@@ -349,43 +355,7 @@ A versatile programming language for working on files(一种用于处理文件�
 
   `awk 'NR%3==1' filename`
 
-## vim
 
-Vi IMproved, a programmer's text editor, provides several modes for different kinds of text manipulation.（一个程序员的文本编辑器，为不同类型的文本操作提供了几种模式）
-
-Pressing `i` enters edit mode. `<Esc>` goes back to normal mode, which doesn't allow regular text insertion.（按“i”进入编辑模式。' <Esc> '返回正常模式，不允许常规文本插入）
-
-- Open a file:（打开一个文件）
-
-  `vim file`
-
-- Enter text editing mode (insert mode):（进入文本编辑模式(插入模式)）
-
-  `<Esc>i`
-
-- Copy ("yank") or cut ("delete") the current line (paste it with `P`):（复制或者剪切当前行(用“P”粘贴)）
-
-  `<Esc>yy|dd`
-
-- Undo the last operation:（撤销最后的操作）
-
-  `<Esc>u`
-
-- Search for a pattern in the file (press `n`/`N` to go to next/previous match):（在文件中搜索模式）
-
-  `<Esc>/search_pattern<Enter>`
-
-- Perform a regex substitution in the whole file:（在整个文件中执行正则替换）
-
-  `<Esc>:%s/pattern/replacement/g<Enter>`
-
-- Save (write) the file, and quit:（保存（写入）文件，然后退出）
-
-  `<Esc>:wq<Enter>`
-
-- Quit without saving:（不保存退出）
-
-  `<Esc>:q!<Enter>`
 
 ## diff
 
@@ -1332,3 +1302,42 @@ BASH builtin for retrieving data from standard input.（BASH内置用于从标�
 - Do not echo typed characters (silent mode):（不要重复输入字符(静默模式)）
 
   `read -s variable`
+
+
+## vim
+
+Vi IMproved, a programmer's text editor, provides several modes for different kinds of text manipulation.（一个程序员的文本编辑器，为不同类型的文本操作提供了几种模式）
+
+Pressing `i` enters edit mode. `<Esc>` goes back to normal mode, which doesn't allow regular text insertion.（按“i”进入编辑模式。' <Esc> '返回正常模式，不允许常规文本插入）
+
+- Open a file:（打开一个文件）
+
+  `vim file`
+
+- Enter text editing mode (insert mode):（进入文本编辑模式(插入模式)）
+
+  `<Esc>i`
+
+- Copy ("yank") or cut ("delete") the current line (paste it with `P`):（复制或者剪切当前行(用“P”粘贴)）
+
+  `<Esc>yy|dd`
+
+- Undo the last operation:（撤销最后的操作）
+
+  `<Esc>u`
+
+- Search for a pattern in the file (press `n`/`N` to go to next/previous match):（在文件中搜索模式）
+
+  `<Esc>/search_pattern<Enter>`
+
+- Perform a regex substitution in the whole file:（在整个文件中执行正则替换）
+
+  `<Esc>:%s/pattern/replacement/g<Enter>`
+
+- Save (write) the file, and quit:（保存（写入）文件，然后退出）
+
+  `<Esc>:wq<Enter>`
+
+- Quit without saving:（不保存退出）
+
+  `<Esc>:q!<Enter>`

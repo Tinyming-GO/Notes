@@ -32,8 +32,8 @@
 
 ## :bulb: 设计模式
 
-- [大话设计模式-建造者模式（生成器模式）](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/建造者模式（生成器模式）.md)
-- [大话设计模式-适配器模式](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/适配器模式.md)
+- [大话设计模式-建造者模式（生成器模式）](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/建造者模式（生成器模式）/Buider.php)
+- [大话设计模式-适配器模式](https://github.com/Tinyming-GO/Notes/tree/master/大话设计模式/适配器模式/Adapter.php)
 
 ## :art: 开发语言
 
