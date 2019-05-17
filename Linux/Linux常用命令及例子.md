@@ -3,6 +3,86 @@
 <!-- GFM-TOC -->
 
 
+
+## `ab`
+
+Apache Benchmarking tool. The simplest tool to perform a load testing.(Apache基准测试工具,执行负载测试的最简单工具)
+
+- Execute 100 HTTP GET requests to given URL:(对给定URL执行100个HTTP GET请求)
+
+  `ab -n 100 url`
+
+- Execute 100 HTTP GET requests, processing up to 10 requests concurrently, to given URL:(对给定URL执行100个HTTP GET请求，并发处理最多10个请求)
+
+  `ab -n 100 -c 10 url`
+
+- Use keep alive:
+
+  `ab -k url`
+
+- Set the maximum number of seconds to spend for benchmarking:(设置用于基准测试的最大秒数)
+
+  `ab -t 60 url`
+
+## `ack`
+
+A search tool like grep, optimized for programmers.(像grep这样的搜索工具，为程序员进行了优化)
+Homepage: <https://beyondgrep.com/documentation/>.
+
+- Find files containing "foo":(查找包含“foo”的文件)
+
+  `ack foo`
+
+- Find files of a specific type:(查找特定类型的文件)
+
+  `ack --ruby foo`
+
+- Count the total number of matches for the term "foo":(计算匹配项“foo”的总数)
+
+  `ack -ch foo`
+
+- Show the file names containing "foo" and number of matches in each file:(显示包含“foo”的文件名和每个文件中匹配的数目)
+
+  `ack -cl foo`
+
+- List all valid types:(列出所有有效类型)
+
+  `ack --help=types`
+
+## `alias`
+
+Creates aliases -- words that are replaced by a command string.(创建别名——由命令字符串替换的单词)
+Aliases expire with the current shell session, unless they're defined in the shell's configuration file, e.g. `~/.bashrc`.(别名将随着当前shell会话过期，除非在shell的配置文件中定义了别名，eg:`~/.bashrc`)
+
+- List all aliases:(列出所有的别名)
+
+  `alias`
+
+- Create a generic alias:(创建通用别名)
+
+  `alias word="command"`
+
+- View the command associated to a given alias:(查看与给定别名关联的命令)
+
+  `alias word`
+
+- Remove an aliased command:(删除别名命令)
+
+  `unalias word`
+
+- Turn `rm` into an interactive command:(将“rm”转换为交互式命令)
+
+  `alias rm="rm -i"`
+
+- Create `la` as a shortcut for `ls -a`:(创建“la”作为“ls -a”的快捷方式)
+
+  `alias la="ls -a"`
+
+## 
+
+
+
+
 # 文件压缩与解压
 
 ## `tar`
