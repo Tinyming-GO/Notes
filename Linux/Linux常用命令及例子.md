@@ -78,9 +78,6 @@ Aliases expire with the current shell session, unless they're defined in the she
 
   `alias la="ls -a"`
 
-## 
-
-
 
 
 # 文件压缩与解压
@@ -1382,6 +1379,30 @@ BASH builtin for retrieving data from standard input.（BASH内置用于从标�
 - Do not echo typed characters (silent mode):（不要重复输入字符(静默模式)）
 
   `read -s variable`
+
+
+## xargs
+
+Execute a command with piped arguments coming from another command, a file, etc.（使用来自另一个命令、文件等的管道参数执行命令）
+The input is treated as a single block of text and split into separate arguments on spaces, tabs, newlines and end-of-file.（ 输入被视为一个单独的文本块，并在空格、制表符、换行符和文件末尾被分割成单独的参数。）
+
+- Main usage pattern:（主要使用模式）
+
+  `arguments_source | xargs command`
+
+- Delete all files with a `.backup` extension（删除后缀是`.backup`的所有文件）. `-print0` on find uses a null character to split the files, and `-0` changes the delimiter to the null character (useful if there's whitespace in filenames):（find上的' -print0 '使用一个空字符来分割文件，' -0 '将分隔符更改为空字符(如果文件名中有空格，这很有用)）
+
+  `find . -name '*.backup' -print0 | xargs -0 rm -v`
+
+- Execute the command once for each input line, replacing any occurrences of the placeholder (here marked as `_`) with the input line:（ 对每个输入行执行该命令一次，用输入行替换任何出现的占位符(此处标记为'_')）
+
+  `arguments_source | xargs -I _ command _ optional_extra_arguments`
+
+- Parallel runs of up to `max-procs` processes at a time; the default is 1. If `max-procs` is 0, xargs will run as many processes as possible at a time:（一次并行运行最多“max-procs”进程;默认值是1。如果“max-procs”为0,xargs将一次运行尽可能多的进程）
+
+  `arguments_source | xargs -P max-procs command`
+
+
 
 
 ## vim
