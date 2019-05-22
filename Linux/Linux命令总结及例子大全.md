@@ -1,6 +1,5 @@
-
+* * *
 文件目录管理
-
 * * *
 
 # 文件传输
@@ -2099,4 +2098,1375 @@ A tool that shows information about installed packages.(显示已安装软件包
 
   `dpkg-query -s package_name`
 
-#
+
+* * *
+系统管理
+* * *
+
+# 系统安全
+
+## openssl
+
+OpenSSL cryptographic toolkit.(OpenSSL加密工具包)
+
+- Generate a 2048bit RSA private key and save it to a file:(生成2048位RSA私钥并将其保存到文件中)
+
+  `openssl genrsa -out filename.key 2048`
+
+- Generate a certificate signing request to be sent to a certificate authority:(生成要发送到证书颁发机构的证书签名请求)
+
+  `openssl req -new -sha256 -key filename.key -out filename.csr`
+
+- Generate a self-signed certificate from a certificate signing request valid for some number of days:(从证书签名请求生成有效期为几天的自签名证书)
+
+  `openssl x509 -req -days days -in filename.csr -signkey filename.key -out filename.crt`
+
+- Display certificate information:(显示证书信息)
+
+  `openssl x509 -in filename.crt -noout -text`
+
+- Display a certificate's expiration date:(显示证书的到期日期)
+
+  `openssl x509 -enddate -noout -in filename.pem`
+
+- Display the start and expiry dates for a domain's certificate:(显示域证书的开始日期和到期日期)
+
+  `openssl s_client -connect host:port 2>/dev/null | openssl x509 -noout -dates`
+
+- Display the certificate presented by an SSL/TLS server:(显示SSL/TLS服务器提供的证书)
+
+  `openssl s_client -connect host:port </dev/null`
+
+- Display the complete certificate chain of an HTTPS server:(显示HTTPS服务器的完整证书链)
+
+  `openssl s_client -connect host:443 -showcerts </dev/null`
+
+## logwatch
+
+Summarizes many different logs for common services (e.g., apache, pam_unix, sshd, etc.) in a single report.(在单个报告中汇总常见服务的许多不同日志（例如，apache，pam_unix，sshd等）)
+
+- Analyze logs for a range of dates at certain level of detail:(在特定详细级别分析日期范围的日志)
+
+  `logwatch --range yesterday|today|all|help --detail low|medium|others'`
+
+- Restrict report to only include information for a selected service:(限制报告仅包括所选服务的信息)
+
+  `logwatch --range all --service apache|pam_unix|etc`
+
+## lastb
+
+Show a listing of last logged in users.(显示最后登录用户的列表)
+
+- Show a list of all last logged in users:(显示所有最后登录用户的列表)
+
+  `sudo lastb`
+
+- Show a list of all last logged in users since a given time:(显示自给定时间以来所有上次登录用户的列表)
+
+  `sudo lastb --since YYYY-MM-DD`
+
+- Show a list of all last logged in users until a given time:(显示在给定时间之前所有最后登录用户的列表)
+
+  `sudo lastb --until YYYY-MM-DD`
+
+- Show a list of all logged in users at a specific time:(显示在特定时间登录的所有用户的列表)
+
+  `sudo lastb --present hh:mm`
+
+- Show a list of all last logged in users and translate the IP into a hostname:(显示所有最后登录用户的列表，并将IP转换为主机名)
+
+  `sudo lastb --dns`
+
+## sudo
+
+Executes a single command as the superuser or another user.(以超级用户或其他用户的身份执行单个命令)
+
+- Run a command as the superuser:(以超级用户的身份运行命令)
+
+  `sudo less /var/log/syslog`
+
+- Edit a file as the superuser with your default editor:(使用默认编辑器以超级用户的身份编辑文件)
+
+  `sudo -e /etc/fstab`
+
+- Run a command as another user and/or group:(以另一个用户和/或组的身份运行命令)
+
+  `sudo -u user -g group id -a`
+
+- Repeat the last command prefixed with "sudo" (only in bash, zsh, etc.):(重复前缀为“sudo”的最后一个命令（仅限bash，zsh等)
+
+  `sudo !!`
+
+- Launch the default shell with superuser privileges:(启动具有超级用户特权的默认shell)
+
+  `sudo -i`
+
+## lastlog
+
+Show the most recent login of all users or of a given user.(显示所有用户或给定用户的最新登录信息)
+
+- Display the most recent login of all users:(显示所有用户的最新登录信息)
+
+  `lastlog`
+
+- Display lastlog record of the specified user:(显示指定用户的lastlog记录)
+
+  `lastlog -u username`
+
+- Display records before than 7 days:(显示7天以前的记录)
+
+  `lastlog -b 7`
+
+- Display records more recent than 3 days:(显示最近3天的记录)
+
+  `lastlog -t 3`
+
+## chroot
+
+Run command or interactive shell with special root directory.(使用特殊的根目录运行命令或交互式shell)
+
+- Run command as new root directory:(运行命令作为新的根目录)
+
+  `chroot /path/to/new/root command`
+
+- Specify user and group (ID or name) to use:(指定要使用的用户和组(ID或名称))
+
+  `chroot --userspec=user:group`
+
+## last
+
+View the last logged in users.(查看最近登录的用户)
+
+- View last logins, their duration and other information as read from /var/log/wtmp:(查看上次登录，其持续时间以及从/ var / log / wtmp中读取的其他信息)
+
+  `last`
+
+- Specify how many of the last logins to show:(指定要显示的最后登录次数)
+
+  `last -n login_count`
+
+- Print the full date and time for entries and then display the hostname column last to prevent truncation:(打印条目的完整日期和时间，然后显示主机名列last，以防止截断)
+
+  `last -F -a`
+
+- View all logins by a specific user and show the ip address instead of the hostname:(查看特定用户的所有登录，并显示ip地址而不是主机名)
+
+  `last user_name -i`
+
+- View all recorded reboots (i.e., the last logins of the pseudo user "reboot"):(查看所有记录的重新引导(即。，伪用户“重启”的最后一次登录))
+
+  `last reboot`
+
+- View all recorded shutdowns (i.e., the last logins of the pseudo user "shutdown"):(查看所有已记录的关机(即，伪用户“shutdown”的最后一次登录))
+
+  `last shutdown`
+
+# 进程和作业管理
+
+## ipcrm
+
+Delete IPC (Inter-process Communication) resources.(删除IPC（进程间通信）资源)
+
+- Delete a shared memory segment by ID:(按ID删除共享内存段)
+
+  `ipcrm --shmem-id shmem_id`
+
+- Delete a shared memory segment by key:(按键删除共享内存段)
+
+  `ipcrm --shmem-key shmem_key`
+
+- Delete an IPC queue by ID:(按ID删除IPC队列)
+
+  `ipcrm --queue-id ipc_queue_id`
+
+- Delete an IPC queue by key:(按键删除IPC队列)
+
+  `ipcrm --queue-key ipc_queue_key`
+
+- Delete a semaphore by ID:(按ID删除信号量)
+
+  `ipcrm --semaphore-id semaphore_id`
+
+- Delete a semaphore by key:(按键删除信号量)
+
+  `ipcrm --semaphore-key semaphore_key`
+
+- Delete all IPC resources:(删除所有IPC资源)
+
+  `ipcrm --all`
+
+## systemctl
+
+Control the systemd system and service manager.(控制systemd系统和服务管理器)
+
+- List failed units:(列出失败的单位)
+
+  `systemctl --failed`
+
+- Start/Stop/Restart/Reload a service:(启动/停止/重新启动/重新加载服务)
+
+  `systemctl start/stop/restart/reload unit`
+
+- Show the status of a unit:(显示单位的状态)
+
+  `systemctl status unit`
+
+- Enable/Disable a unit to be started on bootup:(启用/禁用在启动时启动的单元)
+
+  `systemctl enable/disable unit`
+
+- Mask/Unmask a unit, prevent it to be started on bootup:(屏蔽/取消屏蔽单元，防止它在启动时启动)
+
+  `systemctl mask/unmask unit`
+
+- Reload systemd, scanning for new or changed units:(重新加载系统，扫描新的或更改的单位)
+
+  `systemctl daemon-reload`
+
+## w
+
+Show who is logged on and what they are doing.(显示谁已登录以及他们正在做什么)
+
+Print user login, TTY, remote host, login time, idle time, current process.(打印用户登录、TTY、远程主机、登录时间、空闲时间、当前进程)
+
+- Show logged-in users info:(显示已登录的用户信息)
+
+  w
+
+- Show logged-in users info without a header:(显示登录的用户信息，没有标题)
+
+  w -h
+
+## watch
+
+Execute a command repeatedly, and monitor the output in full-screen mode.(重复执行命令，并以全屏模式监视输出)
+
+- Monitor files in the current directory:(监视当前目录中的文件)
+
+  `watch ls`
+
+- Monitor disk space and highlight the changes:(监视磁盘空间并突出显示更改)
+
+  `watch -d df`
+
+- Monitor "node" processes, refreshing every 3 seconds:(监控“节点”进程，每3秒刷新一次)
+
+  `watch -n 3 "ps aux | grep node"`
+
+## pgrep
+
+Find or signal process by name.(按名称查找或发出信号流程)
+
+- Return PIDs of any running processes with a matching command string:(使用匹配的命令字符串返回任何正在运行的进程的PID)
+
+  `pgrep process_name`
+
+- Search full command line with parameters instead of just the process name:(使用参数而不仅仅是进程名称搜索完整的命令行)
+
+  `pgrep -f "process_name parameter"`
+
+- Search for process run by a specific user:(搜索特定用户运行的进程)
+
+  `pgrep -u root process_name`
+
+## renice
+
+Alters the scheduling priority/nicenesses of one or more running processes.(改变一个或多个正在运行的进程的调度优先级/好处)
+Niceness values range from -20 (most favorable to the process) to 19 (least favorable to the process).(良好值范围从-20（最有利于过程）到19（最不利于过程）)
+
+- Change priority of a running process:(更改正在运行的进程的优先级)
+
+  `renice -n niceness_value -p pid`
+
+- Change priority of all processes owned by a user:(更改用户拥有的所有进程的优先级)
+
+  `renice -n niceness_value -u user`
+
+- Change priority of all processes that belong to a process group:(更改属于流程组的所有流程的优先级)
+
+  `renice -n niceness_value --pgrp process_group`
+
+## nohup
+
+Allows for a process to live when the terminal gets killed.(允许进程在终端被杀死时生存)
+
+- Run process that can live beyond the terminal:(运行可以超越终端的进程)
+
+  `nohup command options`
+
+## ipcs
+
+Display information about resources used in IPC (Inter-process Communication).(显示有关IPC（进程间通信）中使用的资源的信息)
+
+- Specific information about the Message Queue which has the id 32768:(有关具有标识32768的Message Queue的特定信息)
+
+  `ipcs -qi 32768`
+
+- General information about all the IPC:(有关所有IPC的一般信息)
+
+  `ipcs -a`
+
+## nice
+
+Execute a program with a custom scheduling priority (niceness).(执行具有自定义调度优先级(niceness)的程序)
+Niceness values range from -20 (the highest priority) to 19 (the lowest).(Niceness值范围从-20(最高优先级)到19(最低优先级))
+
+- Launch a program with altered priority:(启动一个优先级改变的程序)
+
+  `nice -n niceness_value command`
+
+## service
+
+Manage services by running init scripts.（通过运行init脚本管理服务）
+
+The full script path should be omitted (/etc/init.d/ is assumed).（应该省略完整的脚本路径（假设/etc/init.d/））
+
+- Start/Stop/Restart/Reload service (start/stop should always be available):
+
+  `service init_script start|stop|restart|reload`
+
+- Do a full restart (runs script twice with start and stop):（完全重新启动(使用start和stop运行脚本两次)）
+
+  `service init_script --full-restart`
+
+- Show the current status of a service:（显示服务的当前状态）
+
+  `service init_script status`
+
+- List the status of all services:（列出所有服务的状态）
+
+  `service --status-all`
+
+## pstree
+
+A convenient tool to show running processes as a tree.(一个方便的工具，以树的形式显示正在运行的进程)
+
+- Display a tree of processes:(显示进程树)
+
+  `pstree`
+
+- Display a tree of processes with PIDs:(显示带有pid的进程树)
+
+  `pstree -p`
+
+- Display all process trees rooted at processes owned by specified user:(显示位于指定用户拥有的进程上的所有进程树)
+
+  `pstree user`
+
+## killall
+
+Send kill signal to all instances of a process by name (must be exact name).(按名称向进程的所有实例发送kill信号（必须是确切的名称）)
+
+All signals except SIGKILL and SIGSTOP can be intercepted by the process, allowing a clean exit.(除了SIGKILL和SIGSTOP之外的所有信号都可以被进程拦截，从而允许干净的退出)
+
+- Terminate a process using the default SIGTERM (terminate) signal:(使用默认的SIGTERM（终止）信号终止进程)
+
+  `killall process_name`
+
+- List available signal names (to be used without the 'SIG' prefix):(列出可用的信号名称（在没有'SIG'前缀的情况下使用）)
+
+  `killall --list`
+
+- Interactively ask for confirmation before termination:(在终止前以交互方式要求确认)
+
+  `killall -i process_name`
+
+- Terminate a process using the SIGINT (interrupt) signal, which is the same signal sent by pressing `Ctrl + C`:(使用SIGINT（中断）信号终止进程，这是通过按“Ctrl + C”发送的相同信号)
+
+  `killall -INT process_name`
+
+- Force kill a process:(强制杀死一个进程)
+
+  `killall -KILL process_name`
+
+## batch
+
+Execute commands at a later time when the system load levels permit.(在系统负载级别允许的稍后时间执行命令)
+
+Service atd (or atrun) should be running for the actual executions.(应该为实际执行运行atd（或atrun）服务)
+
+- Execute commands from standard input (press `Ctrl + D` when done):(从标准输入执行命令（完成后按“Ctrl + D”）)
+
+  `batch`
+
+- Execute a command from standard input:(从标准输入执行命令)
+
+  `echo "./make_db_backup.sh" | batch`
+
+- Execute commands from a given file:(执行来自给定文件的命令)
+
+  `batch -f path/to/file`
+
+## ps
+
+Information about running processes.（有关正在运行的进程的信息）
+
+- List all running processes:（列出所有正在运行的进程）
+
+  `ps aux`
+
+- List all running processes including the full command string:（列出所有正在运行的进程，包括完整的命令字符串）
+
+  `ps auxww`
+
+- Search for a process that matches a string:（搜索匹配字符串的进程）
+
+  `ps aux | grep string`
+
+- List all processes of the current user in extra full format:（以额外的完整格式列出当前用户的所有进程）
+
+  `ps --user $(id -u) -F`
+
+- List all processes of the current user as a tree:（以树的形式列出当前用户的所有进程）
+
+  `ps --user $(id -u) f`
+
+- Get the parent pid of a process:（获取进程的父pid）
+
+  `ps -o ppid= -p pid`
+
+## crontab
+
+Schedule cron jobs to run on a time interval for the current user.（调度cron作业以当前用户的时间间隔运行）
+
+Job definition format: "(min) (hour) (day_of_month) (month) (day_of_week) command_to_execute".（作业定义格式:“(min) (hour) (day of month) (month) (day of week)命令执行。）
+
+- Edit the crontab file for the current user:（编辑当前用户的crontab文件）
+
+  `crontab -e`
+
+- View a list of existing cron jobs for current user:（查看当前用户的现有cron作业列表）
+
+  `crontab -l`
+
+- Remove all cron jobs for the current user:（删除当前用户的所有cron作业）
+
+  `crontab -r`
+
+- Sample job which runs at 10:00 every day. * means any value:（每天10:00运行的示例作业。*表示任何值）
+
+  `0 10 * * * path/to/script.sh`
+
+- Sample job which runs every minute on the 3rd of April:（示例作业在4月3日每分钟运行一次）
+
+  `* * 3 Apr * path/to/script.sh`
+
+- Sample job which runs at 02:30 every Friday:（示例作业，每个星期五02:30运行）
+
+  `30 2 * * Fri path/to/script.sh`
+
+## pkill
+
+Signal process by name.(按姓名信号处理)
+
+Mostly used for stopping processes.(主要用于停止过程)
+
+- Kill all processes which match:(杀死所有匹配的进程)
+
+  `pkill -9 process_name`
+
+- Kill all processes which match their full command instead of just the process name:(终止所有与其完整命令匹配的进程，而不仅仅是进程名称)
+
+  `pkill -9 -f "command_name"`
+
+- Send SIGUSR1 signal to processes which match:(将SIGUSR1信号发送到匹配的进程)
+
+  `pkill -USR1 process_name`
+
+## atrm
+
+Remove jobs scheduled by `at` or `batch` commands.(删除`at`或`batch`命令安排的作业)
+
+To find job numbers use `atq`.(要查找工作号码，请使用`atq`)
+
+- Remove job number 10:(删除职位编号10)
+
+  `atrm 10`
+
+- Remove many jobs, separated by spaces:(删除许多以空格分隔的作业)
+
+  `atrm 15 17 22`
+
+## atq
+
+Show jobs scheduled by `at` or `batch` commands.(显示由`at`或`batch`命令安排的作业)
+
+- Show the current user's scheduled jobs:(显示当前用户的预定作业)
+
+  `atq`
+
+- Show jobs from queue named 'a' (queues have single-character names):(从名为'a'的队列中显示作业（队列具有单字符名称）)
+
+  `atq -q a`
+
+- Show jobs of all users (run as super user):(显示所有用户的作业（以超级用户身份运行）)
+
+  `sudo atq`
+
+## at
+
+Executes commands at a specified time.(在指定时间执行命令)
+
+- Open an `at` prompt to create a new set of scheduled commands, press `Ctrl + D` to save and exit:(打开`at`提示符以创建一组新的预定命令，按`Ctrl + D`保存并退出)
+
+  `at hh:mm:ss`
+
+- Execute the commands and email the result using a local mailing program such as sendmail:(执行命令并使用本地邮件程序（如sendmail）通过电子邮件发送结果)
+
+  `at hh:mm:ss -m`
+
+- Execute a script at the given time:(在给定时间执行脚本)
+
+  `at hh:mm:ss -f path/to/file`
+
+# 用户和工作组管理
+
+## id
+
+Display current user and group identity.(显示当前用户和组标识)
+
+- Display current user's id (UID), group id (GID) and groups to which they belong:(显示当前用户id (UID)、组id (GID)和它们所属的组)
+
+  `id`
+
+- Display the current user identity as a number:(将当前用户标识显示为数字)
+
+  `id -u`
+
+- Display the current group identity as a number:(将当前组标识显示为数字)
+
+  `id -g`
+
+- Display an arbitrary user's id (UID), group id (GID) and groups to which they belong:(显示任意用户的id (UID)、组id (GID)和它们所属的组)
+
+  `id username`
+
+## nologin
+
+Alternative shell that prevents a user from logging in.(防止用户登录的备用shell)
+
+- Set a user's login shell to `nologin` to prevent the user from logging in:(将用户的登录shell设置为“nologin”以防止用户登录)
+
+  `chsh -s user nologin`
+
+- Customize message for users with the login shell of `nologin`:(使用登录shell“nologin”为用户自定义消息)
+
+  `echo "declined_login_message" > /etc/nologin.txt`
+
+## groupdel
+
+Delete existing user groups from the system.(从系统中删除现有的用户组)
+
+- Delete an existing group:(删除现有组)
+
+  `groupdel group_name`
+
+## chsh
+
+Change user's login shell.（更改用户的登录shell）
+
+- Change shell:（改变shell）
+
+  chsh -s path/to/shell_binary username
+
+## gpasswd
+
+Administer "/etc/group" and "/etc/gshadow".(管理“/etc/group”和“/etc/gshadow”)
+
+- Define group administrators:(定义组管理员)
+
+  `sudo gpasswd -A user1,user2 group`
+
+- Set the list of group members:(设置组成员列表)
+
+  `sudo gpasswd -M user1,user2 group`
+
+- Create a password for the named group:(为命名组创建密码)
+
+  `gpasswd group`
+
+- Add a user to the named group:(将用户添加到命名组)
+
+  `gpasswd -a user group`
+
+- Remove a user from the named group:(从命名组中删除用户)
+
+  `gpasswd -d user group`
+
+## groupmod
+
+Modify existing user groups in the system.(修改系统中现有的用户组)
+
+- Change the group name:(更改组名称)
+
+  `groupmod -n new_group_name old_group_name`
+
+- Change the group id:(更改组id)
+
+  `groupmod -g new_group_id old_group_name`
+
+## passwd
+
+Passwd is a tool used to change a user's password.（Passwd是一个用于更改用户密码的工具）
+
+- Change the password of the current user:（更改当前用户的密码）
+
+  `passwd new_password`
+
+- Change the password of the specified user:（更改指定用户的密码）
+
+  `passwd username new_password`
+
+- Get the current status of the user:（获取用户的当前状态）
+
+  `passwd -S`
+
+- Make the password of the account blank (it will set the named account passwordless):（将账户密码设置为空(将指定账户设置为无密码)）
+
+  `passwd -d`
+
+## chfn
+
+Update `finger` info for a user.（为用户更新“手指”信息）
+
+- Update a user's "Name" field in the output of `finger`:（在“finger”的输出中更新用户的“Name”字段）
+
+  `chfn -f new_display_name username`
+
+- Update a user's "Office Room Number" field for the output of `finger`:（为“finger”的输出更新用户的“Office Room Number”字段）
+
+  `chfn -o new_office_room_number username`
+
+- Update a user's "Office Phone Number" field for the output of `finger`:（为“finger”的输出更新用户的“Office Phone Number”字段）
+
+  `chfn -p new_office_telephone_number username`
+
+- Update a user's "Home Phone Number" field for the output of `finger`:（更新用户的“家庭电话号码”字段，以输出“finger”）
+
+  `chfn -h new_home_telephone_number username`
+
+## logname
+
+Shows the user's login name.(显示用户的登录名)
+
+- Display the currently logged in user's name:(显示当前登录的用户名)
+
+  `logname`
+
+## groups
+
+Print group memberships for a user.（打印用户的组成员身份）
+
+- Print group memberships for the current user:（打印当前用户的组成员身份）
+
+  `groups`
+
+- Print group memberships for a specific user:（打印特定用户的组成员身份）
+
+  `groups username`
+
+- Print group memberships for a list of users:（打印用户列表的组成员身份）
+
+  `groups username1 username2 username3`
+
+## finger
+
+User information lookup program.(用户信息查找程序)
+
+- Display information about currently logged in users:(显示当前登录用户的信息)
+
+  `finger`
+
+- Display information about a specific user:(显示特定用户的信息)
+
+  `finger username`
+
+- Display the user's login name, real name, terminal name, and other information:(显示用户的登录名、实名、终端名等信息)
+
+  `finger -s`
+
+- Produce multi-line output format displaying same information as `-s` as well as user's home directory, home phone number, login shell, mail status, etc.:(生成多行输出格式，显示与“-s”相同的信息，以及用户的主目录、主电话号码、登录shell、邮件状态等。)
+
+  `finger -l`
+
+- Prevent matching against user's names and only use login names:(防止与用户名匹配，只使用登录名)
+
+  `finger -m`
+
+## su
+
+Switch shell to another user.（将shell切换到另一个用户）
+
+- Switch to superuser (admin password required):（切换到超级用户(需要管理密码)）
+
+  `su`
+
+- Switch to user username (password required):（切换到用户名(需要密码)）
+
+  `su username`
+
+- Switch to user username and simulate a full login shell:（切换到user username并模拟完整的登录shell）
+
+  `su - username`
+
+## usermod
+
+Modifies a user account.(修改用户帐户)
+
+- Change a user's name:(更改用户名)
+
+  `usermod -l newname user`
+
+- Add user to supplementary groups (mind the whitespace):(将用户添加到补充组(注意空格))
+
+  `usermod -a -G group1,group2 user`
+
+- Create a new home directory for a user and move their files to it:(为用户创建一个新的主目录并将其文件移动到其中)
+
+  `usermod -m -d /path/to/home user`
+
+## groupadd
+
+Add user groups to the system.(将用户组添加到系统)
+
+- Create a new Linux group:(创建一个新的Linux组)
+
+  `groupadd group_name`
+
+- Create new group with a specific groupid:(使用特定的groupid创建新组)
+
+  `groupadd group_name -g group_id`
+
+## userdel
+
+Remove a user.(删除一个用户)
+
+- Remove a user and their home directory:（删除用户及其主目录）
+
+  `userdel -r name`
+
+## usermod
+
+Modifies a user account.(修改用户帐户)
+
+- Change a user's name:(更改用户名)
+
+  `usermod -l newname user`
+
+- Add user to supplementary groups (mind the whitespace):(将用户添加到补充组(注意空格))
+
+  `usermod -a -G group1,group2 user`
+
+- Create a new home directory for a user and move their files to it:(为用户创建一个新的主目录并将其文件移动到其中)
+
+  `usermod -m -d /path/to/home user`
+
+## useradd
+
+Create a new user.(创建一个新用户)
+
+- Create new user:(创建新用户)
+
+  `useradd name`
+
+- Create new user with a default home directory:(创建具有默认主目录的新用户)
+
+  `useradd --create-home name`
+
+- Create new user with specified shell:(使用指定的shell创建新用户)
+
+  `useradd --shell /path/to/shell name`
+
+- Create new user belonging to additional groups (mind the lack of whitespace):(创建属于其他组的新用户(注意没有空格))
+
+  `useradd --groups group1,group2 name`
+
+- Create new system user without a home directory:(创建没有主目录的新系统用户)
+
+  `useradd --no-create-home --system name`
+
+# X-Windows
+
+## xclip
+
+X11 clipboard manipulation tool, similar to `xsel`.(X11剪贴板操作工具，类似于`xsel`。)
+
+Handles the X primary and secondary selections, plus the system clipboard (`Ctrl + C`/`Ctrl + V`).(处理X主要和次要选择，以及系统剪贴板（`Ctrl + C` /`Ctrl + V`）)
+
+- Copy the output from a command to the X11 primary selection area (clipboard):(将命令的输出复制到X11主选择区域（剪贴板）)
+
+  `echo 123 | xclip`
+
+- Copy the output from a command to a given X11 selection area:(将命令的输出复制到给定的X11选择区域)
+
+  `echo 123 | xclip -selection primary|secondary|clipboard`
+
+- Copy the contents of a file to the system clipboard, using short notation:(使用简短表示法将文件内容复制到系统剪贴板)
+
+  `echo 123 | xclip -sel clip`
+
+- Copy the contents of a file into the system clipboard:(将文件的内容复制到系统剪贴板中)
+
+  `xclip -sel clip input_file.txt`
+
+- Paste the contents of the X11 primary selection area to the console:(将X11主选择区域的内容粘贴到控制台)
+
+  `xclip -o`
+
+- Paste the contents of the system clipboard to the console:(将系统剪贴板的内容粘贴到控制台)
+
+  `xclip -o -sel clip`
+
+- Paste the contents of the system clipboard into a file:(将系统剪贴板的内容粘贴到文件中)
+
+  `xclip -o -sel clip > output_file.txt`
+
+# SELinux
+
+## chcon
+
+Change SELinux security context of a file or files/directories.(更改文件或文件/目录的SELinux安全上下文)
+
+- View security context of a file:(查看文件的安全上下文)
+
+  `ls -lZ path/to/file`
+
+- Change the security context of a target file, using a reference file:(使用参考文件更改目标文件的安全上下文)
+
+  `chcon --reference=reference_file target_file`
+
+- Change the full SELinux security context of a file:(更改文件的完整SELinux安全上下文)
+
+  `chcon user:role:type:range/level filename`
+
+- Change only the user part of SELinux security context:(仅更改SELinux安全上下文的用户部分)
+
+  `chcon -u user filename`
+
+- Change only the role part of SELinux security context:(仅更改SELinux安全上下文的角色部分)
+
+  `chcon -r role filename`
+
+- Change only the type part of SELinux security context:(仅更改SELinux安全上下文的类型部分)
+
+  `chcon -t type filename`
+
+- Change only the range/level part of SELinux security context:(仅更改SELinux安全上下文的范围/级别部分)
+
+  `chcon -l range/level filename`
+
+# 文件系统管理
+
+## repquota
+
+Display a summary of existing file quotas for a filesystem.(显示文件系统的现有文件配额的摘要)
+
+- Report stats for all quotas in use:(报告所有使用配额的统计数据)
+
+  `sudo repquota -all`
+
+- Report quota stats for all users, even those who aren't using any of their quota:(报告所有用户的配额统计信息，即使是那些未使用任何配额的用户)
+
+  `sudo repquota -v filesystem`
+
+- Report on quotas for users only:(仅针对用户报告配额)
+
+  `repquota --user filesystem`
+
+- Report on quotas for groups only:(仅报告组的配额)
+
+  `sudo repquota --group filesystem`
+
+- Report on used quota and limits in a human-readable format:(以人类可读的格式报告使用的配额和限额)
+
+  `sudo repquota --human-readable filesystem`
+
+- Report on all quotas for users and groups in a human-readable format:(以人类可读的格式报告用户和组的所有配额)
+
+  `sudo repquota -augs`
+
+## sync
+
+Flushes all pending write operations to the appropriate disks.(将所有挂起的写操作刷新到适当的磁盘)
+
+- Flush all pending write operations on all disks:
+
+  `sync`
+
+- Flush all pending write operations on a single file to disk:(将单个文件上所有挂起的写操作刷新到磁盘)
+
+  `sync path/to/file`
+
+## swapoff
+
+Disables device or file for swapping.(禁用用于交换的设备或文件)
+
+- Disable a given swap partition:(禁用给定的交换分区)
+
+  `swapoff /dev/sdb7`
+
+- Disable a given swap file:(禁用给定的交换文件)
+
+  `swapoff path/to/file`
+
+- Disable all swap areas:(禁用所有交换区域)
+
+  `swapoff -a`
+
+- Disable swap by label of a device or file:(通过设备或文件的标签禁用交换)
+
+  `swapoff -L swap1`
+
+## swapon
+
+Enables device or file for swapping.(启用设备或文件交换)
+
+- Get swap information:(获得交换信息)
+
+  `swapon -s`
+
+- Enable a given swap partition:(启用给定的交换分区)
+
+  `swapon /dev/sdb7`
+
+- Enable a given swap file:(启用给定的交换文件)
+
+  `swapon path/to/file`
+
+- Enable all swap areas:(启用所有交换区域)
+
+  `swapon -a`
+
+- Enable swap by label of a device or file:(通过设备或文件的标签启用交换)
+
+  `swapon -L swap1`
+
+## quota
+
+Display users' disk space usage and allocated limits.(显示用户的磁盘空间使用情况和分配限制)
+
+- Show disk quotas in human readable units for the current user:(以人类可读的单位显示当前用户的磁盘配额)
+
+  `quota -s`
+
+- Verbose output (also display quotas on filesystems where no storage is allocated):(详细输出(也显示没有分配存储的文件系统上的配额))
+
+  `quota -v`
+
+- Quiet output (only display quotas on filesystems where usage is over quota):(安静输出(仅在使用超过配额的文件系统上显示配额))
+
+  `quota -q`
+
+- Print quotas for the groups of which the current user is a member:(打印当前用户所属组的配额)
+
+  `quota -g`
+
+- Show disk quotas for another user:(显示另一个用户的磁盘配额)
+
+  `sudo quota -u username`
+
+## edquota
+
+Edit quotas for a user or group. By default it operates on all file systems with quotas.(编辑用户或组的配额。默认情况下，它对所有带有配额的文件系统进行操作)
+Quota information is stored permanently in the `quota.user` and `quota.group` files in the root of the filesystem.(配额信息永久存储在“配额”中。用户”和“配额。在文件系统的根目录中对文件进行分组)
+
+- Edit quota of the current user:(编辑当前用户的配额)
+
+  `edquota --user $(whoami)`
+
+- Edit quota of a specific user:(编辑特定用户的配额)
+
+  `sudo edquota --user username`
+
+- Edit quota for a group:(编辑组的配额)
+
+  `sudo edquota --group group`
+
+- Restrict operations to a given filesystem (by default edquota operates on all filesystems with quotas):(将操作限制在给定的文件系统中(默认情况下，edquota对所有带有配额的文件系统进行操作))
+
+  `sudo edquota --file-system filesystem`
+
+- Edit the default grace period:(编辑默认的宽限期)
+
+  `sudo edquota -t`
+
+- Duplicate a quota to other users:(将配额复制给其他用户)
+
+  `sudo edquota -p reference_user destination_user1 destination_user2`
+
+## quotacheck
+
+Scan a filesystem for disk usage; create, check and repair quota files.(扫描文件系统以查看磁盘使用情况;创建、检查和修复配额文件)
+It is best to run quota check with quotas turned off to prevent damage or loss to quota files.(最好在关闭配额的情况下运行配额检查，以防止对配额文件的损坏或丢失)
+
+- Check quotas on all mounted non-NFS filesystems:( 检查所有挂载的非nfs文件系统上的配额)
+
+  `sudo quotacheck --all`
+
+- Force check even if quotas are enabled (this can cause damage or loss to quota files):(强制检查，即使启用了配额(这会导致配额文件损坏或丢失))
+
+  `sudo quotacheck --force mountpoint`
+
+- Check quotas on a given filesystem in debug mode:(在调试模式下检查给定文件系统上的配额)
+
+  `sudo quotacheck --debug mountpoint`
+
+- Check quotas on a given filesystem, displaying the progress:(检查给定文件系统上的配额，显示进度)
+
+  `sudo quotacheck --verbose mountpoint`
+
+- Check user quotas:(检查用户配额)
+
+  `sudo quotacheck --user user mountpoint`
+
+- Check group quotas:(检查小组配额)
+
+  `sudo quotacheck --group group mountpoint`
+
+## mountpoint
+
+Test if a directory is a filesystem mountpoint.(测试目录是否为文件系统挂载点)
+
+- Check if a directory is a mountpoint:(检查目录是否为挂载点)
+
+  `mountpoint path/to/directory`
+
+- Check if a directory is a mountpoint without showing any output:(检查目录是否为挂载点而不显示任何输出)
+
+  `mountpoint -q path/to/directory`
+
+- Show major/minor numbers of a mountpoint's filesystem:(显示mountpoint文件系统的主要/次要编号)
+
+  `mountpoint --fs-devno path/to/directory`
+
+## umount
+
+Unlink a filesystem from its mount point, making it no longer accessible.(从挂载点断开文件系统的链接，使其不再可访问)
+A filesystem cannot be unmounted when it is busy.(文件系统繁忙时无法卸载)
+
+- Unmount a filesystem, by passing the path to the source it is mounted from:(通过将路径传递到挂载文件系统的源，卸载文件系统)
+
+  `umount path/to/device_file`
+
+- Unmount a filesystem, by passing the path to the target where it is mounted:(通过将路径传递到安装文件系统的目标，卸载文件系统)
+
+  `umount path/to/mounted_directory`
+
+- Unmount all mounted filesystems (except the `proc` filesystem):(卸载所有已安装的文件系统(除了“proc”文件系统))
+
+  `umount -a`
+
+## fsck
+
+Check the integrity of a filesystem or repair it. The filesystem should be unmounted at the time the command is run.(检查或修复文件系统的完整性。应该在运行命令时卸载文件系统)
+
+- Check filesystem /dev/sda, reporting any damaged blocks:(检查文件系统/ dev / sda，报告任何已损坏的块)
+
+  `fsck /dev/sda`
+
+- Check filesystem /dev/sda, reporting any damaged blocks and interactively letting the user choose to repair each one:(检查文件系统/ dev / sda，报告任何已损坏的块并以交互方式让用户选择修复每个块)
+
+  `fsck -r /dev/sda`
+
+- Check filesystem /dev/sda, reporting any damaged blocks and automatically repairing them:(检查文件系统/ dev / sda，报告任何已损坏的块并自动修复它们)
+
+  `fsck -a /dev/sda`
+
+## mount
+
+Provides access to an entire filesystem in one directory.（提供对一个目录中的整个文件系统的访问）
+
+- Show all mounted filesystems:（显示所有挂载的文件系统）
+
+  `mount`
+
+- Mount a device to a directory:（将设备挂载到目录）
+
+  `mount -t filesystem_type path/to/device_file path/to/target_directory`
+
+- Mount a CD-ROM device (with the filetype ISO9660) to /cdrom (readonly):（使用ISO9660文件型）将CD-ROM设备挂载到/cdrom(只读)
+
+  `mount -t iso9660 -o ro /dev/cdrom /cdrom`
+
+- Mount all the filesystem defined in /etc/fstab:（将所有定义的文件系统挂载到/etc/fstab）
+
+  `mount -a`
+
+- Mount a specific filesystem described in /etc/fstab (e.g. "/dev/sda1 /my_drive ext2 defaults 0 2"):（挂载一个特定的文件系统到/etc/fstab）
+
+  `mount /my_drive`
+
+## mke2fs/mkfs.ext2
+
+Creates a Linux filesystem inside a partition.(在分区内创建一个Linux文件系统)
+
+- Create an ext2 filesystem in partition 1 of device b (`sdb1`):(在设备b的分区1中创建一个ext2文件系统(' sdb1 '))
+
+  `mkfs.ext2 /dev/sdb1`
+
+- Create an ext3 filesystem in partition 1 of device b (`sdb1`):(在设备b的分区1中创建一个ext3文件系统(' sdb1 '))
+
+ ` mkfs.ext3 /dev/sdb1`
+
+- Create an ext3 filesystem in partition 1 of device b (`sdb1`):(在设备b的分区1中创建一个ext3文件系统(' sdb1 '))
+
+  `mkfs.ext3 /dev/sdb1`
+
+# 系统关机和重启
+
+## halt
+
+Power off or reboot the machine.(关闭电源或重启机器)
+
+- Power the machine off:(关闭机器电源)
+
+  `halt`
+
+- Reboot the machine:(重新启动机器)
+
+  `halt --reboot`
+
+## reboot
+
+Reboot the system.(重新启动系统)
+
+- Reboot immediately:(立即重新启动)
+
+  `reboot`
+
+- Reboot immediately without gracefully shutdown:(立即重启，而不是优雅地关闭)
+
+  `reboot -f`
+
+## shutdown
+
+Shutdown and reboot the system.（关闭并重新启动系统）
+
+- Power off (halt) immediately:（立即断电(停止)）
+
+  `shutdown -h now`
+
+- Reboot immediately:(立即重新启动)
+
+  `shutdown -r now`
+
+- Reboot in 5 minutes:(5分钟后重启)
+
+  `shutdown -r +5 &`
+
+- Shutdown at 1:00 pm (Uses 24h clock):(下午1点关闭(使用24小时时钟))
+
+  `shutdown -h 13:00`
+
+- Cancel a pending shutdown/reboot operation:（取消挂起的关机/重启操作）
+
+  `shutdown -c`
+
+## poweroff
+
+Shutdown the system.(关闭系统)
+
+- Poweroff the system:(关闭系统电源)
+
+  `sudo poweroff`
+
+
+* * *
+网络管理
+* * *
+
+# 网络应用
+
+## axel
+
+Download accelerator.(下载加速器)
+
+Supports HTTP, HTTPS, and FTP.(支持HTTP，HTTPS和FTP)
+
+Homepage: <https://github.com/axel-download-accelerator/axel>.
+
+- Download a URL to a file:(下载文件的URL)
+
+  `axel url`
+
+- Download and specify filename:(下载并指定文件名)
+
+  `axel url -o filename`
+
+- Download with multiple connections:(下载多个连接)
+
+  `axel -n connections_num url`
+
+- Search for mirrors:(搜索镜像)
+
+  `axel -S mirrors_num url`
+
+- Limit download speed (bytes per second):(限制下载速度（每秒字节数）)
+
+  `axel -s speed url`
+
+## curl
+
+Transfers data from or to a server.(从服务器传输数据或向服务器传输数据)
+
+Supports most protocols, including HTTP, FTP, and POP3.(支持大多数协议，包括HTTP，FTP和POP3)
+
+- Download the contents of an URL to a file:(将URL的内容下载到文件)
+
+  `curl http://example.com -o filename`
+
+- Download a file, saving the output under the filename indicated by the URL:(下载文件，将输出保存在URL指示的文件名下)
+
+  `curl -O http://example.com/filename`
+
+- Download a file, following [L]ocation redirects, and automatically [C]ontinuing (resuming) a previous file transfer:(在[L]ocation重定向后下载文件，并自动[C]继续（恢复）先前的文件传输)
+
+  `curl -O -L -C - http://example.com/filename`
+
+- Send form-encoded data (POST request of type `application/x-www-form-urlencoded`):(发送表单编码数据（类型为`application / x-www-form-urlencoded`的POST请求）)
+
+  `curl -d 'name=bob' http://example.com/form`
+
+- Send a request with an extra header, using a custom HTTP method:(使用自定义HTTP方法发送带有额外标头的请求)
+
+  `curl -H 'X-My-Header: 123' -X PUT http://example.com`
+
+- Send data in JSON format, specifying the appropriate content-type header:(以JSON格式发送数据，指定适当的内容类型标头)
+
+  `curl -d '{"name":"bob"}' -H 'Content-Type: application/json' http://example.com/users/1234`
+
+- Pass a user name and password for server authentication:(传递用于服务器身份验证的用户名和密码)
+
+  `curl -u myusername:mypassword http://example.com`
+
+- Pass client certificate and key for a resource, skipping certificate validation:(传递客户端证书和资源密钥，跳过证书验证)
+
+  `curl --cert client.pem --key key.pem --insecure https://example.com`
+
+## wget
+
+Download files from the Web. Supports HTTP, HTTPS, and FTP.(从网上下载文件。支持HTTP、HTTPS和FTP)
+
+- Download the contents of an URL to a file (named "foo" in this case):(将URL的内容下载到文件中(本例中文件名为“foo”))
+
+  `wget https://example.com/foo`
+
+- Download the contents of an URL to a file (named "bar" in this case):(将URL的内容下载到文件中(本例中文件名为“bar”))
+
+  `wget -O bar https://example.com/foo`
+
+- Download a single web page and all its resources with 3-second intervals between requests (scripts, stylesheets, images, etc.):（下载一个web页面及其所有资源，请求之间间隔3秒(脚本、样式表、图像等)。）
+
+  `wget --page-requisites --convert-links --wait=3 https://example.com/somepage.html`
+
+- Download all listed files within a directory and its sub-directories (does not download embedded page elements):（下载目录及其子目录中列出的所有文件(不下载嵌入的页面元素）
+
+  `wget --mirror --no-parent https://example.com/somepath/`
+
+- Limit the download speed and the number of connection retries:（限制下载速度和连接重试次数）
+
+  `wget --limit-rate=300k --tries=100 https://example.com/somepath/`
+
+- Download a file from an HTTP server using Basic Auth (also works for FTP):（使用Basic Auth(也适用于FTP)从HTTP服务器下载文件）
+
+  `wget --user=username --password=password https://example.com`
+
+- Continue an incomplete download:（继续未完成的下载）
+
+  `wget -c https://example.com`
+
+- Download all URLs stored in a text file to a specific directory:（将存储在文本文件中的所有url下载到特定目录）
+
+  `wget -P path/to/directory -i URLs.txt`
+
+## telnet
+
+Connect to a specified port of a host using the telnet protocol.(使用telnet协议连接到主机的指定端口)
+
+- Telnet to the default port of a host:(Telnet到主机的默认端口)
+
+  `telnet host`
+
+- Telnet to a specific port of a host:(Telnet到主机的特定端口)
+
+  `telnet ip_address port`
+
+- Exit a telnet session:(退出telnet会话)
+
+  `quit`
+
+- Emit the default escape character combination for terminating the session:(发出终止会话的默认转义字符组合)
+
+  `Ctrl + ]`
+
+- Start telnet with "x" as the session termination character:(以“x”作为会话终止字符启动telnet)
+
+  `telnet -e x ip_address port`
+
+## elm
+
+Compile and run Elm source files.（编译并运行Elm源文件）
+
+- Initialize an Elm project, generates an elm.json file:(初始化一个Elm项目，生成一个Elm.json文件)
+
+  `elm init`
+
+- Start interactive Elm shell:(启动交互式Elm shell)
+
+  `elm repl`
+
+- Compile an Elm file, output the result to an index.html file:(编译一个Elm文件，将结果输出到index.html文件)
+
+  `elm make source`
+
+- Compile an Elm file, output the result to a Javascript file:(编译一个Elm文件，将结果输出到一个Javascript文件)
+
+  `elm make source --output=destination.js`
+
+- Start local web server that compiles Elm files on page load:(启动本地web服务器，在页面加载时编译Elm文件)
+
+  `elm reactor`
+
+- Install Elm package from https://package.elm-lang.org:(从https://package.elm-lang.org安装Elm软件包)
+
+  `elm install author/package`
+
+## elinks
+
+A text based browser similar to lynx.(基于文本的浏览器，类似于lynx)
+
+- Start elinks:(开始)
+
+  `elinks`
+
+- Quit elinks:(退出)
+
+  `Ctrl + C`
+
+- Dump output of webpage to console, colorizing the text with ANSI control codes:（将网页转储到控制台，使用ANSI控制代码对文本着色）
+
+  `elinks -dump -dump-color-mode 1 url`
+
+## ipcalc
+
+Perform simple operations and calculations on IP addresses and networks.（对IP地址和网络执行简单的操作和计算）
+
+- Show information about an address or network with a given subnet mask:（显示有给定子网掩码的地址或网络的信息）
+
+  `ipcalc 1.2.3.4 255.255.255.0`
+
+- Show information about an address or network in CIDR notation:（以CIDR表示法显示有关地址或网络的信息）
+
+  `ipcalc 1.2.3.4/24`
+
+- Show the broadcast address of an address or network:（显示地址或网络的广播地址）
+
+  `ipcalc -b 1.2.3.4/30`
+
+- Show the network address of provided IP address and netmask:（显示提供的IP地址和网络掩码的网络地址）
+
+  `ipcalc -n 1.2.3.4/24`
+
+- Display geographic information about a given IP address:（显示有关给定IP地址的地理信息）
+
+  `ipcalc -g 1.2.3.4`
