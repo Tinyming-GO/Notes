@@ -35,7 +35,7 @@ Compare files and directories.（比较文件和目录）
 
   `diff -u file1 file2`
 
-- Compare directories recursively:（递归地比较目录）
+- Compare directories recursively:（递归地比较目录）-- 可以比较两个目录拥有的文件的差异
 
   `diff -r directory1 directory2`
 
@@ -43,6 +43,22 @@ Compare files and directories.（比较文件和目录）
 
   `diff -rq directory1 directory2`
 
+```
+结果详解：
+2,4c2,4
+< I need to run the laundry.
+< I need to wash the dog.
+< I need to get the car detailed.
+---
+> I need to do the laundry.
+> I need to wash the car.
+> I need to get the dog detailed.
+
+要明白diff比较结果的含义，我们必须牢记一点，diff描述两个文件不同的方式是告诉我们怎么样改变第一个文件之后与第二个文件匹配。我们看看上面的比较结果中的第一行 2,4c2,4 前面的数字2,4表示第一个文件中的行，中间有一个字母c表示需要在第一个文件上做的操作(a=add,c=change,d=delete)，后面的数字2,4表示第二个文件中的行。
+
+2,4c2,4 的含义是：第一个文件中的第[2,4]行(注意这是一个闭合区间，包括第2行和第4行)需要做出修改才能与第二个文件中的[2,4]行相匹配。
+接下来的内容则告诉我们需要修改的地方，前面带 < 的部分表示左边文件的第[2,4]行的内容，而带> 的部分表示右边文件的第[2,4]行的内容，中间的 --- 则是两个文件内容的分隔符号。
+```
 ## diffstat
 
 Create a histogram from the output of the `diff` command.(从' diff '命令的输出创建一个直方图)
