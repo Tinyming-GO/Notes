@@ -12,6 +12,7 @@
 
 - [Linux常用命令及例子](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Linux常用命令及例子.md)
 - [Linux命令补充资料](https://github.com/Tinyming-GO/Notes/tree/master/Linux)
+- [超赞的Linux软件大全](https://alim0x.gitbooks.io/awesome-linux-software-zh_cn/content/)
 - [Shell编程基础知识](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Shell编程基础知识)
 - [Nginx基本功能极速入门](https://github.com/Tinyming-GO/Notes/tree/master/Nginx/Nginx基本功能极速入门.md)
 
