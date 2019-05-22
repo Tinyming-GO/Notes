@@ -399,6 +399,30 @@ Change a file access and modification times (atime, mtime).(更改文件访问�
 
   `touch -r filename filename2`
 
+## tail
+
+Display the last part of a file.（显示文件的最后一部分）
+
+- Show last 'num' lines in file:（显示文件中最后的“num”行）
+
+  `tail -n num file`
+
+- Show all file since line 'num':（显示自行'num'以来的所有文件）
+
+  `tail -n +num file`
+
+- Show last 'num' bytes in file:（显示文件中最后的“num”字节）
+
+  `tail -c num file`
+
+- Keep reading file until `Ctrl + C`:（一直读取文件，直到Ctrl + C）
+
+  `tail -f file`
+
+- Keep reading file until `Ctrl + C`, even if the file is rotated:（即使文件被旋转，也要一直读到Ctrl + C）
+
+  `tail -F file`
+
 ## umask
 
 Manage the read/write/execute permissions that are masked out (i.e. restricted) for newly created files by the user.（
@@ -702,6 +726,42 @@ Secure copy.Copy files between hosts using Secure Copy Protocol over SSH.(安全
 
   `scp -i ~/.ssh/private_key local_file remote_host:/path/remote_file`
 
+## wget
+
+Download files from the Web. Supports HTTP, HTTPS, and FTP.(从网上下载文件。支持HTTP、HTTPS和FTP)
+
+- Download the contents of an URL to a file (named "foo" in this case):(将URL的内容下载到文件中(本例中文件名为“foo”))
+
+  `wget https://example.com/foo`
+
+- Download the contents of an URL to a file (named "bar" in this case):(将URL的内容下载到文件中(本例中文件名为“bar”))
+
+  `wget -O bar https://example.com/foo`
+
+- Download a single web page and all its resources with 3-second intervals between requests (scripts, stylesheets, images, etc.):（下载一个web页面及其所有资源，请求之间间隔3秒(脚本、样式表、图像等)。）
+
+  `wget --page-requisites --convert-links --wait=3 https://example.com/somepage.html`
+
+- Download all listed files within a directory and its sub-directories (does not download embedded page elements):（下载目录及其子目录中列出的所有文件(不下载嵌入的页面元素）
+
+  `wget --mirror --no-parent https://example.com/somepath/`
+
+- Limit the download speed and the number of connection retries:（限制下载速度和连接重试次数）
+
+  `wget --limit-rate=300k --tries=100 https://example.com/somepath/`
+
+- Download a file from an HTTP server using Basic Auth (also works for FTP):（使用Basic Auth(也适用于FTP)从HTTP服务器下载文件）
+
+  `wget --user=username --password=password https://example.com`
+
+- Continue an incomplete download:（继续未完成的下载）
+
+  `wget -c https://example.com`
+
+- Download all URLs stored in a text file to a specific directory:（将存储在文本文件中的所有url下载到特定目录）
+
+  `wget -P path/to/directory -i URLs.txt`
+
 
 # 文本处理
 
@@ -732,6 +792,32 @@ A versatile programming language for working on files(一种用于处理文件�
 - Print every third line starting from the first line(从第一行开始，每隔三行打印一次):
 
   `awk 'NR%3==1' filename`
+
+## ack
+
+A search tool like grep, optimized for programmers.(像grep这样的搜索工具，为程序员进行了优化)
+
+Homepage: <https://beyondgrep.com/documentation/>.
+
+- Find files containing "foo":(查找包含“foo”的文件)
+
+  `ack foo`
+
+- Find files of a specific type:(查找特定类型的文件)
+
+  `ack --ruby foo`
+
+- Count the total number of matches for the term "foo":(计算匹配项“foo”的总数)
+
+  `ack -ch foo`
+
+- Show the file names containing "foo" and number of matches in each file:(显示包含“foo”的文件名和每个文件中匹配的数目)
+
+  `ack -cl foo`
+
+- List all valid types:(列出所有有效类型)
+
+  `ack --help=types`
 
 ## comm
 
@@ -920,6 +1006,42 @@ Look for lines in sorted file.(在已排序的文件中查找行)
 
   `look -f prefix file`
 
+## less
+
+Open a file for interactive reading, allowing scrolling and search.（打开一个文件进行交互式阅读，允许滚动和搜索）
+
+- Open a file:（打开一个文件）
+
+  `less source_file`
+
+- Page down / up:
+
+  `<Space> (down), b (up)`
+
+- Go to end / start of file:
+
+  `G (end), g (start)`
+
+- Forward search for a string（向前搜索字符串）(press `n`/`N` to go to next/previous match):
+
+  `/something`
+
+- Backward search for a string（向后搜索字符串） (press `n`/`N` to go to next/previous match):
+
+  `?something`
+
+- Follow the output of the currently opened file:（跟随当前打开的文件的输出）
+
+  `F`
+
+- Open the current file in an editor:（在编辑器中打开当前文件）
+
+  `v`
+
+- Exit:
+
+  `q`
+
 ## sed
 
 Edit text in a scriptable manner(以可编写脚本的方式编辑文本).
@@ -1045,6 +1167,44 @@ Since it does not detect repeated lines unless they are adjacent, we need to sor
 
   `sort file | uniq -c | sort -nr`
 
+## vim
+
+Vi IMproved, a programmer's text editor, provides several modes for different kinds of text manipulation.（一个程序员的文本编辑器，为不同类型的文本操作提供了几种模式）
+
+Pressing `i` enters edit mode. `<Esc>` goes back to normal mode, which doesn't allow regular text insertion.（按`i`进入编辑模式。`<Esc>`返回正常模式，不允许常规文本插入）
+
+- Open a file:（打开一个文件）
+
+  `vim file`
+
+- Enter text editing mode (insert mode):（进入文本编辑模式(插入模式)）
+
+  `<Esc>i`
+
+- Copy ("yank") or cut ("delete") the current line (paste it with `P`):（复制或者剪切当前行(用“P”粘贴)）
+
+  `<Esc>yy|dd`
+
+- Undo the last operation:（撤销最后的操作）
+
+  `<Esc>u`
+
+- Search for a pattern in the file (press `n`/`N` to go to next/previous match):（在文件中搜索模式）
+
+  `<Esc>/search_pattern<Enter>`
+
+- Perform a regex substitution in the whole file:（在整个文件中执行正则替换）
+
+  `<Esc>:%s/pattern/replacement/g<Enter>`
+
+- Save (write) the file, and quit:（保存（写入）文件，然后退出）
+
+  `<Esc>:wq<Enter>`
+
+- Quit without saving:（不保存退出）
+
+  `<Esc>:q!<Enter>`
+
 ## wc
 
 Count words, bytes, or lines.(计算单词、字节或行数)
@@ -1064,6 +1224,28 @@ Count words, bytes, or lines.(计算单词、字节或行数)
 - Count characters in file (taking multi-byte character sets into account):（计算文件中的字符数(考虑到多字节字符集)）
 
   `wc -m file`
+
+## xargs
+
+Execute a command with piped arguments coming from another command, a file, etc.（使用来自另一个命令、文件等的管道参数执行命令）
+The input is treated as a single block of text and split into separate arguments on spaces, tabs, newlines and end-of-file.（ 输入被视为一个单独的文本块，并在空格、制表符、换行符和文件末尾被分割成单独的参数。）
+
+- Main usage pattern:（主要使用模式）
+
+  `arguments_source | xargs command`
+
+- Delete all files with a `.backup` extension（删除后缀是`.backup`的所有文件）. `-print0` on find uses a null character to split the files, and `-0` changes the delimiter to the null character (useful if there's whitespace in filenames):（find上的' -print0 '使用一个空字符来分割文件，' -0 '将分隔符更改为空字符(如果文件名中有空格，这很有用)）
+
+  `find . -name '*.backup' -print0 | xargs -0 rm -v`
+
+- Execute the command once for each input line, replacing any occurrences of the placeholder (here marked as `_`) with the input line:（ 对每个输入行执行该命令一次，用输入行替换任何出现的占位符(此处标记为'_')）
+
+  `arguments_source | xargs -I _ command _ optional_extra_arguments`
+
+- Parallel runs of up to `max-procs` processes at a time; the default is 1. If `max-procs` is 0, xargs will run as many processes as possible at a time:（一次并行运行最多“max-procs”进程;默认值是1。如果“max-procs”为0,xargs将一次运行尽可能多的进程）
+
+  `arguments_source | xargs -P max-procs command`
+
 
 
 
@@ -1343,6 +1525,34 @@ Set or display the system date.（设置或显示系统日期）
 
   `date -d "2018-09-01 00:00" +%s --utc`
 
+## `dpkg`
+
+Debian package manager(Debian软件包管理器)
+
+- Install a package(安装一个软件包):
+
+  `dpkg -i path/to/file.deb`
+
+- Remove a package(移除一个软件包):
+
+  `dpkg -r package_name`
+
+- List installed packages(列出已安装的包):
+
+  `dpkg -l pattern`
+
+- List package contents(列出包的内容):
+
+  `dpkg -L package_name`
+
+- List contents of a local package file(列出本地包文件的内容):
+
+  `dpkg -c path/to/file.deb`
+
+- Find out which package owns a file(找出哪个包拥有一个文件):
+
+  `dpkg -S file_name`
+
 ## exit
 
 Quit the current CMD instance or the current batch file.(退出当前CMD实例或当前批处理文件)
@@ -1549,6 +1759,54 @@ Shows the user's login name.(显示用户的登录名)
 
   `logname`
 
+## man
+
+Format and display manual pages.（格式化和显示手册页）
+
+- Display man page for a command:（显示命令的手册页）
+
+  `man command`
+
+- Display man page for a command from section 7:（显示来自第7节的命令的手册页）
+
+  `man command.7`
+
+- Display path searched for manpages:（搜索手册页的显示路径）
+
+  `man --path`
+
+- Display location of a manpage rather than the manpage itself:（显示手册页的位置，而不是手册页本身）
+
+  `man -w command`
+
+- Do a keyword search for manpages containing a search string:（对包含搜索字符串的手册页进行关键字搜索）
+
+  `man -k keyword`
+
+## mount
+
+Provides access to an entire filesystem in one directory.（提供对一个目录中的整个文件系统的访问）
+
+- Show all mounted filesystems:（显示所有挂载的文件系统）
+
+  `mount`
+
+- Mount a device to a directory:（将设备挂载到目录）
+
+  `mount -t filesystem_type path/to/device_file path/to/target_directory`
+
+- Mount a CD-ROM device (with the filetype ISO9660) to /cdrom (readonly):（使用ISO9660文件型）将CD-ROM设备挂载到/cdrom(只读)
+
+  `mount -t iso9660 -o ro /dev/cdrom /cdrom`
+
+- Mount all the filesystem defined in /etc/fstab:（将所有定义的文件系统挂载到/etc/fstab）
+
+  `mount -a`
+
+- Mount a specific filesystem described in /etc/fstab (e.g. "/dev/sda1 /my_drive ext2 defaults 0 2"):（挂载一个特定的文件系统到/etc/fstab）
+
+  `mount /my_drive`
+
 ## newgrp
 
 Switch primary group membership.(切换主组成员)
@@ -1569,6 +1827,22 @@ Niceness values range from -20 (the highest priority) to 19 (the lowest).(Nicene
 - Launch a program with altered priority:(启动一个优先级改变的程序)
 
   `nice -n niceness_value command`
+
+## notify-send
+
+Uses the current desktop environment's notification system to create a notification.（使用当前桌面环境的通知系统创建通知）
+
+- Show a notification with the title "Test" and the content "This is a test":（显示标题为“Test”和内容为“This is a Test”的通知）
+
+  `notify-send "Test" "This is a test"`
+
+- Show a notification with a custom icon:（显示带有自定义图标的通知）
+
+  `notify-send -i icon.png "Test" "This is a test"`
+
+- Show a notification for 5 seconds:（显示通知5秒）
+
+  `notify-send -t 5000 "Test" "This is a test"`
 
 ## ps
 
@@ -1739,6 +2013,28 @@ Executes a single command as the superuser or another user.(以超级用户或�
 
   `sudo -i`
 
+## service
+
+Manage services by running init scripts.（通过运行init脚本管理服务）
+
+The full script path should be omitted (/etc/init.d/ is assumed).（应该省略完整的脚本路径（假设/etc/init.d/））
+
+- Start/Stop/Restart/Reload service (start/stop should always be available):
+
+  `service init_script start|stop|restart|reload`
+
+- Do a full restart (runs script twice with start and stop):（完全重新启动(使用start和stop运行脚本两次)）
+
+  `service init_script --full-restart`
+
+- Show the current status of a service:（显示服务的当前状态）
+
+  `service init_script status`
+
+- List the status of all services:（列出所有服务的状态）
+
+  `service --status-all`
+
 ## top
 
 Display dynamic real-time information about running processes.(显示有关正在运行的进程的动态实时信息)
@@ -1877,6 +2173,26 @@ Print the username associated with the current effective user ID.(打印与当�
 - Display the username after a change in the user ID:(在更改用户ID后显示用户名)
 
   `sudo whoami`
+
+## whatis
+
+Display one-line descriptions from manual pages.（显示手册页中的一行描述）
+
+- Display a description from a man page:（显示来自手册页的描述）
+
+  `whatis command`
+
+- Don't cut the description off at the end of the line:（不要在一行的末尾删去描述）
+
+  `whatis --long command`
+
+- Display descriptions for all commands matching a glob:（显示与一个通配符匹配的所有命令的描述）
+
+  `whatis --wildcard net*`
+
+- Search man page descriptions with a regular expression:（使用正则表达式搜索手册页描述）
+
+  `whatis --regex 'wish[0-9]\.[0-9]'`
 
 
 # 系统设置
@@ -2236,29 +2552,41 @@ Remove shell variables or functions.(删除外壳变量或函数)
 
 # 网络通讯
 
-## telnet
+## ab
 
-Connect to a specified port of a host using the telnet protocol.(使用telnet协议连接到主机的指定端口)
+Apache Benchmarking tool. The simplest tool to perform a load testing.(Apache基准测试工具,执行负载测试的最简单工具)
 
-- Telnet to the default port of a host:(Telnet到主机的默认端口)
+- Execute 100 HTTP GET requests to given URL:(对给定URL执行100个HTTP GET请求)
 
-  `telnet host`
+  `ab -n 100 url`
 
-- Telnet to a specific port of a host:(Telnet到主机的特定端口)
+- Execute 100 HTTP GET requests, processing up to 10 requests concurrently, to given URL:(对给定URL执行100个HTTP GET请求，并发处理最多10个请求)
 
-  `telnet ip_address port`
+  `ab -n 100 -c 10 url`
 
-- Exit a telnet session:(退出telnet会话)
+- Use keep alive:
 
-  `quit`
+  `ab -k url`
 
-- Emit the default escape character combination for terminating the session:(发出终止会话的默认转义字符组合)
+- Set the maximum number of seconds to spend for benchmarking:(设置用于基准测试的最大秒数)
 
-  `Ctrl + ]`
+  `ab -t 60 url`
 
-- Start telnet with "x" as the session termination character:(以“x”作为会话终止字符启动telnet)
+## apachectl
 
-  `telnet -e x ip_address port`
+Apache HTTP Server control interface for macOS.(macOS的Apache HTTP服务器控制接口)
+
+- Start the org.apache.httpd launchd job:(启动表示。httpd launchd工作)
+
+  `apachectl start`
+
+- Stop the launchd job:（停止启动作业）
+
+  `apachectl stop`
+
+- Stop, then start launchd job:(停止，然后开始启动作业)
+
+  `apachectl restart`
 
 ## ifconfig
 
@@ -2405,6 +2733,30 @@ Send ICMP ECHO_REQUEST packets to network hosts.（向网络主机发送ICMP回�
 
   `ping -O host`
 
+## telnet
+
+Connect to a specified port of a host using the telnet protocol.(使用telnet协议连接到主机的指定端口)
+
+- Telnet to the default port of a host:(Telnet到主机的默认端口)
+
+  `telnet host`
+
+- Telnet to a specific port of a host:(Telnet到主机的特定端口)
+
+  `telnet ip_address port`
+
+- Exit a telnet session:(退出telnet会话)
+
+  `quit`
+
+- Emit the default escape character combination for terminating the session:(发出终止会话的默认转义字符组合)
+
+  `Ctrl + ]`
+
+- Start telnet with "x" as the session termination character:(以“x”作为会话终止字符启动telnet)
+
+  `telnet -e x ip_address port`
+
 ## tcpdump
 
 Dump traffic on a network.(在网络上转储流量)
@@ -2507,22 +2859,6 @@ Use the `who` command to find out all terminal_ids of all active users active on
 
   `write jhondoe pts/5`
 
-## apachectl
-
-Apache HTTP Server control interface for macOS.(macOS的Apache HTTP服务器控制接口)
-
-- Start the org.apache.httpd launchd job:(启动表示。httpd launchd工作)
-
-  `apachectl start`
-
-- Stop the launchd job:（停止启动作业）
-
-  `apachectl stop`
-
-- Stop, then start launchd job:(停止，然后开始启动作业)
-
-  `apachectl restart`
-
 ## smbclient
 
 FTP-like client to access SMB/CIFS resources on servers.(类似FTP的客户端，用于访问服务器上的SMB / CIFS资源)
@@ -2550,6 +2886,45 @@ FTP-like client to access SMB/CIFS resources on servers.(类似FTP的客户端�
 - Upload a file to the server:（将文件上传到服务器）
 
   `smbclient //server/share --directory path/to/directory --command "put file.txt"`
+
+## ssh
+
+Secure Shell is a protocol used to securely log onto remote systems(Secure Shell是一种用于安全地登录到远程系统的协议).
+
+It can be used for logging or executing commands on a remote server(它可以用于在远程服务器上记录或执行命令).
+
+- Connect to a remote server(连接到远程服务器):
+
+  `ssh username@remote_host`
+
+- Connect to a remote server with a specific identity (private key)(使用特定标识(私钥)连接到远程服务器):
+
+  `ssh -i path/to/key_file username@remote_host`
+
+- Connect to a remote server using a specific port(使用特定端口连接到远程服务器):
+
+  `ssh username@remote_host -p 2222`
+
+- Run a command on a remote server(在远程服务器上运行命令):
+
+  `ssh remote_host command -with -flags`
+
+- SSH tunneling: Dynamic port forwarding (SOCKS proxy on localhost:9999)(SSH隧道:动态端口转发(本地主机上的SOCKS代理:9999)):
+
+  `ssh -D 9999 -C username@remote_host`
+
+- SSH tunneling: Forward a specific port (localhost:9999 to slashdot.org:80) along with disabling pseudo-[t]ty allocation and executio[n] of remote commands(SSH隧道:转发特定端口(localhost:9999到slashdot.org:80)，并禁用远程命令的伪[t]ty分配和执行[n]):
+
+  `ssh -L 9999:slashdot.org:80 -N -T username@remote_host`
+
+- SSH jumping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters)(SSH跳转:通过jumphost连接到远程服务器(可以用逗号分隔多个跳转)):
+
+  `ssh -J username@jump_host username@remote_host`
+
+- Agent forwarding: Forward the authentication information to the remote machine (see `man ssh_config` for available options)(代理转发:将身份验证信息转发到远程机器(有关可用选项，请参见“man ssh config”)):
+
+  `ssh -A username@remote_host`
+
 
 
 # 磁盘管理
@@ -3188,304 +3563,6 @@ Command-line email client.(命令行电子邮件客户端)
 
 # 其他命令
 
-## yes
-
-Output something repeatedly.（反复输出一些东西）
-
-- Repeatedly output "message":(反复输出“消息”)
-
-  `yes message`
-
-- Repeatedly output "y":（反复输出“y”）
-
-  `yes`
-
-
-## `ab`
-
-Apache Benchmarking tool. The simplest tool to perform a load testing.(Apache基准测试工具,执行负载测试的最简单工具)
-
-- Execute 100 HTTP GET requests to given URL:(对给定URL执行100个HTTP GET请求)
-
-  `ab -n 100 url`
-
-- Execute 100 HTTP GET requests, processing up to 10 requests concurrently, to given URL:(对给定URL执行100个HTTP GET请求，并发处理最多10个请求)
-
-  `ab -n 100 -c 10 url`
-
-- Use keep alive:
-
-  `ab -k url`
-
-- Set the maximum number of seconds to spend for benchmarking:(设置用于基准测试的最大秒数)
-
-  `ab -t 60 url`
-
-## `ack`
-
-A search tool like grep, optimized for programmers.(像grep这样的搜索工具，为程序员进行了优化)
-Homepage: <https://beyondgrep.com/documentation/>.
-
-- Find files containing "foo":(查找包含“foo”的文件)
-
-  `ack foo`
-
-- Find files of a specific type:(查找特定类型的文件)
-
-  `ack --ruby foo`
-
-- Count the total number of matches for the term "foo":(计算匹配项“foo”的总数)
-
-  `ack -ch foo`
-
-- Show the file names containing "foo" and number of matches in each file:(显示包含“foo”的文件名和每个文件中匹配的数目)
-
-  `ack -cl foo`
-
-- List all valid types:(列出所有有效类型)
-
-  `ack --help=types`
-
-
-
-## `dpkg`
-
-Debian package manager(Debian软件包管理器)
-
-- Install a package(安装一个软件包):
-
-  `dpkg -i path/to/file.deb`
-
-- Remove a package(移除一个软件包):
-
-  `dpkg -r package_name`
-
-- List installed packages(列出已安装的包):
-
-  `dpkg -l pattern`
-
-- List package contents(列出包的内容):
-
-  `dpkg -L package_name`
-
-- List contents of a local package file(列出本地包文件的内容):
-
-  `dpkg -c path/to/file.deb`
-
-- Find out which package owns a file(找出哪个包拥有一个文件):
-
-  `dpkg -S file_name`
-
-
-
-
-
-## ssh
-
-Secure Shell is a protocol used to securely log onto remote systems(Secure Shell是一种用于安全地登录到远程系统的协议).
-
-It can be used for logging or executing commands on a remote server(它可以用于在远程服务器上记录或执行命令).
-
-- Connect to a remote server(连接到远程服务器):
-
-  `ssh username@remote_host`
-
-- Connect to a remote server with a specific identity (private key)(使用特定标识(私钥)连接到远程服务器):
-
-  `ssh -i path/to/key_file username@remote_host`
-
-- Connect to a remote server using a specific port(使用特定端口连接到远程服务器):
-
-  `ssh username@remote_host -p 2222`
-
-- Run a command on a remote server(在远程服务器上运行命令):
-
-  `ssh remote_host command -with -flags`
-
-- SSH tunneling: Dynamic port forwarding (SOCKS proxy on localhost:9999)(SSH隧道:动态端口转发(本地主机上的SOCKS代理:9999)):
-
-  `ssh -D 9999 -C username@remote_host`
-
-- SSH tunneling: Forward a specific port (localhost:9999 to slashdot.org:80) along with disabling pseudo-[t]ty allocation and executio[n] of remote commands(SSH隧道:转发特定端口(localhost:9999到slashdot.org:80)，并禁用远程命令的伪[t]ty分配和执行[n]):
-
-  `ssh -L 9999:slashdot.org:80 -N -T username@remote_host`
-
-- SSH jumping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters)(SSH跳转:通过jumphost连接到远程服务器(可以用逗号分隔多个跳转)):
-
-  `ssh -J username@jump_host username@remote_host`
-
-- Agent forwarding: Forward the authentication information to the remote machine (see `man ssh_config` for available options)(代理转发:将身份验证信息转发到远程机器(有关可用选项，请参见“man ssh config”)):
-
-  `ssh -A username@remote_host`
-
-
-
-
-
-
-## service
-
-Manage services by running init scripts.（通过运行init脚本管理服务）
-
-The full script path should be omitted (/etc/init.d/ is assumed).（应该省略完整的脚本路径（假设/etc/init.d/））
-
-- Start/Stop/Restart/Reload service (start/stop should always be available):
-
-  `service init_script start|stop|restart|reload`
-
-- Do a full restart (runs script twice with start and stop):（完全重新启动(使用start和stop运行脚本两次)）
-
-  `service init_script --full-restart`
-
-- Show the current status of a service:（显示服务的当前状态）
-
-  `service init_script status`
-
-- List the status of all services:（列出所有服务的状态）
-
-  `service --status-all`
-
-
-
-
-
-
-
-
-## mount
-
-Provides access to an entire filesystem in one directory.（提供对一个目录中的整个文件系统的访问）
-
-- Show all mounted filesystems:（显示所有挂载的文件系统）
-
-  `mount`
-
-- Mount a device to a directory:（将设备挂载到目录）
-
-  `mount -t filesystem_type path/to/device_file path/to/target_directory`
-
-- Mount a CD-ROM device (with the filetype ISO9660) to /cdrom (readonly):（使用ISO9660文件型）将CD-ROM设备挂载到/cdrom(只读)
-
-  `mount -t iso9660 -o ro /dev/cdrom /cdrom`
-
-- Mount all the filesystem defined in /etc/fstab:（将所有定义的文件系统挂载到/etc/fstab）
-
-  `mount -a`
-
-- Mount a specific filesystem described in /etc/fstab (e.g. "/dev/sda1 /my_drive ext2 defaults 0 2"):（挂载一个特定的文件系统到/etc/fstab）
-
-  `mount /my_drive`
-
-
-
-
-
-## whatis
-
-Display one-line descriptions from manual pages.（显示手册页中的一行描述）
-
-- Display a description from a man page:（显示来自手册页的描述）
-
-  `whatis command`
-
-- Don't cut the description off at the end of the line:（不要在一行的末尾删去描述）
-
-  `whatis --long command`
-
-- Display descriptions for all commands matching a glob:（显示与一个通配符匹配的所有命令的描述）
-
-  `whatis --wildcard net*`
-
-- Search man page descriptions with a regular expression:（使用正则表达式搜索手册页描述）
-
-  `whatis --regex 'wish[0-9]\.[0-9]'`
-
-
-## man
-
-Format and display manual pages.（格式化和显示手册页）
-
-- Display man page for a command:（显示命令的手册页）
-
-  `man command`
-
-- Display man page for a command from section 7:（显示来自第7节的命令的手册页）
-
-  `man command.7`
-
-- Display path searched for manpages:（搜索手册页的显示路径）
-
-  `man --path`
-
-- Display location of a manpage rather than the manpage itself:（显示手册页的位置，而不是手册页本身）
-
-  `man -w command`
-
-- Do a keyword search for manpages containing a search string:（对包含搜索字符串的手册页进行关键字搜索）
-
-  `man -k keyword`
-
-## tail
-
-Display the last part of a file.（显示文件的最后一部分）
-
-- Show last 'num' lines in file:（显示文件中最后的“num”行）
-
-  `tail -n num file`
-
-- Show all file since line 'num':（显示自行'num'以来的所有文件）
-
-  `tail -n +num file`
-
-- Show last 'num' bytes in file:（显示文件中最后的“num”字节）
-
-  `tail -c num file`
-
-- Keep reading file until `Ctrl + C`:（一直读取文件，直到Ctrl + C）
-
-  `tail -f file`
-
-- Keep reading file until `Ctrl + C`, even if the file is rotated:（即使文件被旋转，也要一直读到Ctrl + C）
-
-  `tail -F file`
-
-## less
-
-Open a file for interactive reading, allowing scrolling and search.（打开一个文件进行交互式阅读，允许滚动和搜索）
-
-- Open a file:（打开一个文件）
-
-  `less source_file`
-
-- Page down / up:
-
-  `<Space> (down), b (up)`
-
-- Go to end / start of file:
-
-  `G (end), g (start)`
-
-- Forward search for a string（向前搜索字符串）(press `n`/`N` to go to next/previous match):
-
-  `/something`
-
-- Backward search for a string（向后搜索字符串） (press `n`/`N` to go to next/previous match):
-
-  `?something`
-
-- Follow the output of the currently opened file:（跟随当前打开的文件的输出）
-
-  `F`
-
-- Open the current file in an editor:（在编辑器中打开当前文件）
-
-  `v`
-
-- Exit:
-
-  `q`
-
-
 ## mysql
 
 The MySQL command-line tool（MySQL命令行工具）. Homepage: <https://www.mysql.com/>.
@@ -3509,59 +3586,6 @@ The MySQL command-line tool（MySQL命令行工具）. Homepage: <https://www.my
 - Execute SQL statements in a script file (batch file)（在脚本文件(批处理文件)中执行SQL语句）:
 
   `mysql -e "source filename.sql" database_name`
-
-
-## wget
-
-Download files from the Web. Supports HTTP, HTTPS, and FTP.(从网上下载文件。支持HTTP、HTTPS和FTP)
-
-- Download the contents of an URL to a file (named "foo" in this case):(将URL的内容下载到文件中(本例中文件名为“foo”))
-
-  `wget https://example.com/foo`
-
-- Download the contents of an URL to a file (named "bar" in this case):(将URL的内容下载到文件中(本例中文件名为“bar”))
-
-  `wget -O bar https://example.com/foo`
-
-- Download a single web page and all its resources with 3-second intervals between requests (scripts, stylesheets, images, etc.):（下载一个web页面及其所有资源，请求之间间隔3秒(脚本、样式表、图像等)。）
-
-  `wget --page-requisites --convert-links --wait=3 https://example.com/somepage.html`
-
-- Download all listed files within a directory and its sub-directories (does not download embedded page elements):（下载目录及其子目录中列出的所有文件(不下载嵌入的页面元素）
-
-  `wget --mirror --no-parent https://example.com/somepath/`
-
-- Limit the download speed and the number of connection retries:（限制下载速度和连接重试次数）
-
-  `wget --limit-rate=300k --tries=100 https://example.com/somepath/`
-
-- Download a file from an HTTP server using Basic Auth (also works for FTP):（使用Basic Auth(也适用于FTP)从HTTP服务器下载文件）
-
-  `wget --user=username --password=password https://example.com`
-
-- Continue an incomplete download:（继续未完成的下载）
-
-  `wget -c https://example.com`
-
-- Download all URLs stored in a text file to a specific directory:（将存储在文本文件中的所有url下载到特定目录）
-
-  `wget -P path/to/directory -i URLs.txt`
-
-## notify-send
-
-Uses the current desktop environment's notification system to create a notification.（使用当前桌面环境的通知系统创建通知）
-
-- Show a notification with the title "Test" and the content "This is a test":（显示标题为“Test”和内容为“This is a Test”的通知）
-
-  `notify-send "Test" "This is a test"`
-
-- Show a notification with a custom icon:（显示带有自定义图标的通知）
-
-  `notify-send -i icon.png "Test" "This is a test"`
-
-- Show a notification for 5 seconds:（显示通知5秒）
-
-  `notify-send -t 5000 "Test" "This is a test"`
 
 ## read
 
@@ -3600,64 +3624,19 @@ BASH builtin for retrieving data from standard input.（BASH内置用于从标�
   `read -s variable`
 
 
-## xargs
+## yes
 
-Execute a command with piped arguments coming from another command, a file, etc.（使用来自另一个命令、文件等的管道参数执行命令）
-The input is treated as a single block of text and split into separate arguments on spaces, tabs, newlines and end-of-file.（ 输入被视为一个单独的文本块，并在空格、制表符、换行符和文件末尾被分割成单独的参数。）
+Output something repeatedly.（反复输出一些东西）
 
-- Main usage pattern:（主要使用模式）
+- Repeatedly output "message":(反复输出“消息”)
 
-  `arguments_source | xargs command`
+  `yes message`
 
-- Delete all files with a `.backup` extension（删除后缀是`.backup`的所有文件）. `-print0` on find uses a null character to split the files, and `-0` changes the delimiter to the null character (useful if there's whitespace in filenames):（find上的' -print0 '使用一个空字符来分割文件，' -0 '将分隔符更改为空字符(如果文件名中有空格，这很有用)）
+- Repeatedly output "y":（反复输出“y”）
 
-  `find . -name '*.backup' -print0 | xargs -0 rm -v`
-
-- Execute the command once for each input line, replacing any occurrences of the placeholder (here marked as `_`) with the input line:（ 对每个输入行执行该命令一次，用输入行替换任何出现的占位符(此处标记为'_')）
-
-  `arguments_source | xargs -I _ command _ optional_extra_arguments`
-
-- Parallel runs of up to `max-procs` processes at a time; the default is 1. If `max-procs` is 0, xargs will run as many processes as possible at a time:（一次并行运行最多“max-procs”进程;默认值是1。如果“max-procs”为0,xargs将一次运行尽可能多的进程）
-
-  `arguments_source | xargs -P max-procs command`
+  `yes`
 
 
 
 
-## vim
 
-Vi IMproved, a programmer's text editor, provides several modes for different kinds of text manipulation.（一个程序员的文本编辑器，为不同类型的文本操作提供了几种模式）
-
-Pressing `i` enters edit mode. `<Esc>` goes back to normal mode, which doesn't allow regular text insertion.（按“i”进入编辑模式。' <Esc> '返回正常模式，不允许常规文本插入）
-
-- Open a file:（打开一个文件）
-
-  `vim file`
-
-- Enter text editing mode (insert mode):（进入文本编辑模式(插入模式)）
-
-  `<Esc>i`
-
-- Copy ("yank") or cut ("delete") the current line (paste it with `P`):（复制或者剪切当前行(用“P”粘贴)）
-
-  `<Esc>yy|dd`
-
-- Undo the last operation:（撤销最后的操作）
-
-  `<Esc>u`
-
-- Search for a pattern in the file (press `n`/`N` to go to next/previous match):（在文件中搜索模式）
-
-  `<Esc>/search_pattern<Enter>`
-
-- Perform a regex substitution in the whole file:（在整个文件中执行正则替换）
-
-  `<Esc>:%s/pattern/replacement/g<Enter>`
-
-- Save (write) the file, and quit:（保存（写入）文件，然后退出）
-
-  `<Esc>:wq<Enter>`
-
-- Quit without saving:（不保存退出）
-
-  `<Esc>:q!<Enter>`
