@@ -704,6 +704,369 @@ Secure copy.Copy files between hosts using Secure Copy Protocol over SSH.(安全
 
 
 # 文本处理
+
+## awk
+
+A versatile programming language for working on files(一种用于处理文件的通用编程语言).
+
+- Print the fifth column (a.k.a. field) in a space-separated file(在空格分隔的文件中打印第五列(即字段)):
+
+  `awk '{print $5}' filename`
+
+- Print the second column of the lines containing "something" in a space-separated file(在空格分隔的文件中打印包含“something”的行的第二列):
+
+  `awk '/something/ {print $2}' filename`
+
+- Print the last column of each line in a file, using a comma (instead of space) as a field separator(打印文件中每行的最后一列，使用逗号(而不是空格)作为字段分隔符):
+
+  `awk -F ',' '{print $NF}' filename`
+
+- Sum the values in the first column of a file and print the total(将文件第一列中的值相加并打印出总数):
+
+  `awk '{s+=$1} END {print s}' filename`
+
+- Sum the values in the first column and pretty-print the values and then the total(对第一列中的值求和，然后漂亮地打印出这些值，然后是总数):
+
+  `awk '{s+=$1; print $1} END {print "--------"; print s}' filename`
+
+- Print every third line starting from the first line(从第一行开始，每隔三行打印一次):
+
+  `awk 'NR%3==1' filename`
+
+## comm
+
+Select or reject lines common to two files. Both files must be sorted.(选择或抛弃两个文件共有的行。两个文件都必须排序)
+
+- Produce three tab-separated columns: lines only in first file, lines only in second file and common lines:(生成三个制表符分隔的列:第一个文件中的行、第二个文件中的行和公共行)
+
+  `comm file1 file2`
+
+- Print only lines common to both files:(只打印两个文件共有的行)
+
+  `comm -12 file1 file2`
+
+- Print only lines common to both files, reading one file from stdin:(只打印两个文件共有的行，从stdin中读取一个文件)
+
+  `cat file1 | comm -12 - file2`
+
+- Get lines only found in first file, saving the result to a third file:(获取只在第一个文件中找到的行，将结果保存到第三个文件中)
+
+  `comm -23 file1 file2 > file1_only`
+
+- Print lines only found in second file, when the files aren't sorted:(当文件未排序时，只在第二个文件中找到打印行)
+
+  `comm -13 <(sort file1) <(sort file2)`
+
+## csplit
+
+Split a file into pieces.(将文件分割成多个部分)
+This generates files named "xx00", "xx01", and so on.（这将生成名为“xx00”、“xx01”等文件）
+
+- Split a file at lines 5 and 23:(在第5行和第23行拆分一个文件)
+
+  `csplit file 5 23`
+
+- Split a file every 5 lines (this will fail if the total number of lines is not divisible by 5):(每5行分割一个文件(如果总行数不能被5整除，则此操作将失败))
+
+  `csplit file 5 {*}`
+
+- Split a file every 5 lines, ignoring exact-division error:(每5行分割一个文件，忽略精确的分割错误)
+
+  `csplit -k file 5 {*}`
+
+- Split a file at line 5 and use a custom prefix for the output files:(在第5行拆分一个文件，并为输出文件使用自定义前缀)
+
+  `csplit file 5 -f prefix`
+
+- Split a file at a line matching a regular expression:（在匹配正则表达式的行上拆分文件）
+
+  `csplit file /regex/`
+
+## ed
+
+The original Unix text editor.(原来的Unix文本编辑器)
+
+- Start ed, editing an empty document (which can be saved as a new file in the current directory):(启动ed，编辑一个空文档(可以将其保存为当前目录中的新文件))
+
+  `ed`
+
+- Start ed, editing an empty document, with `:` as a command prompt indicator:(启动ed，编辑一个空文档，使用':'作为命令提示符指示器)
+
+  `ed -p :`
+
+- Start ed editing an existing file (this shows the byte count of the loaded file):（启动ed编辑现有文件(这显示加载文件的字节数)）
+
+  `ed -p : path/to/file`
+
+- Toggle the printing of error explanations. (By default, explanations are not printed and only a `?` appears):（切换打印错误解释。(默认情况下，解释不会打印出来，只有一个“？”显示）
+
+  `H`
+
+- Add text to the current document. Mark completion by entering a period by itself in a new line:（向当前文档添加文本。在新行中单独输入一个句号来标记完成）
+
+  `a<Enter>text_to_insert<Enter>.`
+
+- Print the entire document (`,` is a shortcut to the range `1,$` which covers the start to the end of the document):（打印整个文档（`，`是范围`1，$`的快捷方式，它涵盖了文档的开头到结尾））
+
+  `,p`
+
+- Write the current document to a new file (the filename can be omitted if `ed` was called with an existing file):（将当前文档写入新文件（如果使用现有文件调用`ed`，则可以省略文件名））
+
+  `w filename`
+
+- Quit ed:（退出）
+
+  `q`
+
+## fmt
+
+Reformat a text file by joining its paragraphs and limiting the line width to given number of characters (75 by default).(将文本文件的段落连接起来，并将行宽限制为给定的字符数(默认为75个)，从而重新格式化文本文件)
+
+- Reformat a file:(格式化一个文件)
+
+  `fmt path/to/file`
+
+- Reformat a file producing output lines of (at most) `n` characters:(重新格式化生成(最多)输出行的文件“n”字符)
+
+  `fmt -w n path/to/file`
+
+- Reformat a file without joining lines shorter than the given width together:（重新格式化文件，但不要将小于给定宽度的行连接在一起）
+
+  `fmt -s path/to/file`
+
+- Reformat a file with uniform spacing (1 space between words and 2 spaces between paragraphs):（重新格式化一个具有统一间距的文件(单词之间有1个空格，段落之间有2个空格)）
+
+  `fmt -u path/to/file`
+
+## fold
+
+Wraps each line in an input file to fit a specified width and prints it to the standard output.(将每一行封装在输入文件中以适应指定的宽度，并将其打印到标准输出中)
+
+- Wrap each line to default width (80 characters):(将每行换行到默认宽度(80个字符))
+
+  `fold file`
+
+- Wrap each line to width "30":(将每一行的宽度包起来“30”)
+
+  `fold -w30 file`
+
+- Wrap each line to width "5" and break the line at spaces (puts each space separated word in a new line, words with length > 5 are wrapped):(将每一行的宽度“5”换行，并在空格处换行(将每个空格分隔的单词换行，换行时将长度为> 5的单词换行))
+
+  `fold -w5 -s file`
+
+## grep
+
+Matches patterns in input text(匹配输入文本中的模式).
+
+Supports simple patterns and regular expressions(支持简单模式和正则表达式).
+
+- Search for an exact string(搜索一个准确的字符串):
+
+  `grep search_string path/to/file`
+
+- Search in case-insensitive mode(搜索不区分大小写的模式):
+
+  `grep -i search_string path/to/file`
+
+- Search recursively (ignoring non-text files) in current directory for an exact string(在当前目录中递归搜索(忽略非文本文件)以获得确切的字符串):
+
+  `grep -RI search_string .`
+
+- Use extended regular expressions(使用扩展正则表达式) (supporting `?`, `+`, `{}`, `()` and `|`):
+
+  `grep -E ^regex$ path/to/file`
+
+- Print 3 lines of [C]ontext around, [B]efore, or [A]fter each match()(在每个match()前后[C]、之前[B]或之后[A]打印3行上下文):
+
+  `grep -C|B|A 3 search_string path/to/file`
+
+- Print file name with the corresponding line number for each match(为每个匹配打印文件名与对应的行号):
+
+  `grep -Hn search_string path/to/file`
+
+- Use the standard input instead of a file(使用标准输入而不是文件):
+
+  `cat path/to/file | grep search_string`
+
+- Invert match for excluding specific strings(反转匹配用于排除特定字符串):
+
+  `grep -v search_string`
+
+## join
+
+Join lines of two sorted files on a common field.（在一个公共字段上联接两个排序文件的行）
+
+- Join two files on the first (default) field:（在第一个(默认)字段上联接两个文件）
+
+  `join file1 file2`
+
+- Join field3 of file1 with field1 of file2:（将file1的field3与file2的field1连接起来）
+
+  `join -1 3 -2 1 file1 file2`
+
+- Produce a line for each unpairable line for file1:（为file1的每条不匹配的线生成一条线）
+
+  `join -a 1 file1 file2`
+
+## look
+
+Look for lines in sorted file.(在已排序的文件中查找行)
+
+- Look for lines which begins with the given prefix:(查找以给定前缀开头的行)
+
+  `look prefix file`
+
+- Look for lines ignoring case:(寻找忽略大小写的行)
+
+  `look -f prefix file`
+
+## sed
+
+Edit text in a scriptable manner(以可编写脚本的方式编辑文本).
+
+- Replace the first occurrence of a regular expression in each line of a file(替换文件每行中第一个出现的正则表达式), and print the result:
+
+  `sed 's/regex/replace/' filename`
+
+- Replace all occurrences of an extended regular expression in a file(替换文件中出现的所有扩展正则表达式), and print the result:
+
+  `sed -r 's/regex/replace/g' filename`
+
+- Replace all occurrences of a string in a file, overwriting the file (i.e. in-place)(替换文件中出现的所有字符串，覆盖该文件):
+
+  `sed -i 's/find/replace/g' filename`
+
+- Replace only on lines matching the line pattern(只替换与行模式匹配的行):
+
+  `sed '/line_pattern/s/find/replace/' filename`
+
+- Delete lines matching the line pattern(删除与行模式匹配的行):
+
+  `sed '/line_pattern/d' filename`
+
+- Print only text between n-th line till the next empty line(只打印第n行之间的文本，直到下一个空行):
+
+  `sed -n 'line_number,/^$/p' filename`
+
+- Apply multiple find-replace expressions to a file(对文件应用多个查找-替换表达式):
+
+  `sed -e 's/find/replace/' -e 's/find/replace/' filename`
+
+- Replace separator / by any other character not used in the find or replace patterns, e.g., #(用查找或替换模式中未使用的任何其他字符替换分隔符,例如, #):
+
+  `sed 's#find#replace#' filename`
+
+## sort
+
+Sort lines of text files.（对文本文件行进行排序）
+
+- Sort a file in ascending order:（按升序排列文件）
+
+  `sort filename`
+
+- Sort a file in descending order:（按降序排列文件）
+
+  `sort -r filename`
+
+- Sort a file in case-insensitive way:（以不区分大小写的方式对文件排序）
+
+  `sort --ignore-case filename`
+
+- Sort a file using numeric rather than alphabetic order:（使用数字而不是字母顺序对文件排序）
+
+  `sort -n filename`
+
+- Sort the passwd file by the 3rd field, numerically:（按第三个字段对passwd文件进行数字排序）
+
+  `sort -t: -k 3n /etc/passwd`
+
+- Sort a file preserving only unique lines:（对只保留唯一行的文件进行排序）
+
+  `sort -u filename`
+
+- Sort human-readable numbers (in this case the 5th field of `ls -lh`):（对人类可读的数字排序(在本例中是“ls -lh”的第5个字段)）
+
+  `ls -lh | sort -h -k 5`
+
+## tr
+
+Translate characters: run replacements based on single characters and character sets.（翻译字符:基于单个字符和字符集运行替换）
+
+- Replace all occurrences of a character in a file, and print the result:(替换文件中出现的所有字符，并打印结果)
+
+  `tr find_character replace_character < filename`
+
+- Replace all occurrences of a character from another command's output:(替换其他命令输出中出现的所有字符)
+
+  `echo text | tr find_character replace_character`
+
+- Map each character of the first set to the corresponding character of the second set:(将第一个集合的每个字符映射到第二个集合的对应字符)
+
+  `tr 'abcd' 'jkmn' < filename`
+
+- Delete all occurrences of the specified set of characters from the input:（从输入中删除指定字符集的所有匹配项）
+
+  `tr -d 'input_characters' < filename`
+
+- Compress a series of identical characters to a single character:（将一系列相同的字符压缩为一个字符）
+
+  `tr -s 'input_characters' < filename`
+
+- Translate the contents of a file to upper-case:(将文件内容转换为大写)
+
+  `tr "[:lower:]" "[:upper:]" < filename`
+
+- Strip out non-printable characters from a file:(从文件中删除不可打印的字符)
+
+  `tr -cd "[:print:]" < filename`
+
+## uniq
+
+Output the unique lines from the given input or file.(从给定的输入或文件中输出唯一的行)
+Since it does not detect repeated lines unless they are adjacent, we need to sort them first.(因为它不会检测重复的行，除非它们是相邻的，所以我们需要首先对它们进行排序)
+
+- Display each line once:（每一行显示一次）
+
+  `sort file | uniq`
+
+- Display only unique lines:（只显示唯一的行）
+
+  `sort file | uniq -u`
+
+- Display only duplicate lines:(只显示重复的行)
+
+  `sort file | uniq -d`
+
+- Display number of occurrences of each line along with that line:(显示每一行的出现次数)
+
+  `sort file | uniq -c`
+
+- Display number of occurrences of each line, sorted by the most frequent:(显示每行出现的次数，按最频繁的次数排序)
+
+  `sort file | uniq -c | sort -nr`
+
+## wc
+
+Count words, bytes, or lines.(计算单词、字节或行数)
+
+- Count lines in file:（计算文件中的行数）
+
+  `wc -l file`
+
+- Count words in file:（计算文件中的单词）
+
+  `wc -w file`
+
+- Count characters (bytes) in file:（计算文件中的字符(字节)）
+
+  `wc -c file`
+
+- Count characters in file (taking multi-byte character sets into account):（计算文件中的字符数(考虑到多字节字符集)）
+
+  `wc -m file`
+
+
+
 # 备份压缩
 
 ## ar
@@ -1178,9 +1541,342 @@ Show a listing of last logged in users.(显示最后登录用户的列表)
 
   `sudo lastb --dns`
 
-## login
+## logname
 
+Shows the user's login name.(显示用户的登录名)
 
+- Display the currently logged in user's name:(显示当前登录的用户名)
+
+  `logname`
+
+## newgrp
+
+Switch primary group membership.(切换主组成员)
+
+- Change user's primary group membership:(更改用户的主组成员)
+
+  `newgrp group_name`
+
+- Reset primary group membership to user's default group in /etc/passwd:(将主要组成员身份重置为/etc/passwd中用户的默认组)
+
+  `newgrp`
+
+## nice
+
+Execute a program with a custom scheduling priority (niceness).(执行具有自定义调度优先级(niceness)的程序)
+Niceness values range from -20 (the highest priority) to 19 (the lowest).(Niceness值范围从-20(最高优先级)到19(最低优先级))
+
+- Launch a program with altered priority:(启动一个优先级改变的程序)
+
+  `nice -n niceness_value command`
+
+## ps
+
+Information about running processes.（有关正在运行的进程的信息）
+
+- List all running processes:（列出所有正在运行的进程）
+
+  `ps aux`
+
+- List all running processes including the full command string:（列出所有正在运行的进程，包括完整的命令字符串）
+
+  `ps auxww`
+
+- Search for a process that matches a string:（搜索匹配字符串的进程）
+
+  `ps aux | grep string`
+
+- List all processes of the current user in extra full format:（以额外的完整格式列出当前用户的所有进程）
+
+  `ps --user $(id -u) -F`
+
+- List all processes of the current user as a tree:（以树的形式列出当前用户的所有进程）
+
+  `ps --user $(id -u) f`
+
+- Get the parent pid of a process:（获取进程的父pid）
+
+  `ps -o ppid= -p pid`
+
+## pstree
+
+A convenient tool to show running processes as a tree.(一个方便的工具，以树的形式显示正在运行的进程)
+
+- Display a tree of processes:(显示进程树)
+
+  `pstree`
+
+- Display a tree of processes with PIDs:(显示带有pid的进程树)
+
+  `pstree -p`
+
+- Display all process trees rooted at processes owned by specified user:(显示位于指定用户拥有的进程上的所有进程树)
+
+  `pstree user`
+
+## reboot
+
+Reboot the system.(重新启动系统)
+
+- Reboot immediately:(立即重新启动)
+
+  `reboot`
+
+- Reboot immediately without gracefully shutdown:(立即重启，而不是优雅地关闭)
+
+  `reboot -f`
+
+## renice
+
+Alters the scheduling priority/nicenesses of one or more running processes.(改变一个或多个正在运行的进程的调度优先级/好处)
+Niceness values range from -20 (most favorable to the process) to 19 (least favorable to the process).(良好值范围从-20（最有利于过程）到19（最不利于过程）)
+
+- Change priority of a running process:(更改正在运行的进程的优先级)
+
+  `renice -n niceness_value -p pid`
+
+- Change priority of all processes owned by a user:(更改用户拥有的所有进程的优先级)
+
+  `renice -n niceness_value -u user`
+
+- Change priority of all processes that belong to a process group:(更改属于流程组的所有流程的优先级)
+
+  `renice -n niceness_value --pgrp process_group`
+
+## screen
+
+Hold a session open on a remote server. Manage multiple windows with a single SSH connection.(在远程服务器上保持打开的会话。使用一个SSH连接管理多个窗口)
+
+- Start a new screen session:(启动一个新的屏幕会话)
+
+  `screen`
+
+- Start a new named screen session:(启动一个新的名为screen会话)
+
+  `screen -S session_name`
+
+- Start a new daemon and log the output to screenlog.x:(启动一个新的守护进程，并将输出记录到screen .x)
+
+  `screen -dmLS session_name command`
+
+- Show open screen sessions:(显示打开的屏幕会话)
+
+  `screen -ls`
+
+- Reattach to an open screen:(重新连接到打开的屏幕)
+
+  `screen -r session_name`
+
+- Detach from inside a screen:(从屏幕内部分离)
+
+  `Ctrl + A, D`
+
+- Kill a detached screen:（关闭一个分离的屏幕）
+
+  `screen -X -S session_name quit`
+
+## shutdown
+
+Shutdown and reboot the system.（关闭并重新启动系统）
+
+- Power off (halt) immediately:（立即断电(停止)）
+
+  `shutdown -h now`
+
+- Reboot immediately:(立即重新启动)
+
+  `shutdown -r now`
+
+- Reboot in 5 minutes:(5分钟后重启)
+
+  `shutdown -r +5 &`
+
+- Shutdown at 1:00 pm (Uses 24h clock):(下午1点关闭(使用24小时时钟))
+
+  `shutdown -h 13:00`
+
+- Cancel a pending shutdown/reboot operation:（取消挂起的关机/重启操作）
+
+  `shutdown -c`
+
+## su
+
+Switch shell to another user.（将shell切换到另一个用户）
+
+- Switch to superuser (admin password required):（切换到超级用户(需要管理密码)）
+
+  `su`
+
+- Switch to user username (password required):（切换到用户名(需要密码)）
+
+  `su username`
+
+- Switch to user username and simulate a full login shell:（切换到user username并模拟完整的登录shell）
+
+  `su - username`
+
+## sudo
+
+Executes a single command as the superuser or another user.(以超级用户或其他用户的身份执行单个命令)
+
+- Run a command as the superuser:(以超级用户的身份运行命令)
+
+  `sudo less /var/log/syslog`
+
+- Edit a file as the superuser with your default editor:(使用默认编辑器以超级用户的身份编辑文件)
+
+  `sudo -e /etc/fstab`
+
+- Run a command as another user and/or group:(以另一个用户和/或组的身份运行命令)
+
+  `sudo -u user -g group id -a`
+
+- Repeat the last command prefixed with "sudo" (only in bash, zsh, etc.):(重复前缀为“sudo”的最后一个命令（仅限bash，zsh等)
+
+  `sudo !!`
+
+- Launch the default shell with superuser privileges:(启动具有超级用户特权的默认shell)
+
+  `sudo -i`
+
+## top
+
+Display dynamic real-time information about running processes.(显示有关正在运行的进程的动态实时信息)
+
+- Start top:(启动top)
+
+  `top`
+
+- Do not show any idle or zombie processes:(不显示任何空闲或僵尸进程)
+
+  `top -i`
+
+- Show only processes owned by given user:(只显示给定用户拥有的进程)
+
+  `top -u user_name`
+
+- Show only the processes with the given PID(s), passed as a comma-separated list. (Normally you wouldn't know PIDs off hand. This example picks the PIDs from the process name):(只显示具有给定PID(s)的进程，以逗号分隔的列表的形式传递。(通常情况下，你不会马上知道pid。这个例子从进程名中选择pid))
+
+  `top -p $(pgrep -d ',' process_name)`
+
+- Get help about interactive commands:(获得有关交互式命令的帮助)
+
+  `?`
+
+## uname
+
+Print details about the current machine and the operating system running on it.（打印当前机器及其上运行的操作系统的详细信息）
+
+Note: for additional information about the operating system, try the `lsb_release` command.（注意:有关操作系统的其他信息，请尝试“lsb release”命令）
+
+- Print hardware-related information: machine and processor:（打印硬件相关信息:机器和处理器）
+
+  `uname -mp`
+
+- Print software-related information: operating system, release number, and version:（打印与软件相关的信息:操作系统、发布号和版本）
+
+  `uname -srv`
+
+- Print the nodename (hostname) of the system:（打印系统的节点名(主机名)）
+
+  `uname -n`
+
+- Print all available system information (hardware, software, nodename):（打印所有可用的系统信息(硬件、软件、节点名)）
+
+  `uname -a`
+
+## useradd
+
+Create a new user.(创建一个新用户)
+
+- Create new user:(创建新用户)
+
+  `useradd name`
+
+- Create new user with a default home directory:(创建具有默认主目录的新用户)
+
+  `useradd --create-home name`
+
+- Create new user with specified shell:(使用指定的shell创建新用户)
+
+  `useradd --shell /path/to/shell name`
+
+- Create new user belonging to additional groups (mind the lack of whitespace):(创建属于其他组的新用户(注意没有空格))
+
+  `useradd --groups group1,group2 name`
+
+- Create new system user without a home directory:(创建没有主目录的新系统用户)
+
+  `useradd --no-create-home --system name`
+
+## userdel
+
+Remove a user.(删除一个用户)
+
+- Remove a user and their home directory:（删除用户及其主目录）
+
+  `userdel -r name`
+
+## usermod
+
+Modifies a user account.(修改用户帐户)
+
+- Change a user's name:(更改用户名)
+
+  `usermod -l newname user`
+
+- Add user to supplementary groups (mind the whitespace):(将用户添加到补充组(注意空格))
+
+  `usermod -a -G group1,group2 user`
+
+- Create a new home directory for a user and move their files to it:(为用户创建一个新的主目录并将其文件移动到其中)
+
+  `usermod -m -d /path/to/home user`
+
+## w
+
+Show who is logged on and what they are doing.(显示谁已登录以及他们正在做什么)
+Print user login, TTY, remote host, login time, idle time, current process.(打印用户登录、TTY、远程主机、登录时间、空闲时间、当前进程)
+
+- Show logged-in users info:(显示已登录的用户信息)
+
+  w
+
+- Show logged-in users info without a header:(显示登录的用户信息，没有标题)
+
+  w -h
+
+## who
+
+Display who is logged in and related data (processes, boot time).(显示登录的用户和相关数据(进程、启动时间))
+
+- Display the username, line, and time of all currently logged-in sessions:（显示当前登录的所有会话的用户名、行和时间）
+
+  `who`
+
+- Display information only for the current terminal session:(仅显示当前终端会话的信息)
+
+  `who am i`
+
+- Display all available information:(显示所有可用信息)
+
+  `who -a`
+
+- Display all available information with table headers:(使用表头显示所有可用信息)
+
+  `who -a -H`
+
+## whoami
+
+Print the username associated with the current effective user ID.(打印与当前有效用户ID关联的用户名)
+
+- Display currently logged username:(显示当前登录的用户名)
+
+  `whoami`
+
+- Display the username after a change in the user ID:(在更改用户ID后显示用户名)
+
+  `sudo whoami`
 
 
 # 系统设置
@@ -1539,6 +2235,323 @@ Remove shell variables or functions.(删除外壳变量或函数)
 
 
 # 网络通讯
+
+## telnet
+
+Connect to a specified port of a host using the telnet protocol.(使用telnet协议连接到主机的指定端口)
+
+- Telnet to the default port of a host:(Telnet到主机的默认端口)
+
+  `telnet host`
+
+- Telnet to a specific port of a host:(Telnet到主机的特定端口)
+
+  `telnet ip_address port`
+
+- Exit a telnet session:(退出telnet会话)
+
+  `quit`
+
+- Emit the default escape character combination for terminating the session:(发出终止会话的默认转义字符组合)
+
+  `Ctrl + ]`
+
+- Start telnet with "x" as the session termination character:(以“x”作为会话终止字符启动telnet)
+
+  `telnet -e x ip_address port`
+
+## ifconfig
+
+Network Interface Configurator.（网络接口配置器）
+
+- View network settings of an ethernet adapter:（查看以太网适配器的网络设置）
+
+  `ifconfig eth0`
+
+- Display details of all interfaces, including disabled interfaces:（显示所有接口的详细信息，包括禁用的接口）
+
+  `ifconfig -a`
+
+- Disable eth0 interface:（禁用eth0接口）
+
+  `ifconfig eth0 down`
+
+- Enable eth0 interface:（开启eth0接口）
+
+  `ifconfig eth0 up`
+
+- Assign IP address to eth0 interface:（将IP地址分配给eth0接口）
+
+  `ifconfig eth0 ip_address`
+
+## mesg
+
+Check or set a terminal's ability to receive messages from other users, usually from the write command.(检查或设置终端接收来自其他用户(通常是来自write命令)的消息的能力)
+See also `write`.(参见`write`)
+
+- Check terminal's openness to write messages:(检查终端写消息的开放性)
+
+  `mesg`
+
+- Disable receiving messages from the write command:(禁用从写命令接收消息)
+
+  `mesg n`
+
+- Enable receiving messages from the write command:(启用从写命令接收消息)
+
+  `mesg y`
+
+## nc
+
+Netcat is a versatile utility for working with TCP or UDP data.（Netcat是一个用于处理TCP或UDP数据的通用实用程序）
+
+- Listen on a specified port and print any data received:(监听指定端口并打印接收到的任何数据)
+
+  `nc -l port`
+
+- Connect to a certain port (you can then write to this port):(连接到某个端口(然后可以写入该端口))
+
+  `nc ip_address port`
+
+- Set a timeout:(设置一个超时)
+
+  `nc -w timeout_in_seconds ipaddress port`
+
+- Serve a file:（提供文件）
+
+  `nc -l port < file`
+
+- Receive a file:(收到一个文件)
+
+  `nc ip_address port > file`
+
+- Server stay up after client detach:(客户端分离后服务器保持不变)
+
+  `nc -k -l port`
+
+- Client stay up after EOF:(客户端在EOF之后保持)
+
+  `nc -q timeout ip_address`
+
+- Scan the open ports of a specified host:（扫描指定主机的打开端口）
+
+  `nc -v -z ip_address port`
+
+- Act as proxy and forward data from a local TCP port to the given remote host:（充当代理并将数据从本地TCP端口转发到给定的远程主机）
+
+  `nc -l local_port | nc hostname remote_port`
+
+## netstat
+
+Displays network-related information such as open connections, open socket ports, etc.(显示与网络相关的信息，如打开的连接、打开的套接字端口等)
+
+- List all ports:(列出所有端口)
+
+  `netstat -a`
+
+- List all listening ports:(列出所有监听端口)
+
+  `netstat -l`
+
+- List listening TCP ports:(列表监听TCP端口)
+
+  `netstat -t`
+
+- Display PID and program names:(显示PID和程序名)
+
+  `netstat -p`
+
+- List information continuously:（列表信息不断）
+
+  `netstat -c`
+
+- List routes and do not resolve IP to hostname:(列出路由，但不将IP解析为主机名)
+
+  `netstat -rn`
+
+- List listening TCP and UDP ports (+ user and process if you're root):(列出监听TCP和UDP端口(如果您是根用户和进程))
+
+  `netstat -lepunt`
+
+- Print the routing table:（打印路由表）
+
+  `netstat -nr`
+
+## ping
+
+Send ICMP ECHO_REQUEST packets to network hosts.（向网络主机发送ICMP回声请求包）
+
+- Ping host:
+
+  `ping host`
+
+- Ping a host only a specific number of times:（只Ping主机特定的次数）
+
+  `ping -c count host`
+
+- Ping host, specifying the interval in seconds between requests (default is 1 second):（Ping host，指定请求之间的间隔(默认为1秒)）
+
+  `ping -i seconds host`
+
+- Ping host without trying to lookup symbolic names for addresses:（Ping主机，而不尝试查找地址的符号名称）
+
+  `ping -n host`
+
+- Ping host and ring the bell when a packet is received (if your terminal supports it):（Ping主机并在收到包时按铃(如果您的终端支持)）
+
+  `ping -a host`
+
+- Also display a message if no response was received:（如果没有收到响应，还显示一条消息）
+
+  `ping -O host`
+
+## tcpdump
+
+Dump traffic on a network.(在网络上转储流量)
+Homepage: <https://www.tcpdump.org>.
+
+- List available network interfaces:(列出可用的网络接口)
+
+  `tcpdump -D`
+
+- Capture the traffic of a specific interface:(捕获特定接口的流量)
+
+  `tcpdump -i eth0`
+
+- Capture all TCP traffic showing contents (ASCII) in console:(捕获控制台中显示内容(ASCII)的所有TCP流量)
+
+  `tcpdump -A tcp`
+
+- Capture the traffic from or to a host:（捕获来自或到主机的流量）
+
+  `tcpdump host www.example.com`
+
+- Capture the traffic from a specific interface, source, destination and destination port:（从特定接口、源、目标和目标端口捕获流量）
+
+  `tcpdump -i eth0 src 192.168.1.1 and dst 192.168.1.2 and dst port 80`
+
+- Capture the traffic of a network:(捕获网络的流量)
+
+  `tcpdump net 192.168.1.0/24`
+
+- Capture all traffic except traffic over port 22 and save to a dump file:(捕获除端口22之外的所有流量，并保存到转储文件中)
+
+  `tcpdump -w dumpfile.pcap not port 22`
+
+- Read from a given dump file:(从给定转储文件读取)
+
+  `tcpdump -r dumpfile.pcap`
+
+## traceroute
+
+Print the route packets trace to network host.(打印路由包跟踪到网络主机)
+
+- Traceroute to a host:(跟踪到主机)
+
+  `traceroute host`
+
+- Disable IP address and host name mapping:（禁用IP地址和主机名映射）
+
+  `traceroute -n host`
+
+- Specify wait time for response:（指定响应的等待时间）
+
+  `traceroute -w 0.5 host`
+
+- Specify number of queries per hop:（指定每跳查询的数量）
+
+  `traceroute -q 5 host`
+
+- Specify size in bytes of probing packet:(指定探测包的大小(以字节为单位))
+
+  `traceroute host 42`
+
+## tty
+
+Returns terminal name.（返回终端名称）
+
+- Print the file name of this terminal:(打印此终端的文件名)
+
+  `tty`
+
+## wall
+
+Write a message on the terminals of users currently logged in.(在当前登录用户的终端上写一条消息)
+
+- Send a message:(发信息)
+
+  `echo "message" | wall`
+
+- Send a message from a file:(从文件中发送消息)
+
+  `wall file`
+
+- Send a message with timeout (default 300):(发送带有超时的消息(默认为300))
+
+  `wall -t seconds file`
+
+## write
+
+Write a message on the terminal of a specified logged in user (ctrl-C to stop writing messages).（在指定登录用户的终端上写一条消息(ctrl-C停止写消息)）
+Use the `who` command to find out all terminal_ids of all active users active on the system. See also `mesg`.（使用`who`命令查找系统上所有活动用户的所有终端id。参见`mesg`）
+
+- Send a message to a given user on a given terminal id:（根据给定的终端id向给定的用户发送消息）
+
+  `write username terminal_id`
+
+- Send message to "testuser" on terminal "/dev/tty/5":（在"/dev/tty/5"终端上向"testuser"发送消息）
+
+  `write testuser tty/5`
+
+- Send message to "jhondoe" on pseudo terminal "/dev/pts/5":(在伪终端"/dev/pts/5"上发送消息给"jhondoe")
+
+  `write jhondoe pts/5`
+
+## apachectl
+
+Apache HTTP Server control interface for macOS.(macOS的Apache HTTP服务器控制接口)
+
+- Start the org.apache.httpd launchd job:(启动表示。httpd launchd工作)
+
+  `apachectl start`
+
+- Stop the launchd job:（停止启动作业）
+
+  `apachectl stop`
+
+- Stop, then start launchd job:(停止，然后开始启动作业)
+
+  `apachectl restart`
+
+## smbclient
+
+FTP-like client to access SMB/CIFS resources on servers.(类似FTP的客户端，用于访问服务器上的SMB / CIFS资源)
+
+- Connect to a share (user will be prompted for password; `exit` to quit the session):（连接到共享（系统将提示用户输入密码;退出`退出会话））
+
+  `smbclient //server/share`
+
+- Connect with a different username:(使用其他用户名连接)
+
+  `smbclient //server/share --user username`
+
+- Connect with a different workgroup:(连接到不同的工作组)
+
+  `smbclient //server/share --workgroup domain --user username`
+
+- Connect with a username and password:（使用用户名和密码连接）
+
+  `smbclient //server/share --user username%password`
+
+- Download a file from the server:（从服务器下载文件）
+
+  `smbclient //server/share --directory path/to/directory --command "get file.txt"`
+
+- Upload a file to the server:（将文件上传到服务器）
+
+  `smbclient //server/share --directory path/to/directory --command "put file.txt"`
+
+
 # 磁盘管理
 
 ## cd
@@ -2116,8 +3129,77 @@ Flushes all pending write operations to the appropriate disks.(将所有挂起�
 
 
 # 设备管理
+
+
 # 电子邮件与新闻组
+
+## elm
+
+Compile and run Elm source files.（编译并运行Elm源文件）
+
+- Initialize an Elm project, generates an elm.json file:(初始化一个Elm项目，生成一个Elm.json文件)
+
+  `elm init`
+
+- Start interactive Elm shell:(启动交互式Elm shell)
+
+  `elm repl`
+
+- Compile an Elm file, output the result to an index.html file:(编译一个Elm文件，将结果输出到index.html文件)
+
+  `elm make source`
+
+- Compile an Elm file, output the result to a Javascript file:(编译一个Elm文件，将结果输出到一个Javascript文件)
+
+  `elm make source --output=destination.js`
+
+- Start local web server that compiles Elm files on page load:(启动本地web服务器，在页面加载时编译Elm文件)
+
+  `elm reactor`
+
+- Install Elm package from https://package.elm-lang.org:(从https://package.elm-lang.org安装Elm软件包)
+
+  `elm install author/package`
+
+## mutt
+
+Command-line email client.(命令行电子邮件客户端)
+
+- Open the specified mailbox:(打开指定的邮箱)
+
+  `mutt -f mailbox`
+
+- Send an email and specify a subject and a cc recipient:(发送电子邮件并指定主题和cc收件人)
+
+  `mutt -s subject -c cc@example.com recipient@example.com`
+
+- Send an email with files attached:(发送附有文件的电子邮件)
+
+  `mutt -a file1 file2 -- recipient@example.com`
+
+- Specify a file to include as the message body:(指定要包含为邮件正文的文件)
+
+  `mutt -i file recipient@example.com`
+
+- Specify a draft file containing the header and the body of the message, in RFC 5322 format:(以RFC 5322格式指定包含邮件标题和正文的草稿文件)
+
+  `mutt -H file recipient@example.com`
+
+
 # 其他命令
+
+## yes
+
+Output something repeatedly.（反复输出一些东西）
+
+- Repeatedly output "message":(反复输出“消息”)
+
+  `yes message`
+
+- Repeatedly output "y":（反复输出“y”）
+
+  `yes`
+
 
 ## `ab`
 
@@ -2166,15 +3248,6 @@ Homepage: <https://beyondgrep.com/documentation/>.
 
 
 
-# 文件压缩与解压
-
-
-
-
-
-
-
-
 ## `dpkg`
 
 Debian package manager(Debian软件包管理器)
@@ -2205,43 +3278,6 @@ Debian package manager(Debian软件包管理器)
 
 
 
-## `grep`
-
-Matches patterns in input text(匹配输入文本中的模式).
-
-Supports simple patterns and regular expressions(支持简单模式和正则表达式).
-
-- Search for an exact string(搜索一个准确的字符串):
-
-  `grep search_string path/to/file`
-
-- Search in case-insensitive mode(搜索不区分大小写的模式):
-
-  `grep -i search_string path/to/file`
-
-- Search recursively (ignoring non-text files) in current directory for an exact string(在当前目录中递归搜索(忽略非文本文件)以获得确切的字符串):
-
-  `grep -RI search_string .`
-
-- Use extended regular expressions(使用扩展正则表达式) (supporting `?`, `+`, `{}`, `()` and `|`):
-
-  `grep -E ^regex$ path/to/file`
-
-- Print 3 lines of [C]ontext around, [B]efore, or [A]fter each match()(在每个match()前后[C]、之前[B]或之后[A]打印3行上下文):
-
-  `grep -C|B|A 3 search_string path/to/file`
-
-- Print file name with the corresponding line number for each match(为每个匹配打印文件名与对应的行号):
-
-  `grep -Hn search_string path/to/file`
-
-- Use the standard input instead of a file(使用标准输入而不是文件):
-
-  `cat path/to/file | grep search_string`
-
-- Invert match for excluding specific strings(反转匹配用于排除特定字符串):
-
-  `grep -v search_string`
 
 
 ## ssh
@@ -2282,130 +3318,10 @@ It can be used for logging or executing commands on a remote server(它可以用
 
   `ssh -A username@remote_host`
 
-## `sed`
-
-Edit text in a scriptable manner(以可编写脚本的方式编辑文本).
-
-- Replace the first occurrence of a regular expression in each line of a file(替换文件每行中第一个出现的正则表达式), and print the result:
-
-  `sed 's/regex/replace/' filename`
-
-- Replace all occurrences of an extended regular expression in a file(替换文件中出现的所有扩展正则表达式), and print the result:
-
-  `sed -r 's/regex/replace/g' filename`
-
-- Replace all occurrences of a string in a file, overwriting the file (i.e. in-place)(替换文件中出现的所有字符串，覆盖该文件):
-
-  `sed -i 's/find/replace/g' filename`
-
-- Replace only on lines matching the line pattern(只替换与行模式匹配的行):
-
-  `sed '/line_pattern/s/find/replace/' filename`
-
-- Delete lines matching the line pattern(删除与行模式匹配的行):
-
-  `sed '/line_pattern/d' filename`
-
-- Print only text between n-th line till the next empty line(只打印第n行之间的文本，直到下一个空行):
-
-  `sed -n 'line_number,/^$/p' filename`
-
-- Apply multiple find-replace expressions to a file(对文件应用多个查找-替换表达式):
-
-  `sed -e 's/find/replace/' -e 's/find/replace/' filename`
-
-- Replace separator / by any other character not used in the find or replace patterns, e.g., #(用查找或替换模式中未使用的任何其他字符替换分隔符,例如, #):
-
-  `sed 's#find#replace#' filename`
-
-## awk
-
-A versatile programming language for working on files(一种用于处理文件的通用编程语言).
-
-- Print the fifth column (a.k.a. field) in a space-separated file(在空格分隔的文件中打印第五列(即字段)):
-
-  `awk '{print $5}' filename`
-
-- Print the second column of the lines containing "something" in a space-separated file(在空格分隔的文件中打印包含“something”的行的第二列):
-
-  `awk '/something/ {print $2}' filename`
-
-- Print the last column of each line in a file, using a comma (instead of space) as a field separator(打印文件中每行的最后一列，使用逗号(而不是空格)作为字段分隔符):
-
-  `awk -F ',' '{print $NF}' filename`
-
-- Sum the values in the first column of a file and print the total(将文件第一列中的值相加并打印出总数):
-
-  `awk '{s+=$1} END {print s}' filename`
-
-- Sum the values in the first column and pretty-print the values and then the total(对第一列中的值求和，然后漂亮地打印出这些值，然后是总数):
-
-  `awk '{s+=$1; print $1} END {print "--------"; print s}' filename`
-
-- Print every third line starting from the first line(从第一行开始，每隔三行打印一次):
-
-  `awk 'NR%3==1' filename`
 
 
-## sort
-
-Sort lines of text files.（对文本文件行进行排序）
-
-- Sort a file in ascending order:（按升序排列文件）
-
-  `sort filename`
-
-- Sort a file in descending order:（按降序排列文件）
-
-  `sort -r filename`
-
-- Sort a file in case-insensitive way:（以不区分大小写的方式对文件排序）
-
-  `sort --ignore-case filename`
-
-- Sort a file using numeric rather than alphabetic order:（使用数字而不是字母顺序对文件排序）
-
-  `sort -n filename`
-
-- Sort the passwd file by the 3rd field, numerically:（按第三个字段对passwd文件进行数字排序）
-
-  `sort -t: -k 3n /etc/passwd`
-
-- Sort a file preserving only unique lines:（对只保留唯一行的文件进行排序）
-
-  `sort -u filename`
-
-- Sort human-readable numbers (in this case the 5th field of `ls -lh`):（对人类可读的数字排序(在本例中是“ls -lh”的第5个字段)）
-
-  `ls -lh | sort -h -k 5`
 
 
-## args
-
-
-## shutdown
-
-Shutdown and reboot the system.（关闭并重新启动系统）
-
-- Power off (halt) immediately:（立即断电(停止)）
-
-  `shutdown -h now`
-
-- Reboot immediately:(立即重新启动)
-
-  `shutdown -r now`
-
-- Reboot in 5 minutes:(5分钟后重启)
-
-  `shutdown -r +5 &`
-
-- Shutdown at 1:00 pm (Uses 24h clock):(下午1点关闭(使用24小时时钟))
-
-  `shutdown -h 13:00`
-
-- Cancel a pending shutdown/reboot operation:（取消挂起的关机/重启操作）
-
-  `shutdown -c`
 
 ## service
 
@@ -2429,58 +3345,8 @@ The full script path should be omitted (/etc/init.d/ is assumed).（应该省略
 
   `service --status-all`
 
-## ps
-
-Information about running processes.（有关正在运行的进程的信息）
-
-- List all running processes:（列出所有正在运行的进程）
-
-  `ps aux`
-
-- List all running processes including the full command string:（列出所有正在运行的进程，包括完整的命令字符串）
-
-  `ps auxww`
-
-- Search for a process that matches a string:（搜索匹配字符串的进程）
-
-  `ps aux | grep string`
-
-- List all processes of the current user in extra full format:（以额外的完整格式列出当前用户的所有进程）
-
-  `ps --user $(id -u) -F`
-
-- List all processes of the current user as a tree:（以树的形式列出当前用户的所有进程）
-
-  `ps --user $(id -u) f`
-
-- Get the parent pid of a process:（获取进程的父pid）
-
-  `ps -o ppid= -p pid`
 
 
-## top
-
-Display dynamic real-time information about running processes.(显示有关正在运行的进程的动态实时信息)
-
-- Start top:(启动top)
-
-  `top`
-
-- Do not show any idle or zombie processes:(不显示任何空闲或僵尸进程)
-
-  `top -i`
-
-- Show only processes owned by given user:(只显示给定用户拥有的进程)
-
-  `top -u user_name`
-
-- Show only the processes with the given PID(s), passed as a comma-separated list. (Normally you wouldn't know PIDs off hand. This example picks the PIDs from the process name):(只显示具有给定PID(s)的进程，以逗号分隔的列表的形式传递。(通常情况下，你不会马上知道pid。这个例子从进程名中选择pid))
-
-  `top -p $(pgrep -d ',' process_name)`
-
-- Get help about interactive commands:(获得有关交互式命令的帮助)
-
-  `?`
 
 
 
@@ -2512,51 +3378,7 @@ Provides access to an entire filesystem in one directory.（提供对一个目�
 
 
 
-## ifconfig
 
-Network Interface Configurator.（网络接口配置器）
-
-- View network settings of an ethernet adapter:（查看以太网适配器的网络设置）
-
-  `ifconfig eth0`
-
-- Display details of all interfaces, including disabled interfaces:（显示所有接口的详细信息，包括禁用的接口）
-
-  `ifconfig -a`
-
-- Disable eth0 interface:（禁用eth0接口）
-
-  `ifconfig eth0 down`
-
-- Enable eth0 interface:（开启eth0接口）
-
-  `ifconfig eth0 up`
-
-- Assign IP address to eth0 interface:（将IP地址分配给eth0接口）
-
-  `ifconfig eth0 ip_address`
-
-## uname
-
-Print details about the current machine and the operating system running on it.（打印当前机器及其上运行的操作系统的详细信息）
-
-Note: for additional information about the operating system, try the `lsb_release` command.（注意:有关操作系统的其他信息，请尝试“lsb release”命令）
-
-- Print hardware-related information: machine and processor:（打印硬件相关信息:机器和处理器）
-
-  `uname -mp`
-
-- Print software-related information: operating system, release number, and version:（打印与软件相关的信息:操作系统、发布号和版本）
-
-  `uname -srv`
-
-- Print the nodename (hostname) of the system:（打印系统的节点名(主机名)）
-
-  `uname -n`
-
-- Print all available system information (hardware, software, nodename):（打印所有可用的系统信息(硬件、软件、节点名)）
-
-  `uname -a`
 
 ## whatis
 
@@ -2663,21 +3485,6 @@ Open a file for interactive reading, allowing scrolling and search.（打开一�
 
   `q`
 
-## su
-
-Switch shell to another user.（将shell切换到另一个用户）
-
-- Switch to superuser (admin password required):（切换到超级用户(需要管理密码)）
-
-  `su`
-
-- Switch to user username (password required):（切换到用户名(需要密码)）
-
-  `su username`
-
-- Switch to user username and simulate a full login shell:（切换到user username并模拟完整的登录shell）
-
-  `su - username`
 
 ## mysql
 
@@ -2702,38 +3509,6 @@ The MySQL command-line tool（MySQL命令行工具）. Homepage: <https://www.my
 - Execute SQL statements in a script file (batch file)（在脚本文件(批处理文件)中执行SQL语句）:
 
   `mysql -e "source filename.sql" database_name`
-
-## yum
-
-## rpm
-
-## ping
-
-Send ICMP ECHO_REQUEST packets to network hosts.（向网络主机发送ICMP回声请求包）
-
-- Ping host:
-
-  `ping host`
-
-- Ping a host only a specific number of times:（只Ping主机特定的次数）
-
-  `ping -c count host`
-
-- Ping host, specifying the interval in seconds between requests (default is 1 second):（Ping host，指定请求之间的间隔(默认为1秒)）
-
-  `ping -i seconds host`
-
-- Ping host without trying to lookup symbolic names for addresses:（Ping主机，而不尝试查找地址的符号名称）
-
-  `ping -n host`
-
-- Ping host and ring the bell when a packet is received (if your terminal supports it):（Ping主机并在收到包时按铃(如果您的终端支持)）
-
-  `ping -a host`
-
-- Also display a message if no response was received:（如果没有收到响应，还显示一条消息）
-
-  `ping -O host`
 
 
 ## wget
