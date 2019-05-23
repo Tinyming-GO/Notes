@@ -1,4 +1,14 @@
-* * *
+<!-- GFM-TOC -->
+- [系统管理](#系统安全)
+  - [系统安全](#系统安全)
+  - [系统安全](#系统安全)
+- [网络管理](#网络应用)
+- [软件 | 打印 | 开发 | 工具](#软件包管理)
+- [文件目录管理](#文件传输)
+- [硬件 | 监测 | 内核 | Shell](#性能监测与优化)
+<!-- GFM-TOC -->
+
+* * * *
 文件目录管理
 * * *
 
@@ -1857,248 +1867,6 @@ Change the current working directory.（更改当前工作目录）
 
   `cd -`
 
-# 软件包管理
-
-## factor
-
-Prints the prime factorization of a number.(打印数字的素数因子分解)
-
-- Display the prime-factorization of a number:(显示数字的素数因子分解)
-
-  `factor number`
-
-- Take the input from stdin if no argument is specified:(如果没有指定参数，则从stdin获取输入)
-
-  `echo number | factor`
-
-## dnf
-
-Package management utility for RHEL, Fedora, and CentOS (replaces yum).(RHEL，Fedora和CentOS的软件包管理实用程序（取代yum）)
-
-- Install a new package:(安装新包)
-
-  `sudo dnf install package`
-
-- Install a new package and assume yes to all questions:(安装一个新包，并对所有问题假设为yes)
-
-  `sudo dnf -y install package`
-
-- Remove a package:(删除包)
-
-  `sudo dnf remove package`
-
-- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
-
-  `sudo dnf upgrade`
-
-## dpkg
-
-Debian package manager(Debian软件包管理器)
-
-- Install a package(安装一个软件包):
-
-  `dpkg -i path/to/file.deb`
-
-- Remove a package(移除一个软件包):
-
-  `dpkg -r package_name`
-
-- List installed packages(列出已安装的包):
-
-  `dpkg -l pattern`
-
-- List package contents(列出包的内容):
-
-  `dpkg -L package_name`
-
-- List contents of a local package file(列出本地包文件的内容):
-
-  `dpkg -c path/to/file.deb`
-
-- Find out which package owns a file(找出哪个包拥有一个文件):
-
-  `dpkg -S file_name`
-
-## apt-key
-
-Key management utility for the APT Package Manager on Debian and Ubuntu.(Debian和Ubuntu上APT包管理器的密钥管理实用程序)
-
-- List trusted keys:(列出可信密钥)
-
-  `apt-key list`
-
-- Add a key to the trusted keystore:(将密钥添加到可信密钥库)
-
-  `apt-key add public_key_file.asc`
-
-- Delete a key from the trusted keystore:(从受信任的密钥库中删除密钥)
-
-  `apt-key del key_id`
-
-- Add a remote key to the trusted keystore:(将远程密钥添加到受信任的密钥库)
-
-  `wget -qO - https://host.tld/filename.key | apt-key add -`
-
-- Add a key from keyserver with only key id:(从密钥服务器添加一个只有密钥ID的密钥)
-
-  `apt-key adv --keyserver pgp.mit.edu --recv KEYID`
-
-## aptitude
-
-Debian and Ubuntu package management utility.(Debian和Ubuntu包管理实用程序)
-
-- Synchronize list of packages and versions available. This should be run first, before running subsequent aptitude commands:(同步可用的包和版本列表。在运行后续aptitude命令之前，应首先运行此操作)
-
-  `aptitude update`
-
-- Install a new package and its dependencies:(安装新包及其依赖项)
-
-  `aptitude install package`
-
-- Search for a package:(搜索包裹)
-
-  `aptitude search package`
-
-- Remove a package and all packages depending on it:(根据它删除包和所有包)
-
-  `aptitude remove package`
-
-- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
-
-  `aptitude upgrade`
-
-- Upgrade installed packages (like `aptitude upgrade`) including removing obsolete packages and installing additional packages to meet new package dependencies:(升级已安装的软件包（如`aptitude upgrade`），包括删除过时的软件包和安装其他软件包以满足新的软件包依赖性)
-
-  `aptitude full-upgrade`
-
-## apt-get
-
-Debian and Ubuntu package management utility.(Debian和Ubuntu包管理实用程序)
-
-Search for packages using `apt-cache`.(使用`apt-cache`搜索包)
-
-- Update the list of available packages and versions (it's recommended to run this before other `apt-get` commands):(更新可用软件包和版本的列表（建议在其他`apt-get`命令之前运行它）)
-
-  `apt-get update`
-
-- Install a package, or update it to the latest available version:(安装软件包，或将其更新到最新的可用版本)
-
-  `apt-get install package`
-
-- Remove a package:(删除包)
-
-  `apt-get remove package`
-
-- Remove a package and its configuration files:(删除包及其配置文件)
-
-  `apt-get purge package`
-
-- Upgrade all installed packages to their newest available versions:(将所有已安装的软件包升级到最新的可用版本)
-
-  `apt-get upgrade`
-
-- Remove all packages that are no longer needed:(删除不再需要的所有包)
-
-  `apt-get autoremove`
-
-- Upgrade installed packages (like `upgrade`), but remove obsolete packages and install additional packages to meet new dependencies:(升级已安装的软件包（如`upgrade`），但删除过时的软件包并安装其他软件包以满足新的依赖项)
-
-  `apt-get dist-upgrade`
-
-## chkconfig
-
-Manage the runlevel of services on CentOS 6.(管理CentOS 6上的服务运行级别)
-
-- List services with runlevel:(列出带有runlevel的服务)
-
-  `chkconfig --list`
-
-- Show a service's runlevel:(显示服务的运行级别)
-
-  `chkconfig --list ntpd`
-
-- Enable service at boot:(启动时启用服务)
-
-  `chkconfig sshd on`
-
-- Enable service at boot for runlevels 2, 3, 4, and 5:(在启动时为运行级别2、3、4和5启用服务)
-
-  `chkconfig --level 2345 sshd on`
-
-- Disable service at boot:(在启动时禁用服务)
-
-  `chkconfig ntpd off`
-
-- Disable service at boot for runlevel 3:(在启动时禁用运行级别3的服务)
-
-  `chkconfig --level 3 ntpd off`
-
-## yum
-
-Package management utility for RHEL, Feodra, and CentOS (for older versions).(RHEL，Feodra和CentOS的软件包管理实用程序（适用于旧版本）)
-
-- Synchronize list of packages and versions available. This should be run first, before running subsequent yum commands:(同步可用的包和版本列表。在运行后续yum命令之前，应先运行此命令)
-
-  `yum update`
-
-- Install a new package:(安装新包)
-
-  `yum install package`
-
-- Install a new package and assume yes to all questions (also works with update, great for automated updates):(安装一个新软件包并对所有问题假设为yes（也适用于更新，非常适合自动更新）)
-
-  `yum -y install package`
-
-- Find the package that provides a particular command:(找到提供特定命令的包)
-
-  `yum provides command`
-
-- Remove a package:(删除包)
-
-  `yum remove package`
-
-- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
-
-  `yum upgrade`
-
-## patch
-
-Patch a file (or files) with a diff file.(用diff文件修补一个或多个文件)
-Note that diff files contain both the target filenames and list of changes.(注意，diff文件同时包含目标文件名和更改列表)
-
-- Apply a patch:(应用一个补丁)
-
-  `patch < patch_file.diff`
-
-- Apply a patch to current directory:(将补丁应用于当前目录)
-
-  `patch -p1 < patch_file.diff`
-
-- Apply the reverse of a patch:(应用补丁的反面)
-
-  `patch -R < patch_file.diff`
-
-## dpkg-query
-
-A tool that shows information about installed packages.(显示已安装软件包信息的工具)
-
-- List all installed packages:(列出所有已安装的包)
-
-  `dpkg-query -l`
-
-- List installed packages matching a pattern:(列出与模式匹配的已安装包)
-
-  `dpkg-query -l 'pattern'`
-
-- List all files installed by a package:(列出程序包安装的所有文件)
-
-  `dpkg-query -L package_name`
-
-- Show information about a package:(显示有关包的信息)
-
-  `dpkg-query -s package_name`
-
-
 * * *
 系统管理
 * * *
@@ -3470,3 +3238,2236 @@ Perform simple operations and calculations on IP addresses and networks.（对IP
 - Display geographic information about a given IP address:（显示有关给定IP地址的地理信息）
 
   `ipcalc -g 1.2.3.4`
+
+# 高级网络
+
+## ss
+
+Utility to investigate sockets.(调查套接字的实用程序)
+
+- Show all TCP/UDP/RAW/UNIX sockets:(显示所有TCP/UDP/RAW/UNIX套接字)
+
+  `ss -a -t|-u|-w|-x`
+
+- Filter TCP sockets by states, only/exclude:(按状态过滤TCP套接字，仅限/排除)
+
+  `ss state/exclude bucket/big/connected/synchronized/...`
+
+- Show all TCP sockets connected to the local HTTPS port (443):(显示连接到本地HTTPS端口的所有TCP套接字（443）)
+
+  `ss -t src :443`
+
+- Show all TCP sockets listening on the local 8080 port:(显示在本地8080端口上侦听的所有TCP套接字)
+
+  `ss -lt src :8080`
+
+- Show all TCP sockets along with processes connected to a remote ssh port:(显示所有TCP套接字以及连接到远程ssh端口的进程)
+
+  `ss -pt dst :ssh`
+
+- Show all UDP sockets connected on specific source and destination ports:(显示在特定源和目标端口上连接的所有UDP套接字)
+
+  `ss -u 'sport == :source_port and dport == :destination_port'`
+
+- Show all TCP IPv4 sockets locally connected on the subnet 192.168.0.0/16:（显示子网192.168.0.0/16上本地连接的所有TCP IPv4套接字）
+
+  `ss -4t src 192.168/16`
+
+## tcpdump
+
+Dump traffic on a network.(在网络上转储流量)
+Homepage: <https://www.tcpdump.org>.
+
+- List available network interfaces:(列出可用的网络接口)
+
+  `tcpdump -D`
+
+- Capture the traffic of a specific interface:(捕获特定接口的流量)
+
+  `tcpdump -i eth0`
+
+- Capture all TCP traffic showing contents (ASCII) in console:(捕获控制台中显示内容(ASCII)的所有TCP流量)
+
+  `tcpdump -A tcp`
+
+- Capture the traffic from or to a host:（捕获来自或到主机的流量）
+
+  `tcpdump host www.example.com`
+
+- Capture the traffic from a specific interface, source, destination and destination port:（从特定接口、源、目标和目标端口捕获流量）
+
+  `tcpdump -i eth0 src 192.168.1.1 and dst 192.168.1.2 and dst port 80`
+
+- Capture the traffic of a network:(捕获网络的流量)
+
+  `tcpdump net 192.168.1.0/24`
+
+- Capture all traffic except traffic over port 22 and save to a dump file:(捕获除端口22之外的所有流量，并保存到转储文件中)
+
+  `tcpdump -w dumpfile.pcap not port 22`
+
+- Read from a given dump file:(从给定转储文件读取)
+
+  `tcpdump -r dumpfile.pcap`
+
+## ip
+
+Show / manipulate routing, devices, policy routing and tunnels.(显示/操纵路由，设备，策略路由和隧道)
+
+- List interfaces with detailed info:(列出具有详细信息的接口)
+
+  `ip a`
+
+- Display the routing table:(显示路由表)
+
+  `ip r`
+
+- Show neighbors (ARP table):(显示邻居（ARP表）)
+
+  `ip n`
+
+- Make an interface up/down:(建立一个界面上/下)
+
+  `ip link set interface up/down`
+
+- Add/Delete an ip address to an interface:(添加/删除接口的IP地址)
+
+  `ip addr add/del ip/mask dev interface`
+
+- Add a default route:(添加默认路由)
+
+  `ip route add default via ip dev interface`
+
+## iptables
+
+Program that allows configuration of tables, chains and rules provided by the Linux kernel firewall.(允许配置Linux内核防火墙提供的表，链和规则的程序)
+
+- View chains, rules, and packet/byte counters for all tables:(查看所有表的链，规则和数据包/字节计数器)
+
+  `sudo iptables -vnL`
+
+- Set chain policy rule:(设置链策略规则)
+
+  `sudo iptables -P chain rule`
+
+- Append rule to chain policy for IP:(将规则附加到IP的链策略)
+
+  `sudo iptables -A chain -s ip -j rule`
+
+- Append rule to chain policy for IP considering protocol and port:(考虑协议和端口，将规则附加到IP链的策略)
+
+  `sudo iptables -A chain -s ip -p protocol --dport port -j rule`
+
+- Delete chain rule:(删除链规则)
+
+  `sudo iptables -D chain rule_line_number`
+
+- Save iptables configuration of a given table to a file:(将给定表的iptables配置保存到文件中)
+
+  `sudo iptables-save -t tablename > path/to/iptables_file`
+
+- Restore iptables configuration from a file:(从文件恢复iptables配置)
+
+  `sudo iptables-restore < path/to/iptables_file`
+
+# 网络测试
+
+## iperf
+
+Measure network bandwidth between computers.(测量计算机之间的网络带宽)
+
+- Run on server:(在服务器上运行)
+
+  `iperf -s`
+
+- Run on client:(在客户端上运行)
+
+  `iperf -c server_address`
+
+- Run on client with 5 parallel threads:(在客户端上运行5个并行线程)
+
+  `iperf -c server_address -P 5`
+
+## host
+
+Lookup Domain Name Server.(查找域名服务器)
+
+- Lookup A, AAAA, and MX records of a domain:(查找域的A，AAAA和MX记录)
+
+  `host domain`
+
+- Lookup a field (CNAME, TXT,...) of a domain:(查找域的字段（CNAME，TXT，...）)
+
+  `host -t field domain`
+
+- Reverse lookup an IP:(反向查找IP)
+
+  `host ip_address`
+
+- Specify an alternate DNS server to query:(指定要查询的备用DNS服务器)
+
+  `host domain 8.8.8.8`
+
+## nslookup
+
+Query name server(s) for various domain records.(查询各种域记录的名称服务器)
+
+- Query your system's default name server for an IP address (A record) of the domain:(查询系统的默认名称服务器以获取域的IP地址（A记录）)
+
+  `nslookup example.com`
+
+- Query a given name server for a NS record of the domain:(查询给定名称服务器以获取域的NS记录)
+
+  `nslookup -type=NS example.com 8.8.8.8`
+
+- Query for a reverse lookup (PTR record) of an IP address:(查询IP地址的反向查找（PTR记录）)
+
+  `nslookup -type=PTR 54.240.162.118`
+
+- Query for ANY available records using TCP protocol:(使用TCP协议查询任何可用记录)
+
+  `nslookup -vc -type=ANY example.com`
+
+- Query a given name server for the whole zone file (zone transfer) of the domain using TCP protocol:(使用TCP协议查询给定名称服务器以查找域的整个区域文件（区域传输）)
+
+  `nslookup -vc -type=AXFR example.com name_server`
+
+- Query for a mail server (MX record) of the domain, showing details of the transaction:(查询域的邮件服务器（MX记录），显示事务的详细信息)
+
+  `nslookup -type=MX -debug example.com`
+
+- Query a given name server on a specific port number for a TXT record of the domain:(在特定端口号上查询给定名称服务器以获取域的TXT记录)
+
+  `nslookup -port=port_number -type=TXT example.com name_server`
+
+## arping
+
+Discover and probe hosts in a network using the ARP protocol.(使用ARP协议发现和探测网络中的主机)
+
+Useful for MAC address discovery.(用于MAC地址发现)
+
+- Ping a host by ARP request packets:(通过ARP请求数据包ping主机)
+
+  `arping host_ip`
+
+- Ping a host on a specific interface:(在特定接口上ping主机)
+
+  `arping -I interface host_ip`
+
+- Ping a host and stop at the first reply:(Ping主机并在第一个回复时停止)
+
+  `arping -f host_ip`
+
+- Ping a host a specific number of times:(将主机ping特定次数)
+
+  `arping -c count host_ip`
+
+- Broadcast ARP request packets to update neighbours' ARP caches:(广播ARP请求报文以更新邻居的ARP缓存)
+
+  `arping -U ip_to_broadcast`
+
+- Detect duplicated IP addresses in the network by sending ARP requests with a 3 seconds timeout:(通过发送超过3秒的ARP请求来检测网络中的重复IP地址)
+
+  `arping -D -w 3 ip_to_check`
+
+## nc
+
+Netcat is a versatile utility for working with TCP or UDP data.（Netcat是一个用于处理TCP或UDP数据的通用实用程序）
+
+- Listen on a specified port and print any data received:(监听指定端口并打印接收到的任何数据)
+
+  `nc -l port`
+
+- Connect to a certain port (you can then write to this port):(连接到某个端口(然后可以写入该端口))
+
+  `nc ip_address port`
+
+- Set a timeout:(设置一个超时)
+
+  `nc -w timeout_in_seconds ipaddress port`
+
+- Serve a file:（提供文件）
+
+  `nc -l port < file`
+
+- Receive a file:(收到一个文件)
+
+  `nc ip_address port > file`
+
+- Server stay up after client detach:(客户端分离后服务器保持不变)
+
+  `nc -k -l port`
+
+- Client stay up after EOF:(客户端在EOF之后保持)
+
+  `nc -q timeout ip_address`
+
+- Scan the open ports of a specified host:（扫描指定主机的打开端口）
+
+  `nc -v -z ip_address port`
+
+- Act as proxy and forward data from a local TCP port to the given remote host:（充当代理并将数据从本地TCP端口转发到给定的远程主机）
+
+  `nc -l local_port | nc hostname remote_port`
+
+## dig
+
+DNS Lookup utility.(DNS查找实用程序)
+
+- Lookup the IP(s) associated with a hostname (A records):(查找与主机名关联的IP（A记录）)
+
+  `dig +short example.com`
+
+- Lookup the mail server(s) associated with a given domain name (MX record):(查找与给定域名关联的邮件服务器（MX记录）)
+
+  `dig +short example.com MX`
+
+- Get all types of records for a given domain name:(获取给定域名的所有类型的记录)
+
+  `dig example.com ANY`
+
+- Specify an alternate DNS server to query:(指定要查询的备用DNS服务器)
+
+  `dig @8.8.8.8 example.com`
+
+- Perform a reverse DNS lookup on an IP address (PTR record):(对IP地址执行反向DNS查找（PTR记录）)
+
+  `dig -x 8.8.8.8`
+
+- Find authoritative name servers for the zone and display SOA records:(查找区域的权威名称服务器并显示SOA记录)
+
+  `dig +nssearch example.com`
+
+- Perform iterative queries and display the entire trace path to resolve a domain name:(执行迭代查询并显示整个跟踪路径以解析域名)
+
+  `dig +trace example.com`
+
+## arp
+
+Show and manipulate your system's ARP cache.(显示和操作系统的ARP缓存)
+
+- Show current arp table:(显示当前的arp表)
+
+  `arp -a`
+
+- Clear the entire cache:(清除整个缓存)
+
+  `sudo arp -a -d`
+
+- Delete a specific entry:(删除特定条目)
+
+  `arp -d address`
+
+- Create an entry:(创建一个条目)
+
+  `arp -s address mac_address`
+
+## ping
+
+Send ICMP ECHO_REQUEST packets to network hosts.（向网络主机发送ICMP回声请求包）
+
+- Ping host:
+
+  `ping host`
+
+- Ping a host only a specific number of times:（只Ping主机特定的次数）
+
+  `ping -c count host`
+
+- Ping host, specifying the interval in seconds between requests (default is 1 second):（Ping host，指定请求之间的间隔(默认为1秒)）
+
+  `ping -i seconds host`
+
+- Ping host without trying to lookup symbolic names for addresses:（Ping主机，而不尝试查找地址的符号名称）
+
+  `ping -n host`
+
+- Ping host and ring the bell when a packet is received (if your terminal supports it):（Ping主机并在收到包时按铃(如果您的终端支持)）
+
+  `ping -a host`
+
+- Also display a message if no response was received:（如果没有收到响应，还显示一条消息）
+
+  `ping -O host`
+
+## traceroute
+
+Print the route packets trace to network host.(打印路由包跟踪到网络主机)
+
+- Traceroute to a host:(跟踪到主机)
+
+  `traceroute host`
+
+- Disable IP address and host name mapping:（禁用IP地址和主机名映射）
+
+  `traceroute -n host`
+
+- Specify wait time for response:（指定响应的等待时间）
+
+  `traceroute -w 0.5 host`
+
+- Specify number of queries per hop:（指定每跳查询的数量）
+
+  `traceroute -q 5 host`
+
+- Specify size in bytes of probing packet:(指定探测包的大小(以字节为单位))
+
+  `traceroute host 42`
+
+## netstat
+
+Displays network-related information such as open connections, open socket ports, etc.(显示与网络相关的信息，如打开的连接、打开的套接字端口等)
+
+- List all ports:(列出所有端口)
+
+  `netstat -a`
+
+- List all listening ports:(列出所有监听端口)
+
+  `netstat -l`
+
+- List listening TCP ports:(列表监听TCP端口)
+
+  `netstat -t`
+
+- Display PID and program names:(显示PID和程序名)
+
+  `netstat -p`
+
+- List information continuously:（列表信息不断）
+
+  `netstat -c`
+
+- List routes and do not resolve IP to hostname:(列出路由，但不将IP解析为主机名)
+
+  `netstat -rn`
+
+- List listening TCP and UDP ports (+ user and process if you're root):(列出监听TCP和UDP端口(如果您是根用户和进程))
+
+  `netstat -lepunt`
+
+- Print the routing table:（打印路由表）
+
+  `netstat -nr`
+
+# 网络安全
+
+## ssh-copy-id
+
+Install your public key in a remote machine's authorized_keys.(在远程计算机的authorized_keys中安装公钥)
+
+- Copy your keys to the remote machine:(将密钥复制到远程计算机)
+
+  `ssh-copy-id username@remote_host`
+
+- Copy the given public key to the remote:(将给定的公钥复制到远程)
+
+  `ssh-copy-id -i path/to/certificate username@remote_host`
+
+- Copy the given public key to the remote with specific port:(使用特定端口将给定的公钥复制到远程)
+
+  `ssh-copy-id -i path/to/certificate -p port username@remote_host`
+
+## ssh-add
+
+Manage loaded ssh keys in the ssh-agent.(管理ssh-agent中加载的ssh密钥)
+
+Ensure that ssh-agent is up and running for the keys to be loaded in it.(确保ssh-agent已启动并正在运行，以便在其中加载密钥)
+
+- Add the default ssh keys in "~/.ssh" to the ssh-agent:(将'〜/.ssh'中的默认ssh密钥添加到ssh-agent)
+
+  `ssh-add`
+
+- Add a specific key to the ssh-agent:(将特定密钥添加到ssh-agent)
+
+  `ssh-add path/to/private_key`
+
+- List fingerprints of currently loaded keys:(列出当前加载的键的指纹)
+
+  `ssh-add -l`
+
+- Delete a key from the ssh-agent:(从ssh-agent中删除密钥)
+
+  `ssh-add -d path/to/private_key`
+
+- Delete all currently loaded keys from the ssh-agent:(从ssh-agent中删除所有当前加载的密钥)
+
+  `ssh-add -D`
+
+## nmap
+
+Network exploration tool and security / port scanner.(网络探索工具和安全/端口扫描程序)
+
+Some features only activate when Nmap is run with privileges.(某些功能仅在使用权限运行Nmap时激活)
+
+Homepage: <https://nmap.org>.
+
+- Try to determine whether the specified hosts are up and what are their names:(尝试确定指定的主机是否已启动以及它们的名称是什么)
+
+  `nmap -sn ip_or_hostname optional_another_address`
+
+- Like above, but also run a default 1000-port TCP scan if host seems up:(如上所述，如果主机出现，也会运行默认的1000端口TCP扫描)
+
+  `nmap ip_or_hostname optional_another_address`
+
+- Also enable scripts, service detection, OS fingerprinting and traceroute:(还启用脚本，服务检测，操作系统指纹识别和traceroute)
+
+  `nmap -A address_or_addresses`
+
+- Assume good network connection and speed up execution:(假设良好的网络连接并加快执行速度)
+
+  `nmap -T4 address_or_addresses`
+
+- Scan a specific list of ports (use -p- for all ports 1-65535):(扫描特定端口列表（对所有端口使用-p- 1-65535）)
+
+  `nmap -p port1,port2,…,portN address_or_addresses`
+
+- Perform TCP and UDP scanning (use -sU for UDP only, -sZ for SCTP, -sO for IP):(执行TCP和UDP扫描（仅针对UDP使用-sU，针对SCTP使用-sZ，针对IP使用-sO）)
+
+  `nmap -sSU address_or_addresses`
+
+- Perform TLS cipher scan against a host to determine supported ciphers and SSL/TLS protocols:(对主机执行TLS密码扫描，以确定支持的密码和SSL/TLS协议)
+
+  `nmap --script ssl-enum-ciphers address_or_addresses -p 443`
+
+## ssh-keygen
+
+Generate ssh keys user for authentication, password-less logins, and other things.(生成用于身份验证的ssh密钥用户，无密码登录以及其他内容)
+
+- Generate a key interactively:(以交互方式生成密钥)
+
+  `ssh-keygen`
+
+- Specify file in which to save the key:(指定用于保存密钥的文件)
+
+  `ssh-keygen -f ~/.ssh/filename`
+
+- Generate an ed25519 key with 100 key derivation function rounds:(使用100个密钥派生函数轮生成ed25519密钥)
+
+  `ssh-keygen -t ed25519 -a 100`
+
+- Generate an RSA 4096 bit key with your email as a comment:(使用您的电子邮件生成RSA 4096位密钥作为注释)
+
+  `ssh-keygen -t rsa -b 4096 -C "email"`
+
+- Retrieve the key fingerprint from a host (useful for confirming the authenticity of the host when first connecting to it via SSH):(从主机检索密钥指纹（用于在首次通过SSH连接主机时确认主机的真实性）)
+
+  `ssh-keygen -l -F remote_host`
+
+- Retrieve the fingerprint of a key in MD5 Hex:(在MD5 Hex中检索密钥的指纹)
+
+  `ssh-keygen -l -E md5 -f ~/.ssh/filename`
+
+- Change the password of a key:(更改密钥的密码)
+
+  `ssh-keygen -p -f ~/.ssh/filename`
+
+## sftp
+
+Secure File Transfer Program.(安全文件传输程序)
+
+Interactive program to copy files between hosts over SSH.(通过SSH在主机之间复制文件的交互式程序)
+
+For non-interactive file transfers, see `scp` or `rsync`.(对于非交互式文件传输，请参阅`scp`或`rsync`)
+
+- Connect to a remote server and enter an interactive command mode:(连接到远程服务器并进入交互式命令模式)
+
+  `sftp remote_user@remote_host`
+
+- Connect using an alternate port:(使用备用端口连接)
+
+  `sftp -P remote_port remote_user@remote_host`
+
+- Transfer remote file to the local system:(将远程文件传输到本地系统)
+
+  `get /path/remote_file`
+
+- Transfer local file to the remote system:(将本地文件传输到远程系统)
+
+  `put /path/local_file`
+
+- Transfer remote directory to the local system recursively (works with `put` too):(以递归方式将远程目录传输到本地系统（也可以使用`put`）)
+
+  `get -R /path/remote_directory`
+
+- Get list of files on local machine:(获取本地计算机上的文件列表)
+
+  `lls`
+
+- Get list of files on remote machine:(获取远程计算机上的文件列表)
+
+  `ls`
+
+## ssh
+
+Secure Shell is a protocol used to securely log onto remote systems(Secure Shell是一种用于安全地登录到远程系统的协议).
+
+It can be used for logging or executing commands on a remote server(它可以用于在远程服务器上记录或执行命令).
+
+- Connect to a remote server(连接到远程服务器):
+
+  `ssh username@remote_host`
+
+- Connect to a remote server with a specific identity (private key)(使用特定标识(私钥)连接到远程服务器):
+
+  `ssh -i path/to/key_file username@remote_host`
+
+- Connect to a remote server using a specific port(使用特定端口连接到远程服务器):
+
+  `ssh username@remote_host -p 2222`
+
+- Run a command on a remote server(在远程服务器上运行命令):
+
+  `ssh remote_host command -with -flags`
+
+- SSH tunneling: Dynamic port forwarding (SOCKS proxy on localhost:9999)(SSH隧道:动态端口转发(本地主机上的SOCKS代理:9999)):
+
+  `ssh -D 9999 -C username@remote_host`
+
+- SSH tunneling: Forward a specific port (localhost:9999 to slashdot.org:80) along with disabling pseudo-[t]ty allocation and executio[n] of remote commands(SSH隧道:转发特定端口(localhost:9999到slashdot.org:80)，并禁用远程命令的伪[t]ty分配和执行[n]):
+
+  `ssh -L 9999:slashdot.org:80 -N -T username@remote_host`
+
+- SSH jumping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters)(SSH跳转:通过jumphost连接到远程服务器(可以用逗号分隔多个跳转)):
+
+  `ssh -J username@jump_host username@remote_host`
+
+- Agent forwarding: Forward the authentication information to the remote machine (see `man ssh_config` for available options)(代理转发:将身份验证信息转发到远程机器(有关可用选项，请参见“man ssh config”)):
+
+  `ssh -A username@remote_host`
+
+# 网络配置
+
+## hostname
+
+Show or set the system's host name.(显示或设置系统的主机名)
+
+- Show current host name:(显示当前主机名)
+
+  `hostname`
+
+- Show the network address of the host name:(显示主机名的网络地址)
+
+  `hostname -i`
+
+- Show all network addresses of the host:(显示主机的所有网络地址)
+
+  `hostname -I`
+
+- Show the FQDN (Fully Qualified Domain Name):(显示FQDN（完全限定域名）)
+
+  `hostname --fqdn`
+
+- Set current host name:(设置当前主机名)
+
+  `hostname new_hostname`
+
+## ifup
+
+Tool used to enable network interfaces.(用于启用网络接口的工具)
+
+- Enable interface eth0:(启用接口eth0)
+
+  `ifup eth0`
+
+- Enable all the interfaces defined with "auto" in /etc/network/interfaces:(启用/etc/network/interfaces中使用“auto”定义的所有接口)
+
+  `ifup -a`
+
+## ifconfig
+
+Network Interface Configurator.（网络接口配置器）
+
+- View network settings of an ethernet adapter:（查看以太网适配器的网络设置）
+
+  `ifconfig eth0`
+
+- Display details of all interfaces, including disabled interfaces:（显示所有接口的详细信息，包括禁用的接口）
+
+  `ifconfig -a`
+
+- Disable eth0 interface:（禁用eth0接口）
+
+  `ifconfig eth0 down`
+
+- Enable eth0 interface:（开启eth0接口）
+
+  `ifconfig eth0 up`
+
+- Assign IP address to eth0 interface:（将IP地址分配给eth0接口）
+
+  `ifconfig eth0 ip_address`
+
+## ifdown
+
+Disable network interfaces.(禁用网络接口)
+
+- Disable interface eth0:(禁用接口eth0)
+
+  `ifdown eth0`
+
+- Disable all interfaces which are enabled:(禁用所有已启用的接口)
+
+  `ifdown -a`
+
+## route
+
+Use route cmd to set the route table.（使用route cmd设置路由表）
+
+- Display the information of route table:（显示路由表的信息）
+
+  `route -n`
+
+- Add route rule:（添加路由规则）
+
+  `sudo route add -net ip_address netmask netmask_address gw gw_address`
+
+- Delete route rule:（删除路由规则）
+
+  `sudo route del -net ip_address netmask netmask_address dev gw_address`
+
+# 网络服务器
+
+## apachectl
+
+Apache HTTP Server control interface for macOS.(macOS的Apache HTTP服务器控制接口)
+
+- Start the org.apache.httpd launchd job:(启动表示。httpd launchd工作)
+
+  `apachectl start`
+
+- Stop the launchd job:（停止启动作业）
+
+  `apachectl stop`
+
+- Stop, then start launchd job:(停止，然后开始启动作业)
+
+  `apachectl restart`
+
+## ab
+
+Apache Benchmarking tool. The simplest tool to perform a load testing.(Apache基准测试工具,执行负载测试的最简单工具)
+
+- Execute 100 HTTP GET requests to given URL:(对给定URL执行100个HTTP GET请求)
+
+  `ab -n 100 url`
+
+- Execute 100 HTTP GET requests, processing up to 10 requests concurrently, to given URL:(对给定URL执行100个HTTP GET请求，并发处理最多10个请求)
+
+  `ab -n 100 -c 10 url`
+
+- Use keep alive:
+
+  `ab -k url`
+
+- Set the maximum number of seconds to spend for benchmarking:(设置用于基准测试的最大秒数)
+
+  `ab -t 60 url`
+
+## mysql
+
+The MySQL command-line tool（MySQL命令行工具）. 
+
+Homepage: <https://www.mysql.com/>.
+
+- Connect to a database:
+
+  `mysql database_name`
+
+- Connect to a database, user will be prompted for a password（连接到数据库时，将提示用户输入密码）:
+
+  `mysql -u user --password database_name`
+
+- Connect to a database on another host（连接到另一台主机上的数据库）:
+
+  `mysql -h database_host database_name`
+
+- Connect to a database through a Unix socket（通过Unix套接字连接到数据库）:
+
+  `mysql --socket path/to/socket.sock`
+
+- Execute SQL statements in a script file (batch file)（在脚本文件(批处理文件)中执行SQL语句）:
+
+  `mysql -e "source filename.sql" database_name`
+
+## sendmail
+
+Send email from the command line.(从命令行发送电子邮件)
+
+- Send a message with the content of message.txt to the mail directory of local user `user_name`:(将message.txt内容的消息发送到本地用户“user_name”的邮件目录)
+
+  `sendmail user_name < message.txt`
+
+- Send an email from you@yourdomain.com (assuming the mail server is configured for this) to test@gmail.com
+containing the message in `message.txt`:(发送电子邮件至you@yourdomain.com（假设已配置邮件服务器）至test@gmail.com
+包含`message.txt`中的消息)
+
+  `sendmail -f you@yourdomain.com test@gmail.com < message.txt`
+
+- Send an email from you@yourdomain.com (assuming the mail server is configured for this) to test@gmail.com containing the file `file.zip`:(发送电子邮件从you@yourdomain.com（假设邮件服务器配置为此）到test@gmail.com包含文件`file.zip`)
+
+  `sendmail -f you@yourdomain.com test@gmail.com < file.zip`
+
+## smbclient
+
+FTP-like client to access SMB/CIFS resources on servers.(类似FTP的客户端，用于访问服务器上的SMB / CIFS资源)
+
+- Connect to a share (user will be prompted for password; `exit` to quit the session):（连接到共享（系统将提示用户输入密码;退出`退出会话））
+
+  `smbclient //server/share`
+
+- Connect with a different username:(使用其他用户名连接)
+
+  `smbclient //server/share --user username`
+
+- Connect with a different workgroup:(连接到不同的工作组)
+
+  `smbclient //server/share --workgroup domain --user username`
+
+- Connect with a username and password:（使用用户名和密码连接）
+
+  `smbclient //server/share --user username%password`
+
+- Download a file from the server:（从服务器下载文件）
+
+  `smbclient //server/share --directory path/to/directory --command "get file.txt"`
+
+- Upload a file to the server:（将文件上传到服务器）
+
+  `smbclient //server/share --directory path/to/directory --command "put file.txt"`
+
+## mysqldump
+
+Backups MySQL databases.(备份MySQL数据库)
+
+Homepage: <https://dev.mysql.com/doc/refman/en/mysqldump.html>.
+
+- Create a backup, user will be prompted for a password:(创建备份，将提示用户输入密码)
+
+  `mysqldump -u user --password database_name -r filename.sql`
+
+- Restore a backup, user will be prompted for a password:(恢复备份，将提示用户输入密码)
+
+  `mysql -u user --password -e "source filename.sql" database_name`
+
+## htpasswd
+
+Create and manage htpasswd files to protect web server directories using basic authentication.(使用基本身份验证创建和管理htpasswd文件以保护Web服务器目录)
+
+- Create/overwrite htpasswd file:(创建/覆盖htpasswd文件)
+
+  `htpasswd -c path/to/file user_name`
+
+- Add user to htpasswd file or update existing user:(将用户添加到htpasswd文件或更新现有用户)
+
+  `htpasswd path/to/file user_name`
+
+- Add user to htpasswd file in batch mode without an interactive password prompt (for script usage):(在批处理模式下将用户添加到htpasswd文件，没有交互式密码提示（用于脚本）)
+
+  `htpasswd -b path/to/file user_name password`
+
+- Delete user from htpasswd file:(从htpasswd文件中删除用户)
+
+  `htpasswd -D path/to/file user_name`
+
+- Verify user password:(验证用户密码)
+
+  `htpasswd -v path/to/file user_name`
+
+* * *
+软件 | 打印 | 开发 | 工具
+* * *
+
+# 软件包管理
+
+## factor
+
+Prints the prime factorization of a number.(打印数字的素数因子分解)
+
+- Display the prime-factorization of a number:(显示数字的素数因子分解)
+
+  `factor number`
+
+- Take the input from stdin if no argument is specified:(如果没有指定参数，则从stdin获取输入)
+
+  `echo number | factor`
+
+## dnf
+
+Package management utility for RHEL, Fedora, and CentOS (replaces yum).(RHEL，Fedora和CentOS的软件包管理实用程序（取代yum）)
+
+- Install a new package:(安装新包)
+
+  `sudo dnf install package`
+
+- Install a new package and assume yes to all questions:(安装一个新包，并对所有问题假设为yes)
+
+  `sudo dnf -y install package`
+
+- Remove a package:(删除包)
+
+  `sudo dnf remove package`
+
+- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
+
+  `sudo dnf upgrade`
+
+## dpkg
+
+Debian package manager(Debian软件包管理器)
+
+- Install a package(安装一个软件包):
+
+  `dpkg -i path/to/file.deb`
+
+- Remove a package(移除一个软件包):
+
+  `dpkg -r package_name`
+
+- List installed packages(列出已安装的包):
+
+  `dpkg -l pattern`
+
+- List package contents(列出包的内容):
+
+  `dpkg -L package_name`
+
+- List contents of a local package file(列出本地包文件的内容):
+
+  `dpkg -c path/to/file.deb`
+
+- Find out which package owns a file(找出哪个包拥有一个文件):
+
+  `dpkg -S file_name`
+
+## apt-key
+
+Key management utility for the APT Package Manager on Debian and Ubuntu.(Debian和Ubuntu上APT包管理器的密钥管理实用程序)
+
+- List trusted keys:(列出可信密钥)
+
+  `apt-key list`
+
+- Add a key to the trusted keystore:(将密钥添加到可信密钥库)
+
+  `apt-key add public_key_file.asc`
+
+- Delete a key from the trusted keystore:(从受信任的密钥库中删除密钥)
+
+  `apt-key del key_id`
+
+- Add a remote key to the trusted keystore:(将远程密钥添加到受信任的密钥库)
+
+  `wget -qO - https://host.tld/filename.key | apt-key add -`
+
+- Add a key from keyserver with only key id:(从密钥服务器添加一个只有密钥ID的密钥)
+
+  `apt-key adv --keyserver pgp.mit.edu --recv KEYID`
+
+## aptitude
+
+Debian and Ubuntu package management utility.(Debian和Ubuntu包管理实用程序)
+
+- Synchronize list of packages and versions available. This should be run first, before running subsequent aptitude commands:(同步可用的包和版本列表。在运行后续aptitude命令之前，应首先运行此操作)
+
+  `aptitude update`
+
+- Install a new package and its dependencies:(安装新包及其依赖项)
+
+  `aptitude install package`
+
+- Search for a package:(搜索包裹)
+
+  `aptitude search package`
+
+- Remove a package and all packages depending on it:(根据它删除包和所有包)
+
+  `aptitude remove package`
+
+- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
+
+  `aptitude upgrade`
+
+- Upgrade installed packages (like `aptitude upgrade`) including removing obsolete packages and installing additional packages to meet new package dependencies:(升级已安装的软件包（如`aptitude upgrade`），包括删除过时的软件包和安装其他软件包以满足新的软件包依赖性)
+
+  `aptitude full-upgrade`
+
+## apt-get
+
+Debian and Ubuntu package management utility.(Debian和Ubuntu包管理实用程序)
+
+Search for packages using `apt-cache`.(使用`apt-cache`搜索包)
+
+- Update the list of available packages and versions (it's recommended to run this before other `apt-get` commands):(更新可用软件包和版本的列表（建议在其他`apt-get`命令之前运行它）)
+
+  `apt-get update`
+
+- Install a package, or update it to the latest available version:(安装软件包，或将其更新到最新的可用版本)
+
+  `apt-get install package`
+
+- Remove a package:(删除包)
+
+  `apt-get remove package`
+
+- Remove a package and its configuration files:(删除包及其配置文件)
+
+  `apt-get purge package`
+
+- Upgrade all installed packages to their newest available versions:(将所有已安装的软件包升级到最新的可用版本)
+
+  `apt-get upgrade`
+
+- Remove all packages that are no longer needed:(删除不再需要的所有包)
+
+  `apt-get autoremove`
+
+- Upgrade installed packages (like `upgrade`), but remove obsolete packages and install additional packages to meet new dependencies:(升级已安装的软件包（如`upgrade`），但删除过时的软件包并安装其他软件包以满足新的依赖项)
+
+  `apt-get dist-upgrade`
+
+## chkconfig
+
+Manage the runlevel of services on CentOS 6.(管理CentOS 6上的服务运行级别)
+
+- List services with runlevel:(列出带有runlevel的服务)
+
+  `chkconfig --list`
+
+- Show a service's runlevel:(显示服务的运行级别)
+
+  `chkconfig --list ntpd`
+
+- Enable service at boot:(启动时启用服务)
+
+  `chkconfig sshd on`
+
+- Enable service at boot for runlevels 2, 3, 4, and 5:(在启动时为运行级别2、3、4和5启用服务)
+
+  `chkconfig --level 2345 sshd on`
+
+- Disable service at boot:(在启动时禁用服务)
+
+  `chkconfig ntpd off`
+
+- Disable service at boot for runlevel 3:(在启动时禁用运行级别3的服务)
+
+  `chkconfig --level 3 ntpd off`
+
+## yum
+
+Package management utility for RHEL, Feodra, and CentOS (for older versions).(RHEL，Feodra和CentOS的软件包管理实用程序（适用于旧版本）)
+
+- Synchronize list of packages and versions available. This should be run first, before running subsequent yum commands:(同步可用的包和版本列表。在运行后续yum命令之前，应先运行此命令)
+
+  `yum update`
+
+- Install a new package:(安装新包)
+
+  `yum install package`
+
+- Install a new package and assume yes to all questions (also works with update, great for automated updates):(安装一个新软件包并对所有问题假设为yes（也适用于更新，非常适合自动更新）)
+
+  `yum -y install package`
+
+- Find the package that provides a particular command:(找到提供特定命令的包)
+
+  `yum provides command`
+
+- Remove a package:(删除包)
+
+  `yum remove package`
+
+- Upgrade installed packages to newest available versions:(将已安装的软件包升级到最新版本)
+
+  `yum upgrade`
+
+## patch
+
+Patch a file (or files) with a diff file.(用diff文件修补一个或多个文件)
+Note that diff files contain both the target filenames and list of changes.(注意，diff文件同时包含目标文件名和更改列表)
+
+- Apply a patch:(应用一个补丁)
+
+  `patch < patch_file.diff`
+
+- Apply a patch to current directory:(将补丁应用于当前目录)
+
+  `patch -p1 < patch_file.diff`
+
+- Apply the reverse of a patch:(应用补丁的反面)
+
+  `patch -R < patch_file.diff`
+
+## dpkg-query
+
+A tool that shows information about installed packages.(显示已安装软件包信息的工具)
+
+- List all installed packages:(列出所有已安装的包)
+
+  `dpkg-query -l`
+
+- List installed packages matching a pattern:(列出与模式匹配的已安装包)
+
+  `dpkg-query -l 'pattern'`
+
+- List all files installed by a package:(列出程序包安装的所有文件)
+
+  `dpkg-query -L package_name`
+
+- Show information about a package:(显示有关包的信息)
+
+  `dpkg-query -s package_name`
+
+# 编程开发
+
+## ldconfig
+
+Configure symlinks and cache for shared library dependencies.（为共享库依赖项配置符号链接和缓存）
+
+- Update symlinks and rebuild the cache (usually run when a new library is installed):（更新符号链接并重建缓存（通常在安装新库时运行））
+
+  `sudo ldconfig`
+
+- Update the symlinks for a given directory:（更新给定目录的符号链接）
+
+  `sudo ldconfig -n path/to/directory`
+
+- Print the libraries in the cache and check whether a given library is present:（在缓存中打印库并检查给定的库是否存在）
+
+  `ldconfig -p | grep library_name`
+
+## objdump
+
+View information about object files.（查看有关目标文件的信息）
+
+- Display the file header information:（显示文件头信息）
+
+  `objdump -f binary`
+
+- Display the dis-assembled output of executable sections:（显示可执行部分的反汇编输出）
+
+  `objdump -d binary`
+
+- Display a complete binary hex dump of all sections:（显示所有部分的完整二进制十六进制转储）
+
+  `objdump -s binary`
+
+## gdb
+
+The GNU Debugger.（GNU调试器）
+
+- Debug an executable:（调试可执行文件）
+
+  `gdb executable`
+
+- Attach a process to gdb:（将进程附加到gdb）
+
+  `gdb -p procID`
+
+- Debug with a core file:（使用核心文件进行调试）
+
+  `gdb -c core executable`
+
+- Execute given GDB commands upon start:（启动时执行给定的GDB命令）
+
+  `gdb -ex "commands" executable`
+
+- Start gdb and pass arguments:（启动gdb并传递参数）
+
+  `gdb --args executable argument1 argument2`
+
+## gcc
+
+Preprocesses and compiles C and C++ source files, then assembles and links them together.(预处理并编译C和C ++源文件，然后将它们组合在一起并链接在一起)
+
+- Compile multiple source files into executable:(将多个源文件编译为可执行文件)
+
+  `gcc source1.c source2.c -o executable`
+
+- Allow warnings, debug symbols in output:(允许警告，在输出中调试符号)
+
+  `gcc source.c -Wall -Og -o executable`
+
+- Include libraries from a different path:(包含来自不同路径的库)
+
+  `gcc source.c -o executable -Iheader_path -Llibrary_path -llibrary_name`
+
+- Compile source code into Assembler instructions:(将源代码编译为汇编程序指令)
+
+  `gcc -S source.c`
+
+- Compile source code without linking:(编译源代码而不链接)
+
+  `gcc -c source.c`
+
+## expr
+
+Evaluate expressions and manipulate strings.(评估表达式并操纵字符串)
+
+- Get string length:(获取字符串长度)
+
+  `expr length string`
+
+- Evaluate logical or math expression with an operator ('+', '-', '*', '&', '|', etc.). Special symbols should be escaped:(使用运算符（'+'，' - '，'*'，'＆'，'|'等）评估逻辑或数学表达式。应转义特殊符号)
+
+  `expr first_argument operator second_argument`
+
+- Get position of the first character in 'string' that matches 'substring':(获取匹配'substring'的'string'中第一个字符的位置)
+
+  `echo $(expr index string substring)`
+
+- Extract part of the string:(提取部分字符串)
+
+  `echo $(expr substr string position_to_start number_of_characters`
+
+- Extract part of the string which matches a regular expression:(提取与正则表达式匹配的字符串的一部分)
+
+  `echo $(expr string : '\(regular_expression\)')`
+
+## test
+
+Evaluate condition.(评估条件)
+
+If it is true, returns 0 exit status, otherwise returns 1.(如果为true，则返回0退出状态，否则返回1)
+
+- Test if given variable is equal to given string:(测试给定变量是否等于给定的字符串)
+
+  `test $MY_VAR == '/bin/zsh'`
+
+- Test if given variable is empty:(测试给定变量是否为空)
+
+  `test -z $GIT_BRANCH`
+
+- Test if file exists:(测试文件是否存在)
+
+  `test -e filename`
+
+- Test if directory not exists:(测试目录是否不存在)
+
+  `test ! -d path/to/directory`
+
+- If-else statement:(If-else语句)
+
+  `test condition && echo "true" || echo "false"`
+
+## php
+
+PHP command line interface.(PHP命令行界面)
+
+Homepage: <https://php.net>.
+
+- Parse and execute a php script:(解析并执行php脚本)
+
+  `php file`
+
+- Check syntax on (i.e. lint) a PHP script:(检查（即lint）PHP脚本的语法)
+
+  `php -l file`
+
+- Run PHP interactively:(以交互方式运行PHP)
+
+  `php -a`
+
+- Run PHP code (Notes: Don't use <? ?> tags; escape double quotes with backslash):(运行PHP代码（注意：不要使用<？>标签;使用反斜杠转义双引号）)
+
+  `php -r "code"`
+
+- Start a PHP built-in web server in the current directory:(在当前目录中启动PHP内置Web服务器)
+
+  `php -S host:port`
+
+- Get a list of installed PHP extensions:(获取已安装的PHP扩展的列表)
+
+  `php -m`
+
+- Display information about the current PHP configuration:(显示有关当前PHP配置的信息)
+
+  `php -i`
+
+## mktemp
+
+Create a temporary file or directory.(创建一个临时文件或目录)
+
+- Create an empty temporary file and return the absolute path to it:(创建一个空的临时文件并返回它的绝对路径)
+
+  `mktemp`
+
+- Create a temporary directory and return the absolute path to it:(创建一个临时目录并返回它的绝对路径)
+
+  `mktemp -d`
+
+- Create a temporary file with a specified suffix:(创建具有指定后缀的临时文件)
+
+  `mktemp --suffix ".txt"`
+
+## perl
+
+The Perl 5 language interpreter.(Perl 5语言解释器)
+
+- Parse and execute a Perl script:(解析并执行Perl脚本)
+
+  `perl script.pl`
+
+- Check syntax errors on a Perl script:(检查Perl脚本上的语法错误)
+
+  `perl -c script.pl`
+
+- Parse and execute a perl statement:(解析并执行perl语句)
+
+  `perl -e perl_statement`
+
+- Run a Perl script in debug mode, using `perldebug`:(使用`perldebug`在调试模式下运行Perl脚本)
+
+  `perl -d script.pl`
+
+- Loo[p] over all lines of a file, editing them [i]n-place using a find/replace [e]xpression:(在文件的所有行上循环[p]，使用find/replace [e]xpression编辑它们[i]n-place)
+
+  `perl -p -i -e 's/find/replace/g' filename`
+
+- Run a find/replace expression on a file, saving the original file with a given extension:(在文件上运行查找/替换表达式，使用给定的扩展名保存原始文件)
+
+  `perl -p -i'.old' -e 's/find/replace/g' filename`
+
+- Run a multi-line find/replace expression on a file, and save the result in another file:(在文件上运行多行查找/替换表达式，并将结果保存在另一个文件中)
+
+  `perl -p0e 's/foo\nbar/foobar/g' input_file > output_file`
+
+## make
+
+Task runner for targets described in Makefile.(Makefile中描述的目标的任务运行器)
+
+Mostly used to control the compilation of an executable from source code.(主要用于从源代码控制可执行文件的编译)
+
+- Call the first target specified in the Makefile (usually named "all"):(调用Makefile中指定的第一个目标（通常命名为“all”）)
+
+  `make`
+
+- Call a specific target:(召唤特定目标)
+
+  `make target`
+
+- Call a specific target, executing 4 jobs at a time in parallel:(调用特定目标，并行执行4个作业)
+
+  `make -j4 target`
+
+- Use a specific Makefile:(使用特定的Makefile)
+
+  `make --file file`
+
+- Execute make from another directory:(从另一个目录执行make)
+
+  `make --directory directory`
+
+- Force making of a target, even if source files are unchanged:(即使源文件未更改，也强制创建目标)
+
+  `make --always-make target`
+
+## ldd
+
+Display shared library dependencies.(显示共享库依赖项)
+
+- Display shared library dependencies of a binary:(显示二进制文件的共享库依赖项)
+
+  `ldd path/to/binary`
+
+- Display unused direct dependencies:(显示未使用的直接依赖项)
+
+  `ldd -u path/to/binary`
+
+## nm
+
+List symbol names in object files.(列出目标文件中的符号名称)
+
+- List global (extern) functions in a file (prefixed with T):(列出文件中的全局（外部）函数（以T为前缀）)
+
+  `nm -g file.o`
+
+- Demangle C++ symbols (make them readable):(Demangle C ++符号（使它们可读）)
+
+  `nm --demangle file.o`
+
+- List only undefined symbols in a file:(仅列出文件中未定义的符号)
+
+  `nm -u file.o`
+
+- List all symbols, even debugging symbols:(列出所有符号，甚至是调试符号)
+
+  `nm -a file.o`
+
+## as
+
+Portable GNU assembler.(便携式GNU汇编程序)
+
+Primarily intended to assemble output from `gcc` to be used by `ld`.(主要用于组装`gcc`的输出以供`ld`使用)
+
+- Assemble a file, writing the output to a.out:(汇编文件，将输出写入a.out)
+
+  `as file.s`
+
+- Assemble the output to a given file:(将输出汇编到给定文件)
+
+  `as file.s -o out.o`
+
+- Generate output faster by skipping whitespace and comment preprocessing. (Should only be used for trusted compilers):(通过跳过空白和注释预处理来更快地生成输出.（只应用于可信编译器）)
+
+  `as -f file.s`
+
+- Include a given path to the list of directories to search for files specified in .include directives:(在目录列表中包含一个给定路径，以搜索.include指令中指定的文件)
+
+  `as -I path/to/directory file.s`
+
+# 打印
+
+## lpstat
+
+Show status information about printers.（显示有关打印机的状态信息）
+
+- List printers present on the machine and whether they are enabled for printing:（列出机器上存在的打印机以及它们是否已启用打印）
+
+  `lpstat -p`
+
+- Show the default printer:（显示默认打印机）
+
+  `lpstat -d`
+
+- Display all available status information:（显示所有可用状态信息）
+
+  `lpstat -t`
+
+- Show a list of print jobs queued by the specified user:（显示指定用户排队的打印作业列表）
+
+  `lpstat -u user`
+
+## lp
+
+Print files.(打印文件)
+
+- Print the output of a command to the default printer (see `lpstat` command):(将命令的输出打印到默认打印机（请参阅`lpstat`命令）)
+
+  `echo "test" | lp`
+
+- Print a file to the default printer:(将文件打印到默认打印机)
+
+  `lp path/to/filename`
+
+- Print a file to a named printer (see `lpstat` command):(将文件打印到指定的打印机（请参阅`lpstat`命令）)
+
+  `lp -d printer_name path/to/filename`
+
+- Print N copies of file to default printer (replace N with desired number of copies):(将N份文件打印到默认打印机（用所需份数替换N）)
+
+  `lp -n N path/to/filename`
+
+- Print only certain pages to the default printer (print pages 1, 3-5, and 16):(仅将某些页面打印到默认打印机（打印页面1,3-5和16）)
+
+  `lp -P 1,3-5,16 path/to/filename`
+
+## eject
+
+Eject cds, floppy disks and tape drives.(弹出cd、软盘和磁带驱动器)
+
+- Display the default device:(显示默认设备)
+
+  `eject -d`
+
+- Eject the default device:(弹出默认设备)
+
+  `eject`
+
+- Eject a specific device (the default order is cd-rom, scsi, floppy and tape):(弹出特定的设备(默认顺序是cd-rom、scsi、软盘和磁带))
+
+  `eject /dev/cdrom`
+
+- Toggle whether a device's tray is open or closed:(切换设备托盘是打开还是关闭)
+
+  `eject -T /dev/cdrom`
+
+- Eject a cd drive:(弹出一个cd驱动器)
+
+  `eject -r /dev/cdrom`
+
+- Eject a floppy drive:(弹出一个软盘驱动器)
+
+  `eject -f /mnt/floppy`
+
+- Eject a tape drive:(弹出磁带驱动器)
+
+  `eject -q /mnt/tape`
+
+* * *
+硬件 | 监测 | 内核 | Shell
+* * *
+
+# 性能监测与优化
+
+## nethogs
+
+Monitor bandwidth usage per process.(监控每个进程的带宽使用情)
+
+- Start nethogs as root (default device is eth0):(以root身份启动nethogs（默认设备为eth0）)
+
+  sudo nethogs
+
+- Monitor bandwidth on specific device:(监控特定设备上的带宽)
+
+  sudo nethogs device
+
+- Monitor bandwidth on multiple devices:(监控多个设备的带宽)
+
+  sudo nethogs device1 device2
+
+- Specify refresh rate:(指定刷新率)
+
+  sudo nethogs -t seconds
+
+## ltrace
+
+Display dynamic library calls of a process.(显示进程的动态库调用)
+
+- Print (trace) library calls of a program binary:(打印（跟踪）程序二进制文件的库调用)
+
+  `ltrace ./program`
+
+- Count library calls. Print a handy summary at the bottom:(计算库调用。在底部打印一个方便的摘要)
+
+  `ltrace -c /path/to/program`
+
+- Trace calls to malloc and free, omit those done by libc:(跟踪调用malloc和free，省略libc完成的操作)
+
+  `ltrace -e malloc+free-@libc.so* /path/to/program`
+
+- Write to file instead of terminal:(写入文件而不是终端)
+
+  `ltrace -o file /path/to/program`
+
+## strace
+
+Troubleshooting tool for tracing system calls.(跟踪系统调用的故障排除工具)
+
+- Start tracing a specific process by its PID:(开始通过PID跟踪特定进程)
+
+  `strace -p pid`
+
+- Trace a process and filter output by system call:(通过系统调用跟踪进程并过滤输出)
+
+  `strace -p pid -e system_call_name`
+
+- Count time, calls, and errors for each system call and report a summary on program exit:(计算每个系统调用的时间，调用和错误，并报告程序退出的摘要)
+
+  `strace -p pid -c`
+
+- Show the time spent in every system call:(显示每次系统调用所花费的时间)
+
+  `strace -p pid -T`
+
+- Start tracing a program by executing it:(通过执行来开始跟踪程序)
+
+  `strace program`
+
+- Start tracing file operations of a program:(开始跟踪程序的文件操作)
+
+  `strace -e trace=file program`
+
+## fuser
+
+Display process IDs currently using files or sockets.(显示当前使用文件或套接字的进程ID)
+
+Require admin privileges.(需要管理员权限)
+
+- Identify process using a TCP socket:(使用TCP套接字识别进程)
+
+  `fuser -n tcp port`
+
+## lsof
+
+Lists open files and the corresponding processes.（列出打开的文件和相应的进程）
+
+Note: Root privileges (or sudo) is required to list files opened by others.（注意：列出其他人打开的文件需要root权限（或sudo））
+
+- Find the processes that have a given file open:（查找已打开给定文件的进程）
+
+  `lsof path/to/file`
+
+- Find the process that opened a local internet port:（找到打开本地Internet端口的过程）
+
+  `lsof -i :port`
+
+- Only output the process ID (PID):（仅输出进程ID（PID））
+
+  `lsof -t path/to/file`
+
+- List files opened by the given user:（列出给定用户打开的文件）
+
+  `lsof -u username`
+
+- List files opened by the given command or process:（列出由给定命令或进程打开的文件）
+
+  `lsof -c process_or_command_name`
+
+- List files opened by a specific process, given its PID:（列出特定进程打开的文件，给定其PID）
+
+  `lsof -p PID`
+
+- List open files in a directory:（列出目录中的打开文件）
+
+  `lsof +D path/to/directory`
+
+## time
+
+See how long a command takes.（查看命令需要多长时间）
+
+- Time "ls":（时间“ls”）
+
+  `time ls`
+
+## sar
+
+Monitor performance of various Linux subsystems.（监控各种Linux子系统的性能）
+
+- Report I/O and transfer rate issued to physical devices, one per second (press CTRL+C to quit):（报告I/O和发送到物理设备的传输速率，每秒一次（按CTRL + C退出））
+
+  `sar -b 1`
+
+- Report a total of 10 network device statistics, one per 2 seconds:（报告共有10个网络设备统计信息，每2秒一个）
+
+  `sar -n DEV 2 10`
+
+- Report CPU utilization, one per 2 seconds:（报告CPU利用率，每2秒一次）
+
+  `sar -u ALL 2`
+
+- Report a total of 20 memory utilization statistics, one per second:（报告总共20个内存利用率统计信息，每秒一个）
+
+  `sar -r ALL 1 20`
+
+- Report the run queue length and load averages, one per second:（报告运行队列长度和负载平均值，每秒一个）
+
+  `sar -q 1`
+
+- Report paging statistics, one per 5 seconds:（报告分页统计信息，每5秒一个）
+
+  `sar -B 5`
+
+## mpstat
+
+Report CPU statistics.（报告CPU统计信息）
+
+- Display CPU statistics every 2 seconds:（每2秒显示一次CPU统计信息）
+
+  `mpstat 2`
+
+- Display 5 reports, one by one, at 2 second intervals:（每隔2秒显示5个报告，逐个显示）
+
+  `mpstat 2 5`
+
+- Display 5 reports, one by one, from a given processor, at 2 second intervals:（从给定处理器逐个显示5个报告，间隔为2秒）
+
+  `mpstat -P 0 2 5`
+
+## iostat
+
+Report statistics for devices and partitions.（报告设备和分区的统计信息）
+
+- Display a report of CPU and disk statistics since system startup:（自系统启动以来显示CPU和磁盘统计信息的报告）
+
+  `iostat`
+
+- Display a report of CPU and disk statistics with units converted to megabytes:（显示CPU和磁盘统计信息的报告，单位转换为兆字节）
+
+  `iostat -m`
+
+- Display CPU statistics:（显示CPU统计信息）
+
+  `iostat -c`
+
+- Display disk statistics with disk names (including LVM):（显示磁盘名称（包括LVM）的磁盘统计信息）
+
+  `iostat -N`
+
+- Display extended disk statistics with disk names for device "sda":（显示设备“sda”的磁盘名称的扩展磁盘统计信息）
+
+  `iostat -xN sda`
+
+- Display incremental reports of CPU and disk statistics every 2 seconds:（每2秒显示CPU和磁盘统计信息的增量报告）
+
+  `iostat 2`
+
+## free
+
+Display amount of free and used memory in the system.（显示系统中空闲内存和使用内存的数量）
+
+- Display system memory:（显示系统内存）
+
+  `free`
+
+- Display memory in Bytes/KB/MB/GB: 以Bytes/KB/MB/GB为单位显示内存
+
+  `free -b|k|m|g`
+
+- Display memory in human readable units:（以人类可读的单位显示内存）
+
+  `free -h`
+
+- Refresh the output every 2 seconds:（每2秒刷新一次输出）
+
+  `free -s 2`
+
+## uptime
+
+Tell how long the system has been running and other information.（告诉系统运行了多长时间以及其他信息）
+
+- Print current time, uptime, number of logged-in users and other information:（打印当前时间，正常运行时间，登录用户数和其他信息）
+
+  `uptime`
+
+- Show only the amount of time the system has been booted for:（仅显示系统引导的时间）
+
+  `uptime --pretty`
+
+- Print the date and time the system booted up at:（打印系统启动的日期和时间）
+
+  `uptime --since`
+
+- Show version information:（显示版本信息）
+
+  `uptime --version`
+
+## top
+
+Display dynamic real-time information about running processes.(显示有关正在运行的进程的动态实时信息)
+
+- Start top:(启动top)
+
+  `top`
+
+- Do not show any idle or zombie processes:(不显示任何空闲或僵尸进程)
+
+  `top -i`
+
+- Show only processes owned by given user:(只显示给定用户拥有的进程)
+
+  `top -u user_name`
+
+- Show only the processes with the given PID(s), passed as a comma-separated list. (Normally you wouldn't know PIDs off hand. This example picks the PIDs from the process name):(只显示具有给定PID(s)的进程，以逗号分隔的列表的形式传递。(通常情况下，你不会马上知道pid。这个例子从进程名中选择pid))
+
+  `top -p $(pgrep -d ',' process_name)`
+
+- Get help about interactive commands:(获得有关交互式命令的帮助)
+
+  `?`
+
+# 硬件管理
+
+## losetup
+
+Set up and control loop devices.(设置和控制回路设备)
+
+- List loop devices with detailed info:(列出循环设备的详细信息)
+
+  `losetup -a`
+
+- Attach a file to a given loop device:(将文件附加到给定的循环设备)
+
+  `sudo losetup /dev/loop /path/to/file`
+
+- Detach all loop devices:(断开所有环路设备)
+
+  `sudo losetup -D`
+
+- Detach a given loop device:(分离给定的循环设备)
+
+  `sudo losetup -d /dev/loop`
+
+## dmidecode
+
+Display the DMI (alternatively known as SMBIOS) table contents in a human-readable format.（以人类可读的格式显示DMI（或称为SMBIOS）表内容）
+
+Requires root privileges.（需要root权限）
+
+- Show all DMI table contents:（显示所有DMI表内容）
+
+  `sudo dmidecode`
+
+- Show the BIOS version:（显示BIOS版本）
+
+  `sudo dmidecode -s bios-version`
+
+- Show the system's serial number:（显示系统的序列号）
+
+  `sudo dmidecode -s system-serial-number`
+
+- Show BIOS information:（显示BIOS信息）
+
+  `sudo dmidecode -t bios`
+
+- Show CPU information:（显示CPU信息）
+
+  `sudo dmidecode -t processor`
+
+- Show memory information:（显示内存信息）
+
+  `sudo dmidecode -t memory`
+
+## hwclock
+
+Used for reading or changing the hardware clock. Usually requires root.(用于读取或改变硬件时钟。通常需要root权限)
+
+- Display the current time as reported by the hardware clock:（显示硬件时钟报告的当前时间）
+
+  `hwclock`
+
+- Write the current software clock time to the hardware clock (sometimes used during system setup):（将当前软件时钟时间写入硬件时钟(有时在系统设置期间使用)）
+
+  `hwclock --systohc`
+
+- Write the current hardware clock time to the software clock:（将当前硬件时钟时间写入软件时钟）
+
+  `hwclock --hctosys`
+
+## lspci
+
+List all PCI devices.（列出所有PCI设备）
+
+- Show a brief list of devices:（显示设备的简要列表）
+
+  `lspci`
+
+- Display additional info:（显示其他信息）
+
+  `lspci -v`
+
+- Display drivers and modules handling each device:（显示处理每个设备的驱动程序和模块）
+
+  `lspci -k`
+
+- Show a specific device:（显示特定设备）
+
+  `lspci -s 00:18.3`
+
+- Dump info in a readable form:（以可读形式转储信息）
+
+  `lspci -vm`
+
+## lsusb
+
+Display information about USB buses and devices connected to them.（显示有关USB总线和连接到它们的设备的信息）
+
+- List all the USB devices available:（列出所有可用的USB设备）
+
+  `lsusb`
+
+- List the USB hierarchy as a tree:（将USB层次结构列为树）
+
+  `lsusb -t`
+
+- List verbose information about USB devices:（列出有关USB设备的详细信息）
+
+  `lsusb --verbose`
+
+- List detailed information about a USB device:（列出有关USB设备的详细信息）
+
+  `lsusb -D device`
+
+- List devices with a specified vendor and product id only:（列出仅具有指定供应商和产品ID的设备）
+
+  `lsusb -d vendor:product`
+
+## arch
+
+Display the name of the system architecture.（显示系统体系结构的名称）
+
+See also `uname`.
+
+- Display the system's architecture:（显示系统的架构）
+
+  `arch`
+
+# 内核与模块管理
+
+## lsb_release
+
+Provides certain LSB (Linux Standard Base) and distribution-specific information.（提供某些LSB（Linux标准库）和特定于分发的信息）
+
+- Print all available information:（打印所有可用信息）
+
+  `lsb_release -a`
+
+- Print a description (usually the full name) of the operating system:（打印操作系统的描述（通常是全名））
+
+  `lsb_release -d`
+
+- Print only the operating system name (ID), suppressing the field name:（仅打印操作系统名称（ID），禁止字段名称）
+
+  `lsb_release -i -s`
+
+- Print the release number and codename of the distribution, suppressing the field names:（打印分发的版本号和代号，禁止字段名称）
+
+  `lsb_release -rcs`
+
+## sysctl
+
+List and change kernel runtime variables.（列出并更改内核运行时变量）
+
+- Show all available variables and their values:（显示所有可用变量及其值）
+
+  `sysctl -a`
+
+- Set a changeable kernel state variable:（设置可更改的内核状态变量）
+
+  `sysctl -w section.tunable=value`
+
+- Get currently open file handlers:（获取当前打开的文件处理程序）
+
+  `sysctl fs.file-nr`
+
+- Get limit for simultaneous open files:（获取同时打开文件的限制）
+
+  `sysctl fs.file-max`
+
+- Apply changes from /etc/sysctl.conf:（从/etc/sysctl.conf应用更改）
+
+  `sysctl -p`
+
+## kexec
+
+Directly reboot into a new kernel.（直接重启到新内核）
+
+- Load a new kernel:（加载新内核）
+
+  `kexec -l path/to/kernel --initrd=path/to/initrd --command-line=arguments`
+
+- Load a new kernel with current boot parameters:（使用当前引导参数加载新内核）
+
+  `kexec -l path/to/kernel --initrd=path/to/initrd --reuse-cmdline`
+
+- Execute a currently loaded kernel:（执行当前加载的内核）
+
+  `kexec -e`
+
+- Unload current kexec target kernel:（卸载当前的kexec目标内核）
+
+  `kexec -u`
+
+## dmesg
+
+Write the kernel messages to standard output.(将内核消息写入标准输出)
+
+- Show kernel messages:(显示内核消息)
+
+  `dmesg`
+
+- Show kernel error messages:(显示内核错误消息)
+
+  `dmesg --level err`
+
+- Show kernel messages and keep reading new ones, similar to `tail -f` (available in kernels 3.5.0 and newer):(显示内核消息并不断读取新的消息，类似于“tail -f”(在内核3.5.0或更新版本中可用))
+
+  `dmesg -w`
+
+- Show how much physical memory is available on this system:(显示这个系统上有多少物理内存可用)
+
+  `dmesg | grep -i memory`
+
+- Show kernel messages 1 page at a time:(每次显示内核消息1页)
+
+  `dmesg | less`
+
+- Show kernel messages with a timestamp (available in kernels 3.5.0 and newer):(显示带有时间戳的内核消息(在内核3.5.0及更新版本中可用))
+
+  `dmesg -T`
+
+- Show kernel messages in human-readable form (available in kernels 3.5.0 and newer):(以人类可读的形式显示内核消息(在内核3.5.0及更新版本中可用))
+
+  `dmesg -H`
+
+- Colorize output (available in kernels 3.5.0 and newer):(着色输出(在内核3.5.0及更新版本中可用))
+
+  `dmesg -L`
+
+## uname
+
+Print details about the current machine and the operating system running on it.（打印当前机器及其上运行的操作系统的详细信息）
+
+Note: for additional information about the operating system, try the `lsb_release` command.（注意:有关操作系统的其他信息，请尝试“lsb release”命令）
+
+- Print hardware-related information: machine and processor:（打印硬件相关信息:机器和处理器）
+
+  `uname -mp`
+
+- Print software-related information: operating system, release number, and version:（打印与软件相关的信息:操作系统、发布号和版本）
+
+  `uname -srv`
+
+- Print the nodename (hostname) of the system:（打印系统的节点名(主机名)）
+
+  `uname -n`
+
+- Print all available system information (hardware, software, nodename):（打印所有可用的系统信息(硬件、软件、节点名)）
+
+  `uname -a`
+
+## modprobe
+
+Add or remove modules from the Linux kernel.（从Linux内核中添加或删除模块）
+
+- Pretend to load a module into the kernel, but don't actually do it:（假装将模块加载到内核中，但实际上并没有这样做）
+
+  `sudo modprobe --dry-run module_name`
+
+- Load a module into the kernel:（将模块加载到内核中）
+
+  `sudo modprobe module_name`
+
+- Remove a module from the kernel:（从内核中删除一个模块）
+
+  `sudo modprobe --remove module_name`
+
+- Remove a module and those that depend on it from the kernel:（从内核中删除模块和依赖模块的模块）
+
+  `sudo modprobe --remove-dependencies module_name`
+
+- Show a kernel module's dependencies:（显示内核模块的依赖项）
+
+  `sudo modprobe --show-depends module_name`
+
+## lsmod
+
+Shows the status of linux kernel modules.（显示linux内核模块的状态）
+See also `modprobe`, which loads kernel modules.（另见“modprobe”，它加载内核模块）
+
+- List all currently loaded kernel modules:（列出所有当前加载的内核模块）
+
+  `lsmod`
+
+# 磁盘管理
+
+## blkid
+
+Lists all recognized partitions and their Universally Unique Identifier (UUID).（列出所有已识别的分区及其通用唯一标识符（UUID））
+
+- List all partitions:（列出所有分区）
+
+  `sudo blkid`
+
+- List all partitions in a table, including current mountpoints:（列出表中的所有分区，包括当前挂载点）
+
+  `sudo blkid -o list`
+
+## du
+
+Disk usage: estimate and summarize file and directory space usage.(磁盘使用情况:估计和总结文件和目录空间使用情况)
+
+- List the sizes of a directory and any subdirectories, in the given unit (B/KB/MB):(以给定单位列出目录和所有子目录的大小（B / KB / MB）)
+
+  `du -b|k|m path/to/directory`
+
+- List the sizes of a directory and any subdirectories, in human-readable form (i.e. auto-selecting the appropriate unit for each size):(以人类可读的形式列出目录和任何子目录的大小（即为每个大小自动选择适当的单位）)
+
+  `du -h path/to/directory`
+
+- Show the size of a single directory, in human readable units:(以人类可读的单位显示单个目录的大小)
+
+  `du -sh path/to/directory`
+
+- List the human-readable sizes of a directory and of all the files and directories within it:(列出一个目录以及其中所有文件和目录的人类可读大小)
+
+  `du -ah path/to/directory`
+
+- List the human-readable sizes of a directory and any subdirectories, up to N levels deep:(列出目录和任何子目录的人类可读大小，深度可达N级)
+
+  `du -h --max-depth=N path/to/directory`
+
+- List the human-readable size of all .jpg files in subdirectories of the current directory, and show a cumulative total at the end:(列出当前目录子目录中所有.jpg文件的人类可读大小，并在最后显示累计大小)
+
+  `du -ch */*.jpg`
+
+## lsblk
+
+Lists information about devices.（列出有关设备的信息）
+
+- List all storage devices in a tree-like format:（以树状格式列出所有存储设备）
+
+  `lsblk`
+
+- Also list empty devices:（还列出空设备）
+
+  `lsblk -a`
+
+- Print the SIZE column in bytes rather than in a human-readable format:（以字节而不是以人类可读的格式打印SIZE列）
+
+  `lsblk -b`
+
+- Output info about filesystems:（有关文件系统的输出信息）
+
+  `lsblk -f`
+
+- Use ASCII characters for tree formatting:（使用ASCII字符进行树格式化）
+
+  `lsblk -i`
+
+- Output info about block-device topology:（有关块设备拓扑的输出信息）
+
+  `lsblk -t`
+
+## lvcreate
+
+Creates a logical volume in an existing volume group.（在现有卷组中创建逻辑卷）
+
+A volume group is a collection of logical and physical volumes.（卷组是逻辑卷和物理卷的集合）
+
+- Create a logical volume of 10 gigabytes in the volume group vg1:（在卷组vg1中创建10千兆字节的逻辑卷）
+
+  `lvcreate -L 10G vg1`
+
+- Create a 1500 megabyte linear logical volume named mylv in the volume group vg1:（在卷组vg1中创建名为mylv的1500 MB线性逻辑卷）
+
+  `lvcreate -L 1500 -n mylv vg1`
+
+- Create a logical volume called mylv that uses 60% of the total space in volume group vg1:（创建一个名为mylv的逻辑卷，该卷使用卷组vg1中总空间的60％）
+
+  `lvcreate -l 60%VG -n mylv vg1`
+
+- Create a logical volume called mylv that uses all of the unallocated space in the volume group vg1:（创建一个名为mylv的逻辑卷，该卷使用卷组vg1中的所有未分配空间）
+
+  `lvcreate -l 100%FREE -n mylv vg1`
+
+## pvcreate
+
+Initialize a physical volume (disk or partition) for use by the Logical Volume Manager (LVM).（初始化物理卷（磁盘或分区）以供逻辑卷管理器（LVM）使用）
+
+- Initialize the `/dev/sda1` volume for use by LVM:（初始化`/dev/sda1`卷以供LVM使用）
+
+  `pvcreate /dev/sda1`
+
+- Force the creation without any confirmation prompts:（在没有任何确认提示的情况下强制创建）
+
+  `pvcreate --force /dev/sda1`
+
+## mkswap
+
+Sets up a Linux swap area on a device or in a file.(在设备或文件中设置Linux交换区域)
+
+- Setup a given partition as swap area:(将给定的分区设置为交换区)
+
+  `sudo mkswap /dev/sdb7`
+
+- Use a given file as swap area:(使用给定的文件作为交换区域)
+
+  `sudo mkswap path/to/file`
+
+- Check a partition for bad blocks before creating the swap area:(在创建交换区域之前，检查分区是否有坏的块)
+
+  `sudo mkswap -c /dev/sdb7`
+
+- Specify a label for the file (to allow `swapon` to use the label):(为文件指定一个标签(允许“swapon”使用标签))
+
+  `sudo mkswap -L swap1 path/to/file`
+
+## mknod
+
+Create block or character device special files.（创建块或字符设备专用文件）
+
+- Create a block device:（创建一个块设备）
+
+  sudo mknod path/to/device_file b major_device_number minor_device_number
+
+- Create a character device:（创建一个角色设备）
+
+  sudo mknod path/to/device_file c major_device_number minor_device_number
+
+- Create a FIFO (queue) device:（创建FIFO（队列）设备）
+
+  sudo mknod path/to/device_file p
+
+- Create a device file with default SELinux security context:（使用默认的SELinux安全上下文创建设备文件）
+
+  sudo mknod -Z path/to/device_file type major_device_number minor_device_number
+
+## mkisofs
+
+Create ISO files from directories.(从目录创建ISO文件)
+Also aliased as `genisoimage`.(也别名为“genisoimage”)
+
+- Create an ISO from a directory:(从目录创建ISO)
+
+  `mkisofs -o filename.iso path/to/source_directory`
+
+- Set the disc label when creating an ISO:(创建ISO时设置光盘标签)
+
+  `mkisofs -o filename.iso -V "label_name" path/to/source_directory`
+
+## vgcreate
+
+Create volume groups combining multiple mass-storage devices.（创建组合多个大容量存储设备的卷组）
+
+- Create a new volume group called vg1 using the `/dev/sda1` device:（使用`/dev/sda1`设备创建一个名为vg1的新卷组）
+
+  `vgcreate vg1 /dev/sda1`
+
+- Create a new volume group called vg1 using multiple devices:（使用多个设备创建名为vg1的新卷组）
+
+  `vgcreate vg1 /dev/sda1 /dev/sdb1 /dev/sdc1`
+
+## fdisk
+
+A program for managing partition tables and partitions on a hard disk.(管理硬盘上的分区表和分区的程序)
+
+- List partitions:(表分区)
+
+  `fdisk -l`
+
+- Start the partition manipulator:(启动分区机械手)
+
+  `fdisk /dev/sda`
+
+## fsck
+
+Check the integrity of a filesystem or repair it. The filesystem should be unmounted at the time the command is run.(检查或修复文件系统的完整性。应该在运行命令时卸载文件系统)
+
+- Check filesystem /dev/sda, reporting any damaged blocks:(检查文件系统/ dev / sda，报告任何已损坏的块)
+
+  `fsck /dev/sda`
+
+- Check filesystem /dev/sda, reporting any damaged blocks and interactively letting the user choose to repair each one:(检查文件系统/ dev / sda，报告任何已损坏的块并以交互方式让用户选择修复每个块)
+
+  `fsck -r /dev/sda`
+
+- Check filesystem /dev/sda, reporting any damaged blocks and automatically repairing them:(检查文件系统/ dev / sda，报告任何已损坏的块并自动修复它们)
+
+  `fsck -a /dev/sda`
+
+## badblocks
+
+Search a device for bad blocks.(搜索设备中的坏块)
+Some usages of badblocks can cause destructive actions, such as erasing all the data on a disk, including the partition table.(坏块的一些用法可能会导致破坏性的操作，比如擦除磁盘上的所有数据，包括分区表)
+
+- Search a disk for bad blocks by using a non-destructive read-only test:(使用非破坏性只读测试在磁盘中搜索坏块)
+
+  `sudo badblocks /dev/sda`
+
+- Search an unmounted disk for bad blocks with a non-destructive read-write test:(使用非破坏性读写测试在未挂载的磁盘中搜索坏块)
+
+  `sudo badblocks -n /dev/sda`
+
+- Search an unmounted disk for bad blocks with a destructive write test:(使用破坏性的写测试在未挂载的磁盘中搜索坏块)
+
+  `sudo badblocks -w /dev/sda`
+
+## df
+
+Gives an overview of the file system disk space usage.(概述文件系统磁盘空间的使用情况)
+
+- Display all file systems and their disk usage:(显示所有文件系统及其磁盘使用情况)
+
+  `df`
+
+- Display all file systems and their disk usage in human readable form:(以人类可读的形式显示所有文件系统及其磁盘使用情况)
+
+  `df -h`
+
+- Display the file system and its disk usage containing the given file or directory:(显示包含给定文件或目录的文件系统及其磁盘使用情况)
+
+  `df path/to/file_or_directory`
+
+
