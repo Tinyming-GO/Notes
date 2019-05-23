@@ -10,7 +10,9 @@
 
 ## :computer: 操作系统和服务器
 
-- [Linux常用命令及例子](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Linux常用命令及例子.md)
+- [Linux命令总结及例子大全](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Linux命令总结及例子大全.md)
+- [高级Linux命令](https://github.com/Tinyming-GO/Notes/tree/master/Linux/高级Linux命令.md)
+- [Linux命令总结](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Linux命令总结.md)
 - [Linux命令补充资料](https://github.com/Tinyming-GO/Notes/tree/master/Linux)
 - [超赞的Linux软件大全](https://alim0x.gitbooks.io/awesome-linux-software-zh_cn/content/)
 - [Shell编程基础知识](https://github.com/Tinyming-GO/Notes/tree/master/Linux/Shell编程基础知识)
