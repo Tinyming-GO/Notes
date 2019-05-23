@@ -75,7 +75,7 @@ Tools to interact with a server via File Transfer Protocol.（通过文件传输
 
 ## scp
 
-Secure copy.Copy files between hosts using Secure Copy Protocol over SSH.(安全的副本。使用SSH上的安全复制协议在主机之间复制文件。)
+Secure copy.Copy files between hosts using Secure Copy Protocol over SSH.(通过SSH使用安全复制协议在主机之间复制安全副本)
 
 - Copy a local file to a remote host:(将本地文件复制到远程主机)
 
@@ -89,7 +89,7 @@ Secure copy.Copy files between hosts using Secure Copy Protocol over SSH.(安全
 
   `scp -r remote_host:path/to/remote_directory path/to/local_directory`
 
-- Copy a file between two remote hosts transferring through the local host:(复制通过本地主机传输的两个远程主机之间的文件)
+- Copy a file between two remote hosts transferring through the local host:(在通过本地主机传输的两个远程主机之间复制文件)
 
   `scp -3 host1:path/to/remote_file host2:path/to/remote_directory`
 
