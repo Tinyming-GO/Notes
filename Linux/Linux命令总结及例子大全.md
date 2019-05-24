@@ -121,13 +121,13 @@ Simple, easy to use editor. An enhanced, free Pico clone.（简单易用的编�
 
 ## sed
 
-Edit text in a scriptable manner(以可编写脚本的方式编辑文本).
+Edit text in a scriptable manner(以脚本方式编辑文本).
 
-- Replace the first occurrence of a regular expression in each line of a file(替换文件每行中第一个出现的正则表达式), and print the result:
+- Replace the first occurrence of a regular expression in each line of a file, and print the result:(替换文件每行中第一次出现的正则表达式，并打印结果)
 
   `sed 's/regex/replace/' filename`
 
-- Replace all occurrences of an extended regular expression in a file(替换文件中出现的所有扩展正则表达式), and print the result:
+- Replace all occurrences of an extended regular expression in a file, and print the result:(替换文件中出现的所有扩展正则表达式，并打印结果)
 
   `sed -r 's/regex/replace/g' filename`
 
@@ -137,15 +137,15 @@ Edit text in a scriptable manner(以可编写脚本的方式编辑文本).
 
 - Replace only on lines matching the line pattern(只替换与行模式匹配的行):
 
-  `sed '/line_pattern/s/find/replace/' filename`
+  `sed '/line_pattern/s/find/replace/' filename` # sed '1s/11/33/' //第一行的11为33
 
 - Delete lines matching the line pattern(删除与行模式匹配的行):
 
-  `sed '/line_pattern/d' filename`
+  `sed '/line_pattern/d' filename` # sed '1d' //删除第一行
 
 - Print only text between n-th line till the next empty line(只打印第n行之间的文本，直到下一个空行):
 
-  `sed -n 'line_number,/^$/p' filename`
+  `sed -n 'line_number,/^$/p' filename` # sed -n '3,/^$/p' 1.txt //打印从第三行到末尾的文本，直到下一个空行
 
 - Apply multiple find-replace expressions to a file(对文件应用多个查找-替换表达式):
 
@@ -275,13 +275,9 @@ A utility for numbering lines, either from a file, or from standard input.(用�
 
   `cat file | nl options -`
 
-- Number only the lines with printable text:(仅为具有可打印文本的行编号)
-
-  `nl -t file`
-
 - Number all lines including blank lines:(对所有行进行编号，包括空行)
 
-  `nl -b a file`
+  `nl -b a file`  # nl -b a file.txt //一定要加a
 
 - Number only the body lines that match a basic regular expression (BRE) pattern:(仅编号与基本正则表达式（BRE）模式匹配的主体行)
 
@@ -297,7 +293,7 @@ Returns non-directory portion of a pathname.(返回路径名的非目录部分)
 
 - Show only the file name from a path, with a suffix removed:（仅显示路径中的文件名，并删除后缀）
 
-  `basename path/to/file suffix`
+  `basename path/to/file suffix`  # basename file.txt .txt  //删除.txt后缀
 
 ## unlink
 
@@ -407,7 +403,7 @@ Calculates the parent directory of a given file or directory path.（计算给�
 
 - Delimit output with a NUL character instead of a newline (useful when combining with `xargs`):(使用NUL字符而不是换行符分隔输出（与`xargs`结合使用时很有用）)
 
-  `dirname --zero path/to/directory_a path/to/file_b`
+  `dirname --zero path/to/directory_a path/to/file_b` # dirname --zero /tmp/1.txt /home/xiao/Document/ | xargs --null ls
 
 ## updatedb
 
@@ -465,7 +461,7 @@ Cut out fields from STDIN or files.(从STDIN或文件中删除字段)
 
 - Cut out the first sixteen characters of each line of STDIN:(剪掉每一行的前16个字符)
 
-  `cut -c 1-16`
+  `cut -c 1-16`  # cut -c 1-3 1.txt //保留每行前三个字符，其余删除
 
 - Cut out the first sixteen characters of each line of the given files:(删除给定文件每行的前16个字符)
 
@@ -473,7 +469,7 @@ Cut out fields from STDIN or files.(从STDIN或文件中删除字段)
 
 - Cut out everything from the 3rd character to the end of each line:(把从第三个字符到每行末尾的所有内容都剪掉)
 
-  `cut -c 3-`
+  `cut -c 3-`  # cut -c 3- 1.txt //删除每行前两个字符
 
 - Cut out the fifth field of each line, using a colon as a field delimiter (default delimiter is tab):(使用冒号作为字段分隔符(默认分隔符是tab)，删除每行中的第5个字段)
 
@@ -795,21 +791,23 @@ Locate the binary, source, and manual page files for a command.（定位命令�
 
 ## split
 
-Split a file into pieces.(将文件分割成多个部分)
+Split a file into pieces.(将文件拆分为多个部分)
 
-- Split a file, each split having 10 lines (except the last split):(分割一个文件，每个分割有10行(除了最后一个分割))
+- Split a file, each split having 10 lines (except the last split):(拆分文件，每个拆分有10行（最后一个拆分除外）)
 
   `split -l 10 filename`
 
-- Split a file into 5 files. File is split such that each split has same size (except the last split):(将一个文件分成5个文件。文件被分割，每个分割具有相同的大小(除了最后一个分割))
+- Split a file into 5 files. File is split such that each split has same size (except the last split):(将文件拆分为5个文件。文件被拆分，使每个拆分具有相同的大小（最后一个拆分除外）)
 
   `split -n 5 filename`
 
-- Split a file with 512 bytes in each split (except the last split; use 512k for kilobytes and 512m for megabytes):(分割一个文件，每次分割512字节(最后一次分割除外;千字节使用512k，兆字节使用512m))
+- Split a file with 512 bytes in each split (except the last split; use 512k for kilobytes and 512m for megabytes):(在每个拆分中拆分一个512字节的文件（最后一个拆分除外;对于千字节使用512k，对于兆字节使用512m）)
 
   `split -b 512 filename`
 
 - Split a file with at most 512 bytes in each split without breaking lines:(在不断行的情况下，分割每个文件，每个文件最多512字节)
+
+  `split -C 512 filename`
 
 ## grep
 
