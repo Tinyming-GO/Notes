@@ -312,3 +312,4 @@
 
 - [HTML5标签含义之元素周期表](http://www.html5star.com/manual/html5label-meaning/)
 - [HTML5标签含义大全](http://www.html5star.com/manual/html5/html5_comment.htm)
+- [HTML5标签带例子教程](https://www.runoob.com/tags/tag-comment.html)
