@@ -173,4 +173,4 @@ $ ssh-keygen -t rsa -C "youremail@example.com"
 - [Git - 简明指南](http://rogerdudler.github.io/git-guide/index.zh.html)
 - [图解 Git](http://marklodato.github.io/visual-git-guide/index-zh-cn.html)
 - [廖雪峰 : Git 教程](https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000)
-- [Learn Git Branching](https://learngitbranching.js.org/)
+- [在线动态学习GIT操作（荐）](https://learngitbranching.js.org/)
